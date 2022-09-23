@@ -22,6 +22,11 @@ const router = createRouter({
       path: '/coin-desk',
       name: 'coin-desk',
       component: CoinDeskView
+    },
+    {
+      path: '/foods',
+      name: 'foods',
+      component: () => import('@/views/foods/AllFoodView.vue')
     }
   ]
 })
