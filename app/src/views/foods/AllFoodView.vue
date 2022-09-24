@@ -23,7 +23,7 @@ export default {
                     image: ""
                 }
             ],
-            categories: ["ทั้งหมด","เนื้อสัตว์","ผัก","ของหวาน"],
+            categories: ["ทั้งหมด","เนื้อสัตว์","ผัก","ของทานเล่น"],
             selectedType : null,
             showFoods: null
         }
@@ -44,7 +44,7 @@ export default {
                     this.showFoods = this.foods.filter(food => food.type === "ผัก")
                     break
                 case 'ของหวาน':
-                    this.showFoods = this.foods.filter(food => food.type === "ของหวาน")
+                    this.showFoods = this.foods.filter(food => food.type === "ของทานเล่น")
                     break
                 default:
                     this.showFoods = this.foods
