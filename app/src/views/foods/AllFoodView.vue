@@ -2,32 +2,18 @@
 export default {
     data(){
         return {
-            foods : [
-                {
-                    id : 1,
-                    name: "หมูสามชั้น",
-                    type: "เนื้อสัตว์",
-                    quantity: 20,
-                    image: ""
-                },{
-                    id : 2,
-                    name: "หมู Premium",
-                    type: "เนื้อสัตว์",
-                    quantity: 8,
-                    image: ""
-                },{
-                    id : 3,
-                    name: "สาหร่าย",
-                    type: "ผัก",
-                    quantity: 50,
-                    image: ""
-                }
-            ],
+            foods : [],
             categories: ["ทั้งหมด","เนื้อสัตว์","ผัก","ของทานเล่น"],
             selectedType : null,
             showFoods: null
         }
-    }, mounted() {
+    }, async mounted() {
+        try{
+            const response = await this.$axios.get("/foods")
+            this.foods = response.data
+        } catch (error) {
+            console.log(error.message)
+        }
         this.showFoods = this.foods
     }, methods:{
         selectType(type){
@@ -43,7 +29,7 @@ export default {
                 case 'ผัก':
                     this.showFoods = this.foods.filter(food => food.type === "ผัก")
                     break
-                case 'ของหวาน':
+                case 'ของทานเล่น':
                     this.showFoods = this.foods.filter(food => food.type === "ของทานเล่น")
                     break
                 default:
