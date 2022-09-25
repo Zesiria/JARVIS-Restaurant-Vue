@@ -29,6 +29,40 @@
           class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-2">
         ยืนยัน
       </button>
+      <!--<button @click="isOpen = true">open</button>-->
+
+      <!-- Popup -->
+      <Popup :open="isOpen">
+        <template v-slot:content>
+          <div class="text-center font-bold mb-2">
+            <h2> เพิ่มรายการอาหารสำเร็จ </h2>
+          </div>
+
+          <div class="flex flex-row">
+            <div class="basis-1/4"> ชื่อ </div>
+            <div class="basis-3/4"> {{food.name}} </div>
+          </div>
+
+          <div class="flex flex-row">
+            <div class="basis-1/4"> ประเภท </div>
+            <div class="basis-3/4"> {{food.type}} </div>
+          </div>
+
+          <div class="flex flex-row">
+            <div class="basis-1/4"> จำนวน </div>
+            <div class="basis-3/4"> {{food.quantity}} </div>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <button type="button" @click="close"
+                    class="py-2 px-6 rounded-xl bg-yellow-300 text-white mt-2">
+              ปิด
+            </button>
+          </div>
+
+        </template>
+      </Popup>
+
     </div>
   </div>
 
@@ -36,7 +70,17 @@
 
 <script>
 import Axios from 'axios'
+import Popup from "@/components/foods/Popup.vue"
+import {ref} from "vue";
+
 export default {
+  setup () {
+    const isOpen = ref(false)
+    return {isOpen}
+  },
+  components: {
+    Popup
+  },
   data() {
     return {
       categories: ["เนื้อสัตว์","ผัก","ของทานเล่น"],
@@ -44,7 +88,7 @@ export default {
         name: "",
         type: "",
         quantity: 0,
-        image: null
+        img_path: null
       },
       error: null
     }
@@ -56,12 +100,15 @@ export default {
       try {
         const response = await Axios.post(url, this.food)
         if(response.status == 201){
-          this.$router.push(`/foods`)
+          this.isOpen = true
         }
       }catch (error) {
         this.error = error.message
         console.log(error)
       }
+    },
+    async close() {
+      this.$router.push(`/foods`)
     }
   }
 }
