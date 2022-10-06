@@ -19,7 +19,8 @@ export default {
       showFoods: null,
       selectedFood:[],
       addQuantity:0,
-      isOpen: false
+      isOpen: false,
+      isAddingQuantity: false
     }
   }, async mounted() {
       await this.food_store.fetch()
@@ -41,15 +42,17 @@ export default {
       this.isOpen = true
     },
     handleSubmitForm(){
-      const url = `/foods/`.concat(this.selectedFood.id)
-      console.log(this.addQuantity)
-
-      this.$axios.put(url,{quantity:parseInt(this.addQuantity) + parseInt(this.selectedFood.quantity ) }).then((res) => {
-        console.log(res);
-        this.selectedFood.quantity = parseInt(this.addQuantity) + parseInt(this.selectedFood.quantity)
+        this.isAddingQuantity = true;
+        const food = this.selectedFood
+        console.log(food)
+        food.quantity = parseInt(this.addQuantity) + parseInt(food.quantity )
+        this.food_store.addQuantity(food).then((res) => {
+        console.log(res)
         this.isOpen = false
+        this.isAddingQuantity = false;
       }).catch(error => {
         console.log(error)
+        this.isAddingQuantity = false;
       })
     },
     async close() {
@@ -107,7 +110,7 @@ export default {
               <div class=" p-2">
                 <p class="text-lg">เหลือ : {{food.quantity}}</p>
 
-                <button @click="handleIncreaseForm"
+                <button @click="handleIncreaseForm(food)"
                         class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
                   เพิ่ม
                 </button>
@@ -148,7 +151,7 @@ export default {
                         class="py-2 px-6 rounded-xl bg-yellow-300 text-white mt-2">
                   ปิด
                 </button>
-                <button type="button" @click="handleSubmitForm"
+                <button type="button" @click="handleSubmitForm" v-bind:disabled="isAddingQuantity"
                         class="py-2 px-6 rounded-xl bg-green-500 text-white mt-2">
                   ยืนยัน
                 </button>

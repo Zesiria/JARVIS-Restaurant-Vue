@@ -49,9 +49,19 @@ export const foodAPI = {
     }
     return []
   },
+  async update (food) {
+    const response = await axiosInstance.put('/foods/'.concat(food.id), {'quantity' : food.quantity})
+    if (response.status == 200) {
+      return {
+        success: true
+      }
+    }
+    return {
+      success: false
+    }
+  }
+  ,
   async saveNew (food) {
-    food.balance = food.total_amount
-    food.is_active = true
     const response = await axiosInstance.post('/foods', food)
     if (response.status == 201) {
       return response.data
