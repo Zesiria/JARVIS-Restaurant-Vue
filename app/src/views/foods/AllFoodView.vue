@@ -1,11 +1,12 @@
 <script>
 import {ref} from "vue";
 import Popup from "@/components/foods/Popup.vue"
+import { useFoodStore } from "@/stores/food";
 
 export default {
   setup() {
-    const isOpen = ref(false)
-    return {isOpen}
+    const food_store = useFoodStore()
+    return { food_store }
   },
   components: {
     Popup
@@ -17,16 +18,14 @@ export default {
       selectedType: null,
       showFoods: null,
       selectedFood:[],
-      addQuantity:0
+      addQuantity:0,
+      isOpen: false
     }
   }, async mounted() {
-    try {
-      const response = await this.$axios.get("/foods")
-      this.foods = response.data
-    } catch (error) {
-      console.log(error.message)
-    }
-    this.showFoods = this.foods
+      await this.food_store.fetch()
+      this.foods = this.food_store.getFoods
+      this.showFoods = this.foods
+      this.isOpen = ref(false)
   }, methods: {
     selectType(type) {
       this.selectedType = type
