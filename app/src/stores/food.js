@@ -34,6 +34,13 @@ export const useFoodStore = defineStore("foods", {
         }
 	      return false
     },
+    async addQuantity (food) {
+        const response = await foodAPI.update(food)
+        if (response.success) {
+          return true
+        }
+	      return false
+    },
     delete (id) {
       this.foods = this.foods.filter(food => food.id != id)
     }
