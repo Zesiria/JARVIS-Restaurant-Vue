@@ -14,9 +14,8 @@ export default {
   data() {
     return {
       foods: [],
-      categories: ["ทั้งหมด", "เนื้อสัตว์", "ผัก", "ของทานเล่น"],
+      categories: ["ทั้งหมด", "เนื้อสัตว์", "ผัก", "ของทานเล่น","ของใกล้หมด"],
       selectedType: null,
-      showFoods: null,
       selectedFood:[],
       addQuantity:0,
       isOpen: false,
@@ -25,17 +24,13 @@ export default {
   }, async mounted() {
       await this.food_store.fetch()
       this.foods = this.food_store.getFoods
-      this.showFoods = this.foods
       this.isOpen = ref(false)
   }, methods: {
     selectType(type) {
       this.selectedType = type
       console.log(this.selectedType)
     },
-    lowInStock() {
-      this.showFoods = this.foods.filter(food => food.quantity <= 10)
-      console.log(this.error)
-    },
+
     handleIncreaseForm(food) {
       this.addQuantity = 0
       this.selectedFood = food
@@ -59,19 +54,23 @@ export default {
       this.isOpen = false
     }
     }, watch: {
-      selectedType(newOption, oldOption) {
+      async selectedType(newOption, oldOption) {
+        await this.food_store.fetch()
         switch (newOption) {
           case 'เนื้อสัตว์':
-            this.showFoods = this.foods.filter(food => food.type === "เนื้อสัตว์")
+            this.foods = this.food_store.getMeatFoods
             break
           case 'ผัก':
-            this.showFoods = this.foods.filter(food => food.type === "ผัก")
+            this.foods = this.food_store.getVegetableFoods
             break
           case 'ของทานเล่น':
-            this.showFoods = this.foods.filter(food => food.type === "ของทานเล่น")
+            this.foods = this.food_store.getAppertizerFoods
+            break
+          case 'ของใกล้หมด':
+            this.foods = this.food_store.getLowInStock
             break
           default:
-            this.showFoods = this.foods
+            this.foods = this.foods
             break
         }
       }
@@ -90,13 +89,10 @@ export default {
             <button v-for="category in categories" class="mx-4 my-2 bg-gray-100 w-[100px] border border-2 rounded" @click="selectType(category)">
                 {{category}}
             </button>
-          <button class="mx-4 my-2 bg-gray-100 w-[130px] border border-2 rounded" @click="lowInStock()">
-            วัตถุดิบที่ใกล้หมด
-          </button>
         </nav>
     </div>
     <div>
-        <div v-for="food in showFoods" :key="food.id">
+        <div v-for="food in foods" :key="food.id">
             <div class="flex flex-wrap bg-gray-200 m-4 p-2 justify-between">
               <div class="flex flex-wrap">
                 <div class="flex border border-2 rounded">

@@ -12,11 +12,23 @@ export const useFoodStore = defineStore("foods", {
     getFoods (state) {
         return state.foods
     },
-	sortByName (state) {
-		const sortable = [...state.foods]
-		return sortable.sort((a, b) => {
-            return (a.name).localeCompare(b.name)
-        })
+	  sortByName (state) {
+		  const sortable = [...state.foods]
+		  return sortable.sort((a, b) => {
+              return (a.name).localeCompare(b.name)
+          })
+    },
+    getMeatFoods (state) {
+      return state.foods.filter(food => food.type === "เนื้อสัตว์")
+    },
+    getVegetableFoods (state) {
+      return state.foods.filter(food => food.type === "ผัก")
+    },
+    getAppertizerFoods (state) {
+      return state.foods.filter(food => food.type === "ของทานเล่น")
+    },
+    getLowInStock (state) {
+      return state.foods.filter(food => food.quantity <= 10)
     }
   },
 
