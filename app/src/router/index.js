@@ -32,7 +32,17 @@ const router = createRouter({
       path: '/foods/new',
       name: 'foods.create',
       component: () => import('@/views/foods/CreateFoodView.vue')
-    }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/LoginView.vue')
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('@/views/LogoutView.vue')
+    },
   ]
 })
 
