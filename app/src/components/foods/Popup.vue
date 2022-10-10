@@ -1,15 +1,28 @@
 <template>
-  <transition name="fade">
-    <div class="popup flex items-center" v-show="open">
-      <transition name="drop-in">
-        <div class="popup-inner" v-show="open">
-          <div class="popup-content flex flex-col space-y-2">
-            <!--content in popup-->
-            <slot name="content"></slot>
-            <!--<button type="button" @click="close"> Close </button>-->
+  <!-- Main modal -->
+  <transition name="fade drop-in">
+    <div v-show="open" class="popup flex items-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+      <div class="mx-auto sm:w-3/5 lg:w-1/3 w-3/4">
+        <!-- Modal content -->
+        <div v-show="open" class=" relative bg-white rounded-lg shadow dark:bg-gray-900">
+          <!-- Modal header -->
+          <div class="flex flex-col items-center justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+              <slot name="header"></slot>
+            </h3>
+          </div>
+          <!-- Modal body -->
+          <div class="p-6 space-y-6">
+            <p class="text-base leading-relaxed text-gray-800 dark:text-gray-400">
+              <slot name="content"></slot>
+            </p>
+          </div>
+          <!-- Modal footer -->
+          <div class="flex flex-row-reverse items-center py-2 px-4 space-x-2 space-x-reverse rounded-b border-t border-gray-200 dark:border-gray-600">
+            <slot name="footer"></slot>
           </div>
         </div>
-      </transition>
+      </div>
     </div>
   </transition>
 

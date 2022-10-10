@@ -116,10 +116,11 @@ export default {
         </div>
       <!-- Popup -->
       <Popup :open="isOpen">
+        <template v-slot:header>
+          เพิ่มจำนวนอาหาร
+        </template>
+
         <template v-slot:content>
-          <div class="text-center font-bold mb-2">
-            <h2> เพิ่มจำนวนอาหาร </h2>
-          </div>
 
           <div class="flex flex-row">
             <div class="basis-1/4"> ชื่อ </div>
@@ -142,20 +143,20 @@ export default {
                 <label for="quantity" >จำนวนที่ต้องการเพิ่ม</label>
                 <input class="border-2 mx-1" type="quantity" v-model="addQuantity" required>
               </div>
-              <div class="flex flex-row float-right space-x-2 p-5">
-                <button type="button" @click="close"
-                        class="py-2 px-6 rounded-xl bg-yellow-300 text-white mt-2">
-                  ปิด
-                </button>
-                <button type="button" @click="handleSubmitForm" v-bind:disabled="isAddingQuantity"
-                        class="py-2 px-6 rounded-xl bg-green-500 text-white mt-2">
-                  ยืนยัน
-                </button>
-
-              </div>
             </div>
           </div>
         </template>
+
+        <template v-slot:footer>
+          <button data-modal-toggle="defaultModal" type="button" @click="handleSubmitForm" v-bind:disabled="isAddingQuantity" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            ยืนยัน
+          </button>
+          <button data-modal-toggle="defaultModal" type="button" @click="close" class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
+            ปิด
+          </button>
+
+        </template>
+
       </Popup>
     </div>
 </template>
