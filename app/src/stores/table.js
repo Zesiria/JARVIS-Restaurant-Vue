@@ -27,7 +27,13 @@ export const useTableStore = defineStore("tables", {
           return response.table_id
         }
 	      return false
-    },
+    },async update (table) {
+      const response = await tableAPI.updateTable(table)
+      if (response.success) {
+        return true
+      }
+      return false
+  },
     delete (id) {
       this.tables = this.tables.filter(table => table.id != id)
     }

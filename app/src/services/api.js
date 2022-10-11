@@ -88,5 +88,46 @@ export const tableAPI = {
     return {
       success: false
     }
+  },
+  async updateTable (table) {
+    const response = await axiosInstance.put('/tables/'.concat(table.id), table)
+    if (response.status == 200) {
+      return {
+        success: true
+      }
+    }
+    return {
+      success: false
+    }
+  }
+}
+
+export const customerAPI = {
+  async getAll () {
+    const response = await axiosInstance.get('/customers')
+    if (response.status == 200) {
+        return response.data
+    }
+    return []
+  },
+  async saveNew (customer) {
+    const response = await axiosInstance.post('/customers', customer)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  },
+  async updateCustomer (customer) {
+    const response = await axiosInstance.put('/customers/'.concat(customer.id), customer)
+    if (response.status == 200) {
+      return {
+        success: true
+      }
+    }
+    return {
+      success: false
+    }
   }
 }
