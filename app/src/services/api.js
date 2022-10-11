@@ -28,7 +28,7 @@ export const authAPI = {
   async me () {
     const _token = localStorage.getItem(JWT_TOKEN_LOCALSTORAGE_KEY)
     if (_token) {
-      axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+      axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + _token
     }
     const response = await axiosInstance.post('/auth/me')
     if (response.status == 200) {
