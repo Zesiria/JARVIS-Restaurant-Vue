@@ -1,6 +1,7 @@
 <script>
 import {ref} from "vue";
 import Popup from "@/components/foods/Popup.vue"
+import FoodCard from "@/components/foods/FoodCard.vue"
 import { useFoodStore } from "@/stores/food";
 
 export default {
@@ -9,7 +10,8 @@ export default {
     return { food_store }
   },
   components: {
-    Popup
+    Popup,
+    FoodCard
   },
   data() {
     return {
@@ -92,28 +94,14 @@ export default {
         </nav>
     </div>
     <div>
-        <div v-for="food in foods" :key="food.id">
-            <div class="flex flex-wrap bg-gray-200 m-4 p-2 justify-between">
-              <div class="flex flex-wrap">
-                <div class="flex border border-2 rounded">
-                  <img src="{{food.image}}" alt="Food's Picture" class="w-[120px] h-[100px] border-2 border border-black rounded">
-                </div>
-                <div class="flex-wrap mt-4">
-                  <p class="text-2xl mx-4">{{food.name}}</p>
-                </div>
-              </div>
-
-              <div class=" p-2">
-                <p class="text-lg">เหลือ : {{food.quantity}}</p>
-
-                <button @click="handleIncreaseForm(food)"
-                        class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
-                  เพิ่ม
-                </button>
-              </div>
-
-            </div>
-        </div>
+      <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
+        <template #food_button>
+          <button @click="handleIncreaseForm(food)"
+                  class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+            เพิ่ม
+          </button>
+        </template>
+      </food-card>
       <!-- Popup -->
       <Popup :open="isOpen">
         <template v-slot:header>
@@ -154,9 +142,7 @@ export default {
           <button data-modal-toggle="defaultModal" type="button" @click="close" class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
             ปิด
           </button>
-
         </template>
-
       </Popup>
     </div>
 </template>
