@@ -7,10 +7,10 @@
             <button @click="" class="bg-green-200 rounded my-4 py-2 px-10">เปิดโต๊ะ</button>
         </div>
         <div>
-            <button @click="" class="bg-green-200 rounded my-4 py-2 px-10">ตรวจสอบรายการอาหาร</button>
+            <button @click="allFood" class="bg-green-200 rounded my-4 py-2 px-10">ตรวจสอบรายการอาหาร</button>
         </div>
         <div>
-            <button @click="" class="bg-green-200 rounded my-4 py-2 px-10">เพิ่มรายการอาหาร</button>
+            <button @click="addFood" class="bg-green-200 rounded my-4 py-2 px-10">เพิ่มรายการอาหาร</button>
         </div>
         <div>
             <button @click="" class="bg-green-200 rounded my-4 py-2 px-10">รายงานทั้งหมด</button>
@@ -27,6 +27,14 @@ export default {
     setup() {
     const auth_store = useAuthStore()
     return auth_store
+  },
+  methods : {
+    allFood(){
+        this.$router.push(`foods`)
+    },
+    addFood(){
+        this.$router.push(`foods/new`)
+    }
   }
 }
 </script>
