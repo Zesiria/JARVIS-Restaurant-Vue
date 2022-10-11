@@ -43,6 +43,11 @@ const router = createRouter({
       name: 'logout',
       component: () => import('@/views/LogoutView.vue')
     },
+    {
+      path: '/manager',
+      name: 'manager-menu',
+      component: () => import('@/views/manager/Menu.vue')
+    }
   ]
 })
 
