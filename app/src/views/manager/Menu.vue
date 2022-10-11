@@ -16,7 +16,7 @@
             <button @click="" class="bg-green-200 rounded my-4 py-2 px-10">รายงานทั้งหมด</button>
         </div>
         <div>
-            <button @click="" class="bg-green-200 rounded my-4 py-2 px-10">เพิ่ม - ลดโต๊ะ</button>
+            <button @click="manageTable" class="bg-green-200 rounded my-4 py-2 px-10">เพิ่ม - ลดโต๊ะ</button>
         </div>
     </div>
 </template>
@@ -34,6 +34,9 @@ export default {
     },
     addFood(){
         this.$router.push(`foods/new`)
+    },
+    manageTable(){
+        this.$router.push(`tables`)
     }
   }
 }

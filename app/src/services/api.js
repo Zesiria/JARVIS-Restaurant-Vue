@@ -71,3 +71,22 @@ export const foodAPI = {
     }
   }
 }
+
+export const tableAPI = {
+  async getAll () {
+    const response = await axiosInstance.get('/tables')
+    if (response.status == 200) {
+        return response.data
+    }
+    return []
+  },
+  async saveNew (table) {
+    const response = await axiosInstance.post('/tables', table)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  }
+}

@@ -47,6 +47,11 @@ const router = createRouter({
       path: '/manager',
       name: 'manager-menu',
       component: () => import('@/views/manager/Menu.vue')
+    },
+    {
+      path: '/tables',
+      name: 'table.index',
+      component: () => import('@/views/manager/AllTable.vue')
     }
   ]
 })
