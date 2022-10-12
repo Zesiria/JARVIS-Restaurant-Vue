@@ -11,6 +11,9 @@ export const useCustomerStore = defineStore("customers", {
   getters: {
     getCustomers (state) {
         return state.customers
+    },
+    getByID : (state) => (id) => {
+    return state.customers.find(customer => customer.id === id)
     }
   },
 
@@ -30,9 +33,9 @@ export const useCustomerStore = defineStore("customers", {
         return true
       }
       return false
-  },
+    },
     delete (id) {
       this.customers = this.customers.filter(customer => customer.id != id)
-    }
+    },
   },
 })

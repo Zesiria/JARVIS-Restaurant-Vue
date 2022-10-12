@@ -42,8 +42,8 @@
         <p>จำนวนคนสูงสุด {{ this.selectedTable.size }}</p>
         <p v-if="this.selectedTable.status === 1">สถานะ : ว่าง</p>
         <p v-else>สถานะ : ไม่ว่าง</p>
-        <p v-if="this.selectedTable.code === null">รหัส : ไม่มี</p>
-        <p v-else>รหัส : {{ this.selectedTable.code }}</p>
+        <p v-if="this.selectedTable.status === 1">รหัส : ไม่มี</p>
+        <p v-else>รหัส : {{ this.customer.code }}</p>
       </template>
 
       <template v-slot:footer>
@@ -75,7 +75,7 @@
         <button data-modal-toggle="defaultModal" type="button" @click="checkinTable" v-bind:disabled="false" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           ยืนยัน
         </button>
-        <button data-modal-toggle="defaultModal" type="button" @click="closeTablePopup" class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
+        <button data-modal-toggle="defaultModal" type="button" @click="closeNumberPeopleInputPopup" class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
           ปิด
         </button>
       </template>
@@ -103,6 +103,11 @@ export default {
           size: 1,
           status: 0,
         },
+        customer: {
+          id: null,
+          number_people: null,
+          code: null,
+        },
         numberPeople: 0,
         isAddTablePopupOpen: false,
         isTableDetailOpen: false,
@@ -118,6 +123,7 @@ export default {
   },
   async mounted() {
     await this.table_store.fetch()
+    await this.customer_store.fetch()
     this.tables = this.table_store.getTables
     this.isAddTablePopupOpen = ref(false)
     this.isTableDetailOpen = ref(false)
@@ -125,14 +131,15 @@ export default {
   }, methods:{
     AddTable(){
         this.$router.push('tables/new')
-    }
-  }, methods:{
+    },
     openAddTablePopup(){
       this.table.size = 1;
       this.isAddTablePopupOpen = true;
     },
     openTableDetailPopup(table){
       this.selectedTable = table
+      if(this.selectedTable.status === 0)
+        this.customer = this.customer_store.getByID(this.selectedTable.customer_id)
       console.log(this.selectedTable)
       this.isTableDetailOpen = true;
     },
@@ -202,7 +209,7 @@ export default {
           this.updateTable({
             'property' : 'check-in',
             'id' : this.selectedTable.id,
-            'customer_id' : res.id
+            'customer_id' : res
           })
         })
       } catch (error) {
