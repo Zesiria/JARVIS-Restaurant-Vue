@@ -52,6 +52,16 @@ const router = createRouter({
       path: '/tables',
       name: 'table.index',
       component: () => import('@/views/manager/AllTable.vue')
+    },
+    {
+      path: '/order/food',
+      name: 'order-food',
+      component: () => import('@/views/customer/OrderFoodView.vue')
+    },
+    {
+      path: '/customer/login',
+      name: 'customer-login',
+      component: () => import('@/views/customer/LoginView.vue')
     }
   ]
 })
