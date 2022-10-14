@@ -2,7 +2,9 @@ import { defineStore } from 'pinia'
 import { authAPI } from '@/services/api'
 
 const auth_storage = {
-    email: localStorage.getItem('auth.email')
+    email: localStorage.getItem('auth.email'),
+    role: localStorage.getItem('auth.role'),
+    code: localStorage.getItem('auth.code'),
 }
 
 export const useAuthStore = defineStore({
@@ -10,7 +12,9 @@ export const useAuthStore = defineStore({
     state: () => {
         return {
             auth: {
-                email: auth_storage.email
+                email: auth_storage.email,
+                role: auth_storage.role,
+                code: auth_storage.code,
             }
         }
     },
@@ -20,9 +24,12 @@ export const useAuthStore = defineStore({
 
         getEmail: (state) => state.auth.email,
 
+        getCode: (state) => state.auth.code,
+
         isAuthen (state) {
-            return state.auth.email != null
-        }
+            return (state.auth.email != null || state.auth.code != null)
+        },
+
     },
 
     actions: {
@@ -34,14 +41,33 @@ export const useAuthStore = defineStore({
             return false
         },
 
+        async customerLogin (code) {
+            if (await authAPI.customerLogin(code)) {
+                this.customerFetch()
+                return true
+            }
+            return false
+        },
+
         async fetch () {
             this.auth = await authAPI.me()
             localStorage.setItem('auth.email', this.auth.email)
+            localStorage.setItem('auth.role', "user")
+            localStorage.setItem('auth.code', "")
+        },
+
+        async customerFetch() {
+            this.auth = await authAPI.customerMe()
+            localStorage.setItem('auth.email', "")
+            localStorage.setItem('auth.role', "customer")
+            localStorage.setItem('auth.code', this.auth.code)
         },
 
         logout () {
             authAPI.logout()
             localStorage.removeItem('auth.email')
+            localStorage.removeItem('auth.role')
+            localStorage.removeItem('auth.code')
             this.auth = {
                 email: null,
             }
