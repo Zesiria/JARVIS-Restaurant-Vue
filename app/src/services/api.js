@@ -25,6 +25,16 @@ export const authAPI = {
     }
     return false
   },
+  async customerLogin (code) {
+    const response = await axiosInstance.post('/auth/customer/login', {
+      code
+    })
+    if (response.status == 200) {
+      localStorage.setItem(JWT_TOKEN_LOCALSTORAGE_KEY, response.data.access_token)
+      return true
+    }
+    return false
+  },
   async me () {
     const _token = localStorage.getItem(JWT_TOKEN_LOCALSTORAGE_KEY)
     if (_token) {
@@ -34,6 +44,17 @@ export const authAPI = {
     if (response.status == 200) {
       return response.data.data
     } 
+    return {}
+  },
+  async customerMe () {
+    const _token = localStorage.getItem(JWT_TOKEN_LOCALSTORAGE_KEY)
+    if (_token) {
+      axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + _token
+    }
+    const response = await axiosInstance.post('/auth/customer/me')
+    if (response.status == 200) {
+      return response.data.data
+    }
     return {}
   },
   logout () {
