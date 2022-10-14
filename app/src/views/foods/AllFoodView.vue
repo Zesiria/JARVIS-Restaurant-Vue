@@ -2,12 +2,14 @@
 import {ref} from "vue";
 import Popup from "@/components/foods/Popup.vue"
 import FoodCard from "@/components/foods/FoodCard.vue"
-import { useFoodStore } from "@/stores/food";
+import { useFoodStore } from "@/stores/food"
+import {useAuthStore} from "@/stores/auth";
 
 export default {
   setup() {
     const food_store = useFoodStore()
-    return { food_store }
+    const auth_store = useAuthStore()
+    return { food_store, auth_store }
   },
   components: {
     Popup,
@@ -21,12 +23,18 @@ export default {
       selectedFood:[],
       addQuantity:0,
       isOpen: false,
-      isAddingQuantity: false
+      isAddingQuantity: false,
+      auth: null
     }
   }, async mounted() {
       await this.food_store.fetch()
       this.foods = this.food_store.getFoods
       this.isOpen = ref(false)
+      if (this.auth_store.isAuthen) {
+        this.auth = this.auth_store.getAuth
+      } else {
+        this.auth = null
+      }
   }, methods: {
     selectType(type) {
       this.selectedType = type
@@ -75,6 +83,14 @@ export default {
             this.foods = this.foods
             break
         }
+      },
+      auth_store: {
+        immediate: true,
+        deep: true,
+        handler(newValue, oldValue) {
+          console.log(newValue.getAuth)
+          this.auth = this.auth_store.getAuth
+        }
       }
     }
 }
@@ -96,10 +112,17 @@ export default {
     <div>
       <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
         <template #food_button>
-          <button @click="handleIncreaseForm(food)"
-                  class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
-            เพิ่ม
-          </button>
+          <div v-if="auth.role === 'user'">
+            <button @click="handleIncreaseForm(food)"
+                    class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+              เพิ่ม
+            </button>
+          </div>
+          <div v-if="auth.role === 'customer'">
+            <button class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+              สั่ง
+            </button>
+          </div>
         </template>
       </food-card>
       <!-- Popup -->
