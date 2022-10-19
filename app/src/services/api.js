@@ -152,3 +152,64 @@ export const customerAPI = {
     }
   }
 }
+
+export const foodOrderAPI = {
+  async getAllFoodOrder () {
+    const response = await axiosInstance.get('/food-orders')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async updateFoodOrder (foodOrder) {
+    const response = await axiosInstance.put('/food-orders/'.concat(foodOrder.id), {'quantity' : foodOrder.orderQuantity})
+    if (response.status == 200) {
+      return {
+        success: true
+      }
+    }
+    return {
+      success: false
+    }
+  }
+  ,
+  async saveNewFoodOrder (foodOrder) {
+    const response = await axiosInstance.post('/food-orders', foodOrder)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  }
+}
+
+export const orderAPI = {
+  async getAll () {
+    const response = await axiosInstance.get('/orders')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async saveNew (order) {
+    const response = await axiosInstance.post('/orders', order)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  },
+  async updateOrder (order) {
+    const response = await axiosInstance.put('/tables/'.concat(order.id), order)
+    if (response.status == 200) {
+      return {
+        success: true
+      }
+    }
+    return {
+      success: false
+    }
+  }
+}
