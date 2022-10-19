@@ -10,13 +10,13 @@ export const useOrderStore = defineStore("orders", {
 
     getters: {
         getOrders (state) {
-            return state.Order
+            return state.orders
         }
     },
 
     actions: {
         async fetch () {
-            this.Order = await OrderAPI.getAll()
+            this.Order = await orderAPI.getAll()
         },
         async add (order) {
             const response = await orderAPI.saveNew(order)

@@ -24,13 +24,14 @@ export default {
     PlusMinusButtonCard
   },
   async mounted() {
-    this.foodOrders = this.food_order_store.getFoodOrder
+    await this.food_order_store.fetch()
+    this.foodOrders = this.food_order_store.getFoodOrders
     this.auth = this.auth_store.getAuth
     // console.log(this.auth.customer_id)
   },
   methods: {
     async handleSubmitOrder(){
-      await this.newOrder()
+      this.newOrder()
       this.$router.push(`/foods`)
     },
     newOrder() {

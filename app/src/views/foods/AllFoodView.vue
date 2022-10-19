@@ -74,7 +74,6 @@ export default {
       this.isAddingQuantityOrder = true
       const foodOrder = this.food_order_store.getFoodById(this.selectedFood.id)
       if(foodOrder.length === 1){
-        console.log(foodOrder.length)
         this.food_order_store.addQuantityFoodOrder(this.selectedFood.id, this.addQuantity)
       }
       else if(foodOrder.length === 0){
