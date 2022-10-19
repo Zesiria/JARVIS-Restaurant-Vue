@@ -18,7 +18,6 @@ export const useFoodOrderStore = defineStore("food-order",{
     actions: {
         async fetch () {
             this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
-            console.log(this.foodOrders)
             this.foodOrdersTmp = JSON.parse(localStorage.getItem('foodOrder'))
         },
         async add (order_id){
@@ -51,11 +50,10 @@ export const useFoodOrderStore = defineStore("food-order",{
         // deleteFoodOrder (id) {
         //     this.foodOrders = this.foodOrders.filter(foodOrder => foodOrder.food.id != id)
         // },
-        updateQuantityFoodOrder(id, qty){
+        async updateQuantityFoodOrder(id, qty){
             this.foodOrdersTmp = JSON.parse(localStorage.getItem('foodOrder'))
-            const foodOrder = this.foodOrdersTmp.filter(foodOrder => foodOrder.food.id === id)
-            foodOrder.quantity = qty
-            console.log(foodOrder)
+            let foodOrder = this.foodOrdersTmp.filter(foodOrder => foodOrder.food.id === id)
+            foodOrder[0].orderQuantity = qty
             localStorage.setItem('foodOrder', JSON.stringify(this.foodOrdersTmp))
         },
         addQuantityFoodOrder(id, qty){

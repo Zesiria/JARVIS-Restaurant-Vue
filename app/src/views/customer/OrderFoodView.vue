@@ -61,9 +61,8 @@ export default {
     food_order_store: {
       immediate: true,
       deep: true,
-      handler(newValue, oldValue) {
-        // console.log(newValue.getFoodOrder)
-        this.foodOrders = this.food_order_store.getFoodOrder
+      async handler(newValue, oldValue) {
+        this.foodOrders = this.food_order_store.getFoodOrders
       }
     },
   }

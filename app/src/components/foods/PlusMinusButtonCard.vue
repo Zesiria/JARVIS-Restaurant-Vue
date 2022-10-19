@@ -17,9 +17,8 @@ export default {
 
   },
   methods :{
-    handleUpdateOrderQuantity(){
-      console.log(this.foodOrder)
-      this.food_order_store.updateQuantityFoodOrder(this.foodOrder.food.id, this.orderQuantity)
+    async handleUpdateOrderQuantity(){
+      await this.food_order_store.updateQuantityFoodOrder(this.foodOrder.food.id, this.orderQuantity)
     }
   }
 }
