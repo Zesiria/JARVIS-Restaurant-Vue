@@ -1,24 +1,34 @@
 <template>
-  <div class="m-8">
-    <h1 class="text-3xl">Login</h1>
+  <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+    <div id="container">
+      <div id="signup">
+        <div class="m-8">
+          <img alt="logo" class="logo items-center m-auto " src="@/assets/logo.jpg" width="125" height="125" />
+          <h1 class="text-3xl">Welcome!!</h1>
+          <h1 class="m-4"> JARVIS RESTAURANT</h1>
+    <h1 class="text text-center m-8">โปรดเข้าสู่ระบบก่อนสั่งอาหาร</h1>
 
     <div v-if="error">
       {{ error }}
     </div>
 
-    <form @submit.prevent="onFormSubmit()">
-      <div>
-        <label>Email</label>
-        <input type="text" v-model="code" required autocomplete="off">
-      </div>
+      <form @submit.prevent="onFormSubmit()">
+        <div>
+          <label class="flex">รหัสโต๊ะ</label>
+          <input type="text" v-model="code" placeholder="ตัวอักษร 6 หลัก " required class="rounded-lg" autocomplete="off" >
+        </div>
 
-      <button type="submit" :disabled="disabledButton"
-              class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              :class="disabledButton ? 'cursor-not-allowed bg-blue-200 dark:bg-blue-200': 'bg-blue-400 dark:bg-blue-500'"
-      >
-        Login
-      </button>
-    </form>
+        <button type="submit" :disabled="disabledButton"
+                class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                :class="disabledButton ? 'cursor-not-allowed bg-blue-200 dark:bg-blue-200': 'bg-blue-600 dark:bg-blue-500'"
+        >
+          เข้าสู่ระบบ
+        </button>
+      </form>
+
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,3 +65,27 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+#container{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button{
+
+  text-align: center;
+  margin: 15px auto ;
+}
+#signup {
+  text-align: center;
+}
+input{
+  width: 250px;
+  display: flex;
+  margin: 10px auto;
+  padding: 10px;
+  border-color: #B4B5B7;
+}
+</style>
