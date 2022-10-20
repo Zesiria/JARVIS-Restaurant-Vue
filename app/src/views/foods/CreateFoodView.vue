@@ -1,19 +1,18 @@
 <template>
   <div class="m-8">
-    <h1 class="text-3xl">
-      เพิ่มรายการอาหาร
-    </h1>
-
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+      <h1 class="text-3xl">
+        เพิ่มรายการอาหาร
+      </h1>
       <!-- input name -->
-      <div class="flex flex-col py-2">
+      <div class="flex flex-col py-2 mt-10">
         <label for="name"> ชื่อ </label>
         <input type="text" v-model="food.name">
       </div>
       <!-- select type -->
       <div class="flex flex-col w-48 py-2">
-        <label for="type"> ประเภท </label>
-        <select v-model="food.type">
+        <label for="type"> หมวดหมู่อาหาร </label>
+        <select class="rounded-lg" v-model="food.type">
           <option v-for="category in categories" >
             {{category}}
           </option>
@@ -26,7 +25,7 @@
       </div>
 
       <button @click="saveNewFood"
-          class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-2">
+          class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-5 float-right">
         ยืนยัน
       </button>
       <!--<button @click="isOpen = true">open</button>-->
@@ -113,3 +112,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+input{
+  border-radius: 10px;
+}
+</style>
+
