@@ -49,7 +49,17 @@ export default {
       this.disabledButton = true
       try {
         if (await this.auth_store.login(this.email, this.password)) {
-          this.$router.push('/')
+          await this.auth_store.fetch()
+          console.log(this.auth_store.getRole)
+          if(this.auth_store.getRole === 'Waiter'){
+            this.$router.push('/waiter/home')
+          }
+          if(this.auth_store.getRole === 'Chef'){
+            this.$router.push('/')
+          }
+          if(this.auth_store.getRole === 'Manager'){
+            this.$router.push('/')
+          }
         } else {
           this.disabledButton = false
         }

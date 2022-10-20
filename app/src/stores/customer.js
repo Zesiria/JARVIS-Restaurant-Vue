@@ -13,7 +13,7 @@ export const useCustomerStore = defineStore("customers", {
         return state.customers
     },
     getByID : (state) => (id) => {
-    return state.customers.find(customer => customer.id === id)
+      return state.customers.find(customer => customer.id === id)
     }
   },
 

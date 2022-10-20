@@ -36,6 +36,9 @@ export const useTableStore = defineStore("tables", {
   },
     delete (id) {
       this.tables = this.tables.filter(table => table.id != id)
+    },
+    getTableById (id) {
+      return this.tables.find(table => table.id === id)
     }
   },
 })
