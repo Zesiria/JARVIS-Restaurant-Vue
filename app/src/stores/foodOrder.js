@@ -44,9 +44,11 @@ export const useFoodOrderStore = defineStore("food-order",{
             })
             localStorage.setItem('foodOrder', JSON.stringify(this.foodOrders))
         },
-        // deleteFoodOrder (id) {
-        //     this.foodOrders = this.foodOrders.filter(foodOrder => foodOrder.food.id != id)
-        // },
+        deleteFoodOrder (id) {
+            this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
+            this.foodOrders = this.foodOrders.filter(foodOrder => foodOrder.food.id != id)
+            localStorage.setItem('foodOrder', JSON.stringify(this.foodOrders))
+        },
         async updateQuantityFoodOrder(id, qty){
             this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
             let foodOrder = this.foodOrders.filter(foodOrder => foodOrder.food.id === id)

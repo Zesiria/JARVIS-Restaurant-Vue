@@ -36,13 +36,16 @@ export default {
     },
     async newOrder() {
       await this.food_order_store.fetch()
-      if (this.food_order_store.getFoodOrders === null) this.$router.push(`/foods`)
+      if (this.food_order_store.getFoodOrders === null || this.food_order_store.getFoodOrders.length === 0){
+        this.$router.push(`/foods`)
+        return
+      }
       this.error = ""
       try{
         this.order_store.add({
           'customer_id': this.auth.customer_id
         }).then(res => {
-          console.log("orderId : " . res)
+          console.log(res)
           this.postFoodOrder(res)
         })
       } catch (error) {
@@ -62,6 +65,9 @@ export default {
     handleIncreaseFoodOrder() {
       this.$router.push(`/foods`)
     },
+    async deleteFoodOrder(foodOrderID) {
+      await this.food_order_store.deleteFoodOrder(foodOrderID)
+    },
   }, watch:{
     food_order_store: {
       immediate: true,
@@ -77,7 +83,10 @@ export default {
 <template>
   <food-card v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="{...foodOrder.food}" :url="`foods/${foodOrder.food.id}`">
     <template #food_button>
-      <plus-minus-button-card :key="foodOrder.food.id" :foodOrder="{...foodOrder}"></plus-minus-button-card>
+      <div @click="deleteFoodOrder(foodOrder.food.id)" class="flex flex-col space-y-2">
+        <plus-minus-button-card :key="foodOrder.food.id" :foodOrder="{...foodOrder}"></plus-minus-button-card>
+        <button class="text-red-600 "> ลบ </button>
+      </div>
     </template>
   </food-card>
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
@@ -90,7 +99,6 @@ export default {
           สั่งอาหาร
         </button>
       </div>
-
     </div>
   </div>
 </template>
