@@ -8,7 +8,7 @@
 
     <form @submit.prevent="onFormSubmit()">
       <div>
-        <label>Email</label>
+        <label>Code</label>
         <input type="text" v-model="code" required autocomplete="off">
       </div>
 
