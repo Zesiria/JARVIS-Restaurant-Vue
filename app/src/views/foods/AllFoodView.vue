@@ -90,9 +90,12 @@ export default {
       this.isOpen = false
       this.isFoodOrderOpen = false
     },
-    async handSubmitOrder(){
+    async handleSubmitOrder(){
       this.$router.push(`/order/food`)
-    }
+    },
+    handleNewFood() {
+      this.$router.push(`/foods/new`)
+    },
     }, watch: {
       async selectedType(newOption, oldOption) {
         await this.food_store.fetch()
@@ -135,6 +138,7 @@ export default {
 </script>
 
 <template>
+  <div class="pb-24">
     <div>
         <h1 class="text-3xl">
             เมนูอาหาร
@@ -147,11 +151,6 @@ export default {
             </button>
         </nav>
     </div>
-  <div>
-    <button @click="handSubmitOrder">
-      สั่งอาหาร
-    </button>
-  </div>
     <div>
       <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
         <template #food_button>
@@ -243,4 +242,17 @@ export default {
         </template>
       </Popup>
     </div>
+  </div>
+  <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
+    <div v-if="auth.role === 'customer'" class="flex flex-col items-center">
+      <button @click="handleSubmitOrder" class="bg-gray-200 px-4 py-2 rounded">
+        ตรวจสอบรายการอาหาร
+      </button>
+    </div>
+    <div v-else class="flex flex-col items-center">
+      <button @click="handleNewFood" class="bg-gray-200 px-4 py-2 rounded">
+        เพิ่มเมนูอาหาร
+      </button>
+    </div>
+  </div>
 </template>
