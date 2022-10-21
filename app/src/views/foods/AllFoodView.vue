@@ -5,6 +5,7 @@ import FoodCard from "@/components/foods/FoodCard.vue"
 import { useFoodStore } from "@/stores/food"
 import {useAuthStore} from "@/stores/auth";
 import {useFoodOrderStore} from "@/stores/foodOrder";
+import AlertSuccess from "@/components/foods/AlertSuccess.vue";
 
 export default {
   setup() {
@@ -15,7 +16,8 @@ export default {
   },
   components: {
     Popup,
-    FoodCard
+    FoodCard,
+    AlertSuccess,
   },
   data() {
     return {
@@ -29,7 +31,8 @@ export default {
       auth: null,
       isFoodOrderOpen: false,
       isAddingQuantityOrder: false,
-      foodOrders: []
+      foodOrders: [],
+      alertOrderFoodSuccess: false,
     }
   }, async mounted() {
       await this.food_store.fetch()
@@ -70,7 +73,7 @@ export default {
       this.selectedFood = food
       this.isFoodOrderOpen = true
     },
-    handSubmitFoodOrder() {
+    handleSubmitFoodOrder() {
       this.isAddingQuantityOrder = true
       const foodOrder = this.food_order_store.getFoodById(this.selectedFood.id)
       if(foodOrder.length === 1){
@@ -84,13 +87,17 @@ export default {
       }
       this.isFoodOrderOpen = false
       this.isAddingQuantityOrder = false;
+      this.alertOrderFoodSuccess = true;
       // console.log(this.foodOrders)
+      setTimeout(() => {
+        this.alertOrderFoodSuccess = false;
+      }, 1200);
     },
     async close() {
       this.isOpen = false
       this.isFoodOrderOpen = false
     },
-    async handleSubmitOrder(){
+    async handleSubmitCheckOrder(){
       this.$router.push(`/order/food`)
     },
     handleNewFood() {
@@ -138,6 +145,12 @@ export default {
 </script>
 
 <template>
+    <AlertSuccess :open="alertOrderFoodSuccess">
+      <template v-slot:content>
+        เพิ่มลงออเดอร์สำเร็จ
+      </template>
+    </AlertSuccess>
+
   <div class="pb-24">
     <div>
         <h1 class="text-3xl">
@@ -231,7 +244,7 @@ export default {
         </template>
 
         <template v-slot:footer>
-          <button data-modal-toggle="defaultModal" type="button" @click="handSubmitFoodOrder" v-bind:disabled="isAddingQuantityOrder"
+          <button data-modal-toggle="defaultModal" type="button" @click="handleSubmitFoodOrder" v-bind:disabled="isAddingQuantityOrder"
                   class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             ยืนยัน
           </button>
@@ -245,7 +258,7 @@ export default {
   </div>
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div v-if="auth.role === 'customer'" class="flex flex-col items-center">
-      <button @click="handleSubmitOrder" class="bg-gray-200 px-4 py-2 rounded">
+      <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded">
         ตรวจสอบรายการอาหาร
       </button>
     </div>
