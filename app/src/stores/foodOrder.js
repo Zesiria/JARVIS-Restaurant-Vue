@@ -5,8 +5,7 @@ export const useFoodOrderStore = defineStore("food-order",{
     id: 'foodOrder',
     state: () => {
         return {
-            foodOrders: [],
-            foodOrdersTmp: []
+            foodOrders: []
         }
     },
 
@@ -18,13 +17,10 @@ export const useFoodOrderStore = defineStore("food-order",{
     actions: {
         async fetch () {
             this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
-            this.foodOrdersTmp = JSON.parse(localStorage.getItem('foodOrder'))
         },
         async add (order_id){
-            // console.log("----")
-            // console.log(this.foodOrdersTmp)
-            for(let i=0; i<this.foodOrdersTmp.length; i++){
-                const foodOrder = this.foodOrdersTmp[i]
+            for(let i=0; i<this.foodOrders.length; i++){
+                const foodOrder = this.foodOrders[i]
                 const foodOrder_new = {
                     "order_id": order_id,
                     "food_id": foodOrder.food.id,
@@ -37,36 +33,36 @@ export const useFoodOrderStore = defineStore("food-order",{
             return false
         },
         async addFoodOrder (food, qty) {
-            this.foodOrdersTmp = JSON.parse(localStorage.getItem('foodOrder'))
-            if(this.foodOrdersTmp === null){
-                this.foodOrdersTmp = []
+            this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
+            if(this.foodOrders === null){
+                this.foodOrders = []
             }
-            this.foodOrdersTmp.push({
+            this.foodOrders.push({
                 food: food,
                 orderQuantity: qty,
             })
-            localStorage.setItem('foodOrder', JSON.stringify(this.foodOrdersTmp))
+            localStorage.setItem('foodOrder', JSON.stringify(this.foodOrders))
         },
         // deleteFoodOrder (id) {
         //     this.foodOrders = this.foodOrders.filter(foodOrder => foodOrder.food.id != id)
         // },
         async updateQuantityFoodOrder(id, qty){
-            this.foodOrdersTmp = JSON.parse(localStorage.getItem('foodOrder'))
-            let foodOrder = this.foodOrdersTmp.filter(foodOrder => foodOrder.food.id === id)
+            this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
+            let foodOrder = this.foodOrders.filter(foodOrder => foodOrder.food.id === id)
             foodOrder[0].orderQuantity = qty
-            localStorage.setItem('foodOrder', JSON.stringify(this.foodOrdersTmp))
+            localStorage.setItem('foodOrder', JSON.stringify(this.foodOrders))
         },
         addQuantityFoodOrder(id, qty){
             this.foodOrdersTmp = JSON.parse(localStorage.getItem('foodOrder'))
-            let foodOrder = this.foodOrdersTmp.find(foodOrder => foodOrder.food.id === id)
+            let foodOrder = this.foodOrders.find(foodOrder => foodOrder.food.id === id)
             foodOrder.orderQuantity = parseInt(foodOrder.orderQuantity) + parseInt(qty)
-            localStorage.setItem('foodOrder', JSON.stringify(this.foodOrdersTmp))
+            localStorage.setItem('foodOrder', JSON.stringify(this.foodOrders))
         },
         getFoodById (id) {
-            if(this.foodOrdersTmp === null){
+            if(this.foodOrders === null){
                 this.foodOrdersTmp = []
             }
-            return this.foodOrdersTmp.filter(foodOrder => foodOrder.food.id === id)
+            return this.foodOrders.filter(foodOrder => foodOrder.food.id === id)
         },
         removeFoodOrder(){
             this.foodOrders = []
