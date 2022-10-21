@@ -1,17 +1,17 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-      <div class="flex flex-warp justify-between">
-          <h1 class="text-3xl">รายการโต๊ะทั้งหมด</h1>
-          <button class=" justify-between bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-2 border-b-4 border-blue-700 hover:border-blue-500 rounded" @click="openAddTablePopup">เพิ่มโต๊ะ</button>
+      <h1 class="text-3xl">รายการโต๊ะทั้งหมด</h1>
+      <div class="text-center mt-4">
+        <button class=" mt-2 text-center bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-5 border-b-4 border-blue-800 hover:border-blue-500 rounded" @click="openAddTablePopup">เพิ่มโต๊ะ</button>
       </div>
       <div id="grid">
       <div v-for="table in tables" >
-          <div class=" rounded m-2" @click="openTableDetailPopup(table)" id="list">
-              <p>โต๊ะที่ {{ table.id }}</p>
+          <div class="rounded m-2 text-center" @click="openTableDetailPopup(table)" id="table-list">
+              <p class="font-bold">โต๊ะที่ {{ table.id }}</p>
               <p>จำนวนคนสูงสุด {{ table.size }}</p>
-              <p v-if="table.status === 1" class="bg-green-200 border-2">สถานะ : ว่าง</p>
-              <p v-else class="bg-red-200">สถานะ : ไม่ว่าง</p>
+              <p v-if="table.status === 1" class="bg-green-500  text-white text-center">ว่าง</p>
+              <p v-else class="bg-red-500 text-white text-center">ไม่ว่าง</p>
           </div>
       </div>
       </div>
@@ -236,19 +236,19 @@ margin: 20px;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-#list{
-  background-color: #B4B5B7;
+#table-list{
+  background-color: #EFEFEF;
+  border-color: #D0CFCF;
+  border-width: 2px;
   margin: 5px;
   padding: 10px;
 }
-
-
 @media (max-width: 455px) {
   #grid {
     display: grid;
     grid-template-columns: 1fr 1fr ;
   }
-  #list{
+  #table-list{
     font-size: 14px;
 
   }

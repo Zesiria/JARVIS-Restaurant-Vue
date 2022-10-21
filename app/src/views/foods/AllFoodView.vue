@@ -89,11 +89,16 @@ export default {
           </h1>
 <!--        class="mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full"-->
       </div>
-      <div class="carousel">
+      <div class="menu">
           <div class="text-center">
-              <button v-for="category in categories" id="list"  @click="selectType(category) " class="mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full">
-                  {{category}}
-              </button>
+<!--            hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
+            <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full">
+              {{category}}
+              <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
+
+
+            </button>
+
           </div>
       </div>
       <div>
@@ -152,25 +157,22 @@ export default {
   </div>
 </template>
 <style>
-
-@media (max-width: 455px) {
-  .carousel {
+@media (max-width: 480px) {
+  .menu {
     flex-wrap: nowrap;
-    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
   }
-  .carousel div {
-    white-space: nowrap;
-    display: flex;
-    font-size: 13px;
-    width: 20px;
+  .menu div {
+    font-size: 12px;
   }
-  .carousel div button{
+  .menu div button{
     padding: 2px;
     margin-left: 0px;
-    /*background: none;*/
-    /*border: none;*/
     border-radius: 10px;
-
+    width: 75px;
   }
 }
 </style>

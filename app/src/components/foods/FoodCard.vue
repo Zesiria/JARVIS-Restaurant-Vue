@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-container">
+  <div>
     <div id="flex-container" class="flex flex-wrap bg-gray-200 m-4 p-2 justify-between">
         <div id="img-name" class="flex flex-wrap">
             <div class="flex border border-2 rounded">
@@ -32,24 +32,50 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 455px) {
+@media (max-width: 480px) {
+
   #flex-container {
+    /*width: fit-content;*/
     flex-wrap: nowrap;
     flex-direction: column;
   }
   #img-name{
-    flex-direction: column;
     flex-wrap: nowrap;
+    /*align-content: flex-start;*/
+    /*align-items: flex-start;*/
+    /*flex-direction: column;*/
+
+    /*justify-content: center;*/
+    margin: 0;
+    padding: 0;
   }
   #img-name img{
-    justify-content: flex-end
+    width: 60px;
+    height: 60px;
+  }
+  /*#name{*/
+  /*  flex-wrap: nowrap;*/
+  /*}*/
+  #quan{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    /*flex-direction: column;*/
+  }
+  #quan p{
+    font-size: 17px;
   }
   #name{
-    flex-wrap: nowrap;
+    margin: 0px;
   }
-  #button-flex{
+  #name p{
     flex-wrap: nowrap;
-    justify-content: flex-end
+    font-size: 20px;
+    width: 150px;
+    /*font-weight: bold;*/
   }
 }
 </style>
