@@ -19,6 +19,7 @@ export const useFoodOrderStore = defineStore("food-order",{
             this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
         },
         async add (order_id){
+            if(this.foodOrders === null ) return
             for(let i=0; i<this.foodOrders.length; i++){
                 const foodOrder = this.foodOrders[i]
                 const foodOrder_new = {
@@ -53,20 +54,19 @@ export const useFoodOrderStore = defineStore("food-order",{
             localStorage.setItem('foodOrder', JSON.stringify(this.foodOrders))
         },
         addQuantityFoodOrder(id, qty){
-            this.foodOrdersTmp = JSON.parse(localStorage.getItem('foodOrder'))
+            this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
             let foodOrder = this.foodOrders.find(foodOrder => foodOrder.food.id === id)
             foodOrder.orderQuantity = parseInt(foodOrder.orderQuantity) + parseInt(qty)
             localStorage.setItem('foodOrder', JSON.stringify(this.foodOrders))
         },
         getFoodById (id) {
             if(this.foodOrders === null){
-                this.foodOrdersTmp = []
+                this.foodOrders = []
             }
             return this.foodOrders.filter(foodOrder => foodOrder.food.id === id)
         },
         removeFoodOrder(){
             this.foodOrders = []
-            this.foodOrdersTmp = []
             localStorage.removeItem('foodOrder')
         },
     },
