@@ -5,6 +5,7 @@ const auth_storage = {
     email: localStorage.getItem('auth.email'),
     role: localStorage.getItem('auth.role'),
     code: localStorage.getItem('auth.code'),
+    customer_id: localStorage.getItem('auth.id')
 }
 
 export const useAuthStore = defineStore({
@@ -15,6 +16,7 @@ export const useAuthStore = defineStore({
                 email: auth_storage.email,
                 role: auth_storage.role,
                 code: auth_storage.code,
+                customer_id: auth_storage.customer_id,
             }
         }
     },
@@ -54,6 +56,7 @@ export const useAuthStore = defineStore({
             localStorage.setItem('auth.email', this.auth.email)
             localStorage.setItem('auth.role', "user")
             localStorage.setItem('auth.code', "")
+            localStorage.setItem('auth.id', "")
         },
 
         async customerFetch() {
@@ -61,6 +64,7 @@ export const useAuthStore = defineStore({
             localStorage.setItem('auth.email', "")
             localStorage.setItem('auth.role', "customer")
             localStorage.setItem('auth.code', this.auth.code)
+            localStorage.setItem('auth.id', this.auth.id)
         },
 
         logout () {

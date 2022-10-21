@@ -176,6 +176,7 @@ export default {
     },
     async checkinTable(){
       this.addNewCustomer()
+      this.tables = this.table_store.getTables
     },
     async checkoutTable(){
       this.updateTable({

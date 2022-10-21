@@ -2,16 +2,22 @@
 import {ref} from "vue";
 import Popup from "@/components/foods/Popup.vue"
 import FoodCard from "@/components/foods/FoodCard.vue"
-import { useFoodStore } from "@/stores/food";
+import { useFoodStore } from "@/stores/food"
+import {useAuthStore} from "@/stores/auth";
+import {useFoodOrderStore} from "@/stores/foodOrder";
+import AlertSuccess from "@/components/foods/AlertSuccess.vue";
 
 export default {
   setup() {
     const food_store = useFoodStore()
-    return { food_store }
+    const auth_store = useAuthStore()
+    const food_order_store = useFoodOrderStore()
+    return { food_store, auth_store, food_order_store}
   },
   components: {
     Popup,
-    FoodCard
+    FoodCard,
+    AlertSuccess,
   },
   data() {
     return {
@@ -21,12 +27,22 @@ export default {
       selectedFood:[],
       addQuantity:0,
       isOpen: false,
-      isAddingQuantity: false
+      isAddingQuantity: false,
+      auth: null,
+      isFoodOrderOpen: false,
+      isAddingQuantityOrder: false,
+      foodOrders: [],
+      alertOrderFoodSuccess: false,
     }
   }, async mounted() {
       await this.food_store.fetch()
       this.foods = this.food_store.getFoods
       this.isOpen = ref(false)
+      if (this.auth_store.isAuthen) {
+        this.auth = this.auth_store.getAuth
+      } else {
+        this.auth = null
+      }
   }, methods: {
     selectType(type) {
       this.selectedType = type
@@ -52,9 +68,41 @@ export default {
         this.isAddingQuantity = false;
       })
     },
+    handleIncreaseOrder(food){
+      this.addQuantity = 1
+      this.selectedFood = food
+      this.isFoodOrderOpen = true
+    },
+    handleSubmitFoodOrder() {
+      this.isAddingQuantityOrder = true
+      const foodOrder = this.food_order_store.getFoodById(this.selectedFood.id)
+      if(foodOrder.length === 1){
+        this.food_order_store.addQuantityFoodOrder(this.selectedFood.id, this.addQuantity)
+      }
+      else if(foodOrder.length === 0){
+        this.food_order_store.addFoodOrder(this.selectedFood, this.addQuantity)
+      }
+      else{
+        console.log("getFoodById return foodOrder > 1")
+      }
+      this.isFoodOrderOpen = false
+      this.isAddingQuantityOrder = false;
+      this.alertOrderFoodSuccess = true;
+      // console.log(this.foodOrders)
+      setTimeout(() => {
+        this.alertOrderFoodSuccess = false;
+      }, 1200);
+    },
     async close() {
       this.isOpen = false
-    }
+      this.isFoodOrderOpen = false
+    },
+    async handleSubmitCheckOrder(){
+      this.$router.push(`/order/food`)
+    },
+    handleNewFood() {
+      this.$router.push(`/foods/new`)
+    },
     }, watch: {
       async selectedType(newOption, oldOption) {
         await this.food_store.fetch()
@@ -75,12 +123,35 @@ export default {
             this.foods = this.foods
             break
         }
+      },
+      auth_store: {
+        immediate: true,
+        deep: true,
+        handler(newValue, oldValue) {
+          console.log(newValue.getAuth)
+          this.auth = this.auth_store.getAuth
+        }
+      },
+      food_order_store: {
+        immediate: true,
+        deep: true,
+        handler(newValue, oldValue) {
+          // console.log(newValue.getFoodOrder)
+          this.foodOrders = this.food_order_store.getFoodOrder
+        }
       }
     }
 }
 </script>
 
 <template>
+    <AlertSuccess :open="alertOrderFoodSuccess">
+      <template v-slot:content>
+        เพิ่มลงออเดอร์สำเร็จ
+      </template>
+    </AlertSuccess>
+
+  <div class="pb-24">
     <div>
         <h1 class="text-3xl">
             เมนูอาหาร
@@ -96,10 +167,18 @@ export default {
     <div>
       <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
         <template #food_button>
-          <button @click="handleIncreaseForm(food)"
-                  class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
-            เพิ่ม
-          </button>
+          <div v-if="auth.role === 'user'">
+            <button @click="handleIncreaseForm(food)"
+                    class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+              เพิ่ม
+            </button>
+          </div>
+          <div v-if="auth.role === 'customer'">
+            <button @click="handleIncreaseOrder(food)"
+                    class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+              เพิ่มลงออเดอร์
+            </button>
+          </div>
         </template>
       </food-card>
       <!-- Popup -->
@@ -144,5 +223,49 @@ export default {
           </button>
         </template>
       </Popup>
+
+      <!-- Popup Food Order -->
+      <Popup :open="isFoodOrderOpen">
+        <template v-slot:header>
+          {{selectedFood.name}}
+        </template>
+
+        <template v-slot:content>
+          <div class="flex flex-row h-8 w-44 rounded-lg mx-auto">
+            <button class="w-10 rounded-l cursor-pointer outline-none border">
+              <span class="m-auto text-2xl">−</span>
+            </button>
+            <input type="number" class="outline-none focus:outline-none text-center w-24 bg-gray-300 flex items-center mx-auto outline-none"
+                   v-model="addQuantity" required>
+            <button class="h-full w-10 rounded-r cursor-pointer border">
+              <span class="m-auto text-2xl">+</span>
+            </button>
+          </div>
+        </template>
+
+        <template v-slot:footer>
+          <button data-modal-toggle="defaultModal" type="button" @click="handleSubmitFoodOrder" v-bind:disabled="isAddingQuantityOrder"
+                  class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            ยืนยัน
+          </button>
+          <button data-modal-toggle="defaultModal" type="button" @click="close"
+                  class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
+            ปิด
+          </button>
+        </template>
+      </Popup>
     </div>
+  </div>
+  <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
+    <div v-if="auth.role === 'customer'" class="flex flex-col items-center">
+      <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded">
+        ตรวจสอบรายการอาหาร
+      </button>
+    </div>
+    <div v-else class="flex flex-col items-center">
+      <button @click="handleNewFood" class="bg-gray-200 px-4 py-2 rounded">
+        เพิ่มเมนูอาหาร
+      </button>
+    </div>
+  </div>
 </template>
