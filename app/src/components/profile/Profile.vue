@@ -5,7 +5,7 @@
     <router-link to="/logout">| Logout |</router-link>
   </div>
 
-  <div v-if="auth.role === 'customer'">
+  <div v-else-if="auth.role === 'customer'">
     Welcome
 
     <router-link to="/logout">| Logout |</router-link>
