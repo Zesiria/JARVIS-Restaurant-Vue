@@ -81,14 +81,17 @@ export default {
 </script>
 
 <template>
-  <food-card v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="{...foodOrder.food}" :url="`foods/${foodOrder.food.id}`">
-    <template #food_button>
-      <div @click="deleteFoodOrder(foodOrder.food.id)" class="flex flex-col space-y-2">
-        <plus-minus-button-card :key="foodOrder.food.id" :foodOrder="{...foodOrder}"></plus-minus-button-card>
-        <button class="text-red-600 "> ลบ </button>
-      </div>
-    </template>
-  </food-card>
+  <div class="pb-24">
+    <food-card v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="{...foodOrder.food}" :url="`foods/${foodOrder.food.id}`">
+      <template #food_button>
+        <div @click="deleteFoodOrder(foodOrder.food.id)" class="flex flex-col space-y-2">
+          <plus-minus-button-card :key="foodOrder.food.id" :foodOrder="{...foodOrder}"></plus-minus-button-card>
+          <button class="text-red-600 "> ลบ </button>
+        </div>
+      </template>
+    </food-card>
+  </div>
+  
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div class="flex flex-col items-center">
       <div class="flex space-x-4">
