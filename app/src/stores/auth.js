@@ -28,6 +28,8 @@ export const useAuthStore = defineStore({
 
         getCode: (state) => state.auth.code,
 
+        getRole: (state) => state.auth.role,
+
         isAuthen (state) {
             return (state.auth.email != null || state.auth.code != null)
         },
@@ -54,7 +56,7 @@ export const useAuthStore = defineStore({
         async fetch () {
             this.auth = await authAPI.me()
             localStorage.setItem('auth.email', this.auth.email)
-            localStorage.setItem('auth.role', "user")
+            localStorage.setItem('auth.role', this.auth.role)
             localStorage.setItem('auth.code', "")
             localStorage.setItem('auth.id', "")
         },
