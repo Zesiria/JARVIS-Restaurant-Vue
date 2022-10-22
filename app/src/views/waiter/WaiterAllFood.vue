@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import Popup from "@/components/foods/Popup.vue"
 import FoodCard from "@/components/foods/FoodCard.vue"
+import AlertSuccess from "@/components/foods/AlertSuccess.vue"
 import { useFoodStore } from "@/stores/food"
 import {useAuthStore} from "@/stores/auth";
 import {useFoodOrderStore} from "@/stores/foodOrder";
@@ -17,7 +18,8 @@ export default {
   },
   components: {
     Popup,
-    FoodCard
+    FoodCard,
+    AlertSuccess
   },
   data() {
     return {
@@ -31,19 +33,20 @@ export default {
       isFoodOrderOpen: false,
       isAddingQuantityOrder: false,
       foodOrders: [],
-      tables: []
+      tables: [],
+      alertOrderFoodSuccess: false,
     }
   }, async mounted() {
       await this.food_store.fetch()
       await this.table_store.fetch()
       this.foods = this.food_store.getFoods
       this.tables = this.table_store.getTables.filter(table => table.status === 0)
-      this.isOpen = ref(false)
       if (this.auth_store.isAuthen) {
         this.auth = this.auth_store.getAuth
       } else {
         this.auth = null
       }
+      this.selectedTable = localStorage.getItem('selectTableID')
   }, methods: {
     selectType(type) {
       this.selectedType = type
@@ -54,7 +57,7 @@ export default {
       this.selectedFood = food
       this.isFoodOrderOpen = true
     },
-    handSubmitFoodOrder() {
+    handleSubmitFoodOrder() {
       this.isAddingQuantityOrder = true
       const foodOrder = this.food_order_store.getFoodById(this.selectedFood.id)
       if(foodOrder.length === 1){
@@ -68,12 +71,15 @@ export default {
       }
       this.isFoodOrderOpen = false
       this.isAddingQuantityOrder = false;
+      this.alertOrderFoodSuccess = true;
+      setTimeout(() => {
+        this.alertOrderFoodSuccess = false;
+      }, 1200);
     },
     async close() {
-      this.isOpen = false
       this.isFoodOrderOpen = false
     },
-    async handSubmitOrder(){
+    async handleSubmitCheckOrder(){
       localStorage.setItem("selectTableID", this.selectedTable);
       this.$router.push(`/waiter/order`)
     }
@@ -118,6 +124,13 @@ export default {
 </script>
 
 <template>
+  <AlertSuccess :open="alertOrderFoodSuccess">
+      <template v-slot:content>
+        เพิ่มลงออเดอร์สำเร็จ
+      </template>
+    </AlertSuccess>
+
+  <div class="pb-24">
     <div>
         <h1 class="text-3xl">
             เมนูอาหาร
@@ -130,18 +143,6 @@ export default {
             </button>
         </nav>
     </div>
-  <div>
-    <button @click="handSubmitOrder">
-      สั่งอาหาร
-    </button>
-  </div>
-  <div>
-    <p>โต๊ะที่ต้องการสั่งให้โต๊ะที่</p>
-    <select v-model="selectedTable">
-      <option disabled value="">Please select one</option>
-      <option v-for="table in tables" :key="table.id" :table="{...table}">{{ table.id }}</option>
-    </select>
-  </div>
     <div>
       <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
         <template #food_button>
@@ -153,7 +154,7 @@ export default {
           </div>
         </template>
       </food-card>
-    
+
       <!-- Popup Food Order -->
       <Popup :open="isFoodOrderOpen">
         <template v-slot:header>
@@ -174,7 +175,7 @@ export default {
         </template>
 
         <template v-slot:footer>
-          <button data-modal-toggle="defaultModal" type="button" @click="handSubmitFoodOrder" v-bind:disabled="isAddingQuantityOrder"
+          <button data-modal-toggle="defaultModal" type="button" @click="handleSubmitFoodOrder" v-bind:disabled="isAddingQuantityOrder"
                   class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             ยืนยัน
           </button>
@@ -185,4 +186,19 @@ export default {
         </template>
       </Popup>
     </div>
+  </div>
+  <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
+    <div class="flex flex-warp items-center justify-center">
+      <div class="flex-warp flex mx-4">
+        <p class="mt-3 mx-5">โต๊ะที่ต้องการสั่งให้โต๊ะที่</p>
+        <select v-model="selectedTable">
+          <option disabled value="">Please select one</option>
+          <option v-for="table in tables" :key="table.id" :table="{...table}">{{ table.id }}</option>
+        </select>
+      </div>
+      <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded mx-4">
+        ตรวจสอบรายการอาหาร
+      </button>
+    </div>  
+  </div>
 </template>
