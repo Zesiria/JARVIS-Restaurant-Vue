@@ -2,22 +2,24 @@
 import {ref} from "vue";
 import Popup from "@/components/foods/Popup.vue"
 import FoodCard from "@/components/foods/FoodCard.vue"
+import AlertSuccess from "@/components/foods/AlertSuccess.vue"
 import { useFoodStore } from "@/stores/food"
 import {useAuthStore} from "@/stores/auth";
 import {useFoodOrderStore} from "@/stores/foodOrder";
-import AlertSuccess from "@/components/foods/AlertSuccess.vue";
+import { useTableStore } from "@/stores/table"
 
 export default {
   setup() {
     const food_store = useFoodStore()
     const auth_store = useAuthStore()
     const food_order_store = useFoodOrderStore()
-    return { food_store, auth_store, food_order_store}
+    const table_store = useTableStore()
+    return { food_store, auth_store, food_order_store, table_store}
   },
   components: {
     Popup,
     FoodCard,
-    AlertSuccess,
+    AlertSuccess
   },
   data() {
     return {
@@ -25,48 +27,30 @@ export default {
       categories: ["ทั้งหมด", "เนื้อสัตว์", "ผัก", "ของทานเล่น","ของใกล้หมด"],
       selectedType: null,
       selectedFood:[],
-      addQuantity:0,
-      isOpen: false,
-      isAddingQuantity: false,
+      selectedTable: null,
+      addQuantity: 1,
       auth: null,
       isFoodOrderOpen: false,
       isAddingQuantityOrder: false,
       foodOrders: [],
+      tables: [],
       alertOrderFoodSuccess: false,
     }
   }, async mounted() {
       await this.food_store.fetch()
+      await this.table_store.fetch()
       this.foods = this.food_store.getFoods
-      this.isOpen = ref(false)
+      this.tables = this.table_store.getTables.filter(table => table.status === 0)
       if (this.auth_store.isAuthen) {
         this.auth = this.auth_store.getAuth
       } else {
         this.auth = null
       }
+      this.selectedTable = localStorage.getItem('selectTableID')
   }, methods: {
     selectType(type) {
       this.selectedType = type
       console.log(this.selectedType)
-    },
-
-    handleIncreaseForm(food) {
-      this.addQuantity = 0
-      this.selectedFood = food
-      this.isOpen = true
-    },
-    handleSubmitForm(){
-        this.isAddingQuantity = true;
-        const food = this.selectedFood
-        console.log(food)
-        food.quantity = parseInt(this.addQuantity) + parseInt(food.quantity )
-        this.food_store.addQuantity(food).then((res) => {
-        console.log(res)
-        this.isOpen = false
-        this.isAddingQuantity = false;
-      }).catch(error => {
-        console.log(error)
-        this.isAddingQuantity = false;
-      })
     },
     handleIncreaseOrder(food){
       this.addQuantity = 1
@@ -88,21 +72,17 @@ export default {
       this.isFoodOrderOpen = false
       this.isAddingQuantityOrder = false;
       this.alertOrderFoodSuccess = true;
-      // console.log(this.foodOrders)
       setTimeout(() => {
         this.alertOrderFoodSuccess = false;
       }, 1200);
     },
     async close() {
-      this.isOpen = false
       this.isFoodOrderOpen = false
     },
     async handleSubmitCheckOrder(){
-      this.$router.push(`/order/food`)
-    },
-    handleNewFood() {
-      this.$router.push(`/foods/new`)
-    },
+      localStorage.setItem("selectTableID", this.selectedTable);
+      this.$router.push(`/waiter/order`)
+    }
     }, watch: {
       async selectedType(newOption, oldOption) {
         await this.food_store.fetch()
@@ -136,7 +116,6 @@ export default {
         immediate: true,
         deep: true,
         handler(newValue, oldValue) {
-          // console.log(newValue.getFoodOrder)
           this.foodOrders = this.food_order_store.getFoodOrder
         }
       }
@@ -145,40 +124,29 @@ export default {
 </script>
 
 <template>
-<AlertSuccess :open="alertOrderFoodSuccess">
-  <template v-slot:content>
-    เพิ่มลงออเดอร์สำเร็จ
-  </template>
-</AlertSuccess>
+  <AlertSuccess :open="alertOrderFoodSuccess">
+      <template v-slot:content>
+        เพิ่มลงออเดอร์สำเร็จ
+      </template>
+    </AlertSuccess>
 
-<div class="m-8">
-  <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+  <div class="pb-24">
     <div>
         <h1 class="text-3xl">
             เมนูอาหาร
         </h1>
-<!--        class="mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full"-->
     </div>
-    <div class="menu">
-        <div class="text-center">
-<!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
-          <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full">
-              {{category}}
-          <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
-          </button>
-        </div>
+    <div>
+        <nav class="mx-4">
+            <button v-for="category in categories" class="mx-4 my-2 bg-gray-100 w-[100px] border border-2 rounded" @click="selectType(category)">
+                {{category}}
+            </button>
+        </nav>
     </div>
-    
     <div>
       <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
         <template #food_button>
-          <div v-if="auth.role === 'Manager'">
-            <button @click="handleIncreaseForm(food)"
-                    class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
-              เพิ่ม
-            </button>
-          </div>
-          <div v-if="auth.role === 'customer'">
+          <div v-if="auth.role === 'Waiter'">
             <button @click="handleIncreaseOrder(food)"
                     class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
               เพิ่มลงออเดอร์
@@ -186,49 +154,6 @@ export default {
           </div>
         </template>
       </food-card>
-      
-      <!-- Popup -->
-      <Popup :open="isOpen">
-        <template v-slot:header>
-          เพิ่มจำนวนอาหาร
-        </template>
-
-          <template v-slot:content>
-
-            <div class="flex flex-row">
-              <div class="basis-1/4"> ชื่อ </div>
-              <div class="basis-3/4"> {{selectedFood.name}} </div>
-            </div>
-
-            <div class="flex flex-row">
-              <div class="basis-1/4"> ประเภท </div>
-              <div class="basis-3/4"> {{selectedFood.type}} </div>
-            </div>
-
-            <div class="flex flex-row">
-              <div class="basis-1/4"> จำนวน </div>
-              <form> </form>
-              <div class="basis-3/4"> {{selectedFood.quantity}} </div>
-            </div>
-            <div>
-              <div @submit.prevent="handleIncreaseForm">
-                <div>
-                  <label for="quantity" >จำนวนที่ต้องการเพิ่ม</label>
-                  <input class="border-2 mx-1" type="quantity" v-model="addQuantity" required>
-                </div>
-              </div>
-            </div>
-          </template>
-
-        <template v-slot:footer>
-            <button data-modal-toggle="defaultModal" type="button" @click="handleSubmitForm" v-bind:disabled="isAddingQuantity" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              ยืนยัน
-            </button>
-            <button data-modal-toggle="defaultModal" type="button" @click="close" class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
-              ปิด
-            </button>
-          </template>
-        </Popup>
 
       <!-- Popup Food Order -->
       <Popup :open="isFoodOrderOpen">
@@ -262,39 +187,18 @@ export default {
       </Popup>
     </div>
   </div>
-  
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
-    <div v-if="auth.role === 'customer'" class="flex flex-col items-center">
-      <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded">
+    <div class="flex flex-warp items-center justify-center">
+      <div class="flex-warp flex mx-4">
+        <p class="mt-3 mx-5">โต๊ะที่ต้องการสั่งให้โต๊ะที่</p>
+        <select v-model="selectedTable">
+          <option disabled value="">Please select one</option>
+          <option v-for="table in tables" :key="table.id" :table="{...table}">{{ table.id }}</option>
+        </select>
+      </div>
+      <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded mx-4">
         ตรวจสอบรายการอาหาร
       </button>
-    </div>
-    <div v-else class="flex flex-col items-center">
-      <button @click="handleNewFood" class="bg-gray-200 px-4 py-2 rounded">
-        เพิ่มเมนูอาหาร
-      </button>
-    </div>
+    </div>  
   </div>
-</div>
 </template>
-
-<style>
-@media (max-width: 480px) {
-  .menu {
-    flex-wrap: nowrap;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
-  }
-  .menu div {
-    font-size: 12px;
-  }
-  .menu div button{
-    padding: 2px;
-    margin-left: 0px;
-    border-radius: 10px;
-    width: 75px;
-  }
-}
-</style>

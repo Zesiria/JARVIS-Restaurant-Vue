@@ -2,7 +2,13 @@
   <div v-if="auth && auth.email">
     Welcome, {{ auth.email }}
 
-    <router-link to="/logout">Logout</router-link>
+    <router-link to="/logout">| Logout |</router-link>
+  </div>
+
+  <div v-else-if="auth.role === 'customer'">
+    Welcome
+
+    <router-link to="/logout">| Logout |</router-link>
   </div>
 
   <div v-else>

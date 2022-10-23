@@ -11,7 +11,6 @@
     <div v-if="error">
       {{ error }}
     </div>
-
       <form @submit.prevent="onFormSubmit()">
         <div>
           <label class="flex">รหัสโต๊ะ</label>
@@ -25,7 +24,6 @@
           เข้าสู่ระบบ
         </button>
       </form>
-
         </div>
       </div>
     </div>

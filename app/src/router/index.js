@@ -64,9 +64,19 @@ const router = createRouter({
       component: () => import('@/views/customer/LoginView.vue')
     },
     {
-      path: '/navbar',
-      name: 'navbar',
-      component: () => import('@/views/Navbar.vue')
+      path: '/waiter/home',
+      name: 'waiter-homepage',
+      component: () => import('@/views/waiter/WaiterMenu.vue')
+    },
+    {
+      path: '/waiter/foods',
+      name: 'waiter-foods',
+      component: () => import('@/views/waiter/WaiterAllFood.vue')
+    },
+    {
+      path: '/waiter/order',
+      name: 'waiter-order',
+      component: () => import('@/views/waiter/WaiterOrderFood.vue')
     }
   ]
 })

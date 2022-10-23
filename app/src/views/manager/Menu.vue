@@ -5,10 +5,7 @@
             <button @click="">เช็คบิล</button>
         </div>
         <div>
-            <button @click="">เปิดโต๊ะ</button>
-        </div>
-        <div>
-            <button @click="allFood">ตรวจสอบรายการอาหาร</button>
+            <button @click="allFood" class="bg-green-200 rounded my-4 py-2 px-10">ตรวจสอบรายการอาหาร</button>
         </div>
         <div>
             <button @click="addFood">เพิ่มรายการอาหาร</button>
