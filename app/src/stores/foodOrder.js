@@ -18,21 +18,6 @@ export const useFoodOrderStore = defineStore("food-order",{
         async fetch () {
             this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
         },
-        async add (order_id){
-            if(this.foodOrders === null ) return
-            for(let i=0; i<this.foodOrders.length; i++){
-                const foodOrder = this.foodOrders[i]
-                const foodOrder_new = {
-                    "order_id": order_id,
-                    "food_id": foodOrder.food.id,
-                    "quantity": foodOrder.orderQuantity
-                }
-                console.log(foodOrder_new)
-                const response = await foodOrderAPI.saveNewFoodOrder(foodOrder_new)
-            }
-            this.removeFoodOrder()
-            return false
-        },
         async addFoodOrder (food, qty) {
             this.foodOrders = JSON.parse(localStorage.getItem('foodOrder'))
             if(this.foodOrders === null){
@@ -40,6 +25,7 @@ export const useFoodOrderStore = defineStore("food-order",{
             }
             this.foodOrders.push({
                 food: food,
+                food_id: food.id,
                 orderQuantity: qty,
             })
             localStorage.setItem('foodOrder', JSON.stringify(this.foodOrders))
