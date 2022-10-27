@@ -181,7 +181,20 @@ export default {
       this.isNumberPeopleInputOpen = false
     },
     async checkinTable(){
-      this.addNewCustomer()
+      this.error = ""
+      try{
+          this.updateTable({
+            'property' : 'check-in',
+            'number_people' : this.numberPeople,
+            'id' : this.selectedTable.id
+          })
+        }
+      catch (error) {
+        this.error = error.message
+        console.log(this.error)
+      }
+      this.closeNumberPeopleInputPopup()
+      this.closeTablePopup()
       this.tables = this.table_store.getTables
     },
     async checkoutTable(){
@@ -202,31 +215,12 @@ export default {
         this.isAddingTable = false
       }
       await this.table_store.fetch()
+      await this.customer_store.fetch()
       this.tables = this.table_store.getTables
       this.isTableDetailOpen = false
       this.isUpdatingTable = false
-    },
-    addNewCustomer(){
-    this.error = ""
-    try{
-        this.customer_store.add({
-          'number_people' : this.numberPeople
-        }).then(res => {
-          console.log(res)
-          this.updateTable({
-            'property' : 'check-in',
-            'id' : this.selectedTable.id,
-            'customer_id' : res
-          })
-        })
-      } catch (error) {
-        this.error = error.message
-        console.log(this.error)
-      }
-      this.closeNumberPeopleInputPopup()
-      this.closeTablePopup()
     }
-  }
+   }
 }
 </script>
 
