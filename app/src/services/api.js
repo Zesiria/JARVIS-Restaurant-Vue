@@ -211,5 +211,12 @@ export const orderAPI = {
     return {
       success: false
     }
+  },
+  async getAllOrdersToday () {
+    const response = await axiosInstance.get('/orders-today')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
   }
 }
