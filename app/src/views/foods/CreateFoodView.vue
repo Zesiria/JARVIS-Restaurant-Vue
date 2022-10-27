@@ -68,14 +68,15 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import Popup from "@/components/foods/Popup.vue"
-import {ref} from "vue";
+import {ref} from "vue"
+import {useFoodStore} from "@/stores/food";
 
 export default {
   setup () {
     const isOpen = ref(false)
-    return {isOpen}
+    const food_store = new useFoodStore()
+    return {isOpen, food_store}
   },
   components: {
     Popup
@@ -94,13 +95,11 @@ export default {
   },
   methods: {
     async saveNewFood() {
-      const url = 'http://localhost/api/foods'
-
       try {
-        const response = await Axios.post(url, this.food)
-        if(response.status == 201){
+        this.food_store.add(this.food).then(res => {
+          console.log(res)
           this.isOpen = true
-        }
+        })
       }catch (error) {
         this.error = error.message
         console.log(error)
