@@ -43,20 +43,13 @@ export default {
       this.error = ""
       try{
         this.order_store.add({
-          'customer_id': this.auth.customer_id
+          'customer_id': this.auth.customer_id,
+          'foodOrders': this.food_order_store.getFoodOrders
         }).then(res => {
           console.log(res)
-          this.postFoodOrder(res)
+          // this.postFoodOrder(res)
+          this.food_order_store.removeFoodOrder()
         })
-      } catch (error) {
-        this.error = error.message
-        console.log(this.error)
-      }
-    },
-    postFoodOrder(order_id) {
-      this.error = ""
-      try {
-        this.food_order_store.add(order_id)
       } catch (error) {
         this.error = error.message
         console.log(this.error)

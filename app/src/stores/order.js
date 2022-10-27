@@ -16,7 +16,7 @@ export const useOrderStore = defineStore("orders", {
 
     actions: {
         async fetch () {
-            this.Order = await orderAPI.getAll()
+            this.orders = await orderAPI.getAll()
         },
         async add (order) {
             const response = await orderAPI.saveNew(order)
@@ -27,15 +27,15 @@ export const useOrderStore = defineStore("orders", {
                 return response.order_id
             }
             return false
-        },async update (table) {
-            const response = await tableAPI.updateTable(table)
+        },async update (order) {
+            const response = await orderAPI.updateOrder(order)
             if (response.success) {
                 return true
             }
             return false
         },
         delete (id) {
-            this.tables = this.tables.filter(table => table.id != id)
+            this.orders = this.orders.filter(order => order.id !== id)
         }
     },
 })
