@@ -215,6 +215,7 @@ export default {
         this.isAddingTable = false
       }
       await this.table_store.fetch()
+      await this.customer_store.fetch()
       this.tables = this.table_store.getTables
       this.isTableDetailOpen = false
       this.isUpdatingTable = false
