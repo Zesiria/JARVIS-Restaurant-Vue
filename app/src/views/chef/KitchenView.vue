@@ -17,25 +17,14 @@ export default {
     return {
       foodOrders:[],
       orders:[],
-      status: ["รอรับออเดอร์"],
+
     }
   },
   async mounted() {
     await this.order_store.fetchOrdersToday()
     this.orders = this.order_store.getOrdersToday
-    // if (this.auth_store.isAuthen) {
-    //   this.auth = this.auth_store.getAuth
-    // } else {
-    //   this.auth = null
-    // }
+
   },
-  methods: {
-    // handledTakeOrder(status){
-    //   this.status = 'กำลังเตรียม'
-    // }
-  },
-  watch: {
-  }
 }
 </script>
 
