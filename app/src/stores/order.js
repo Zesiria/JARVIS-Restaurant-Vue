@@ -20,7 +20,16 @@ export const useOrderStore = defineStore("orders", {
         getOrdersToday (state) {
             return state.ordersToday
             // return state.orders.filter(order => order.status === "PENDING")
-        }
+        },
+        getPendingFoods (state) {
+            return state.orders.filter(order => order.status === "PENDING")
+        },
+        getInProcessFoods (state) {
+            return state.orders.filter(order => order.status === "IN PROCESS")
+        },
+        getCompletedFoods (state) {
+            return state.orders.filter(order => order.status === "COMPLETED")
+        },
     },
 
     actions: {
