@@ -49,6 +49,9 @@ export const useOrderStore = defineStore("orders", {
         },
         delete (id) {
             this.orders = this.orders.filter(order => order.id !== id)
-        }
+        },
+        getOrderById (id){
+            return this.orders.filter(order => order.order_id === id)
+        },
     },
 })

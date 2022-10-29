@@ -10,34 +10,25 @@ export default {
   },
   data() {
     return {
-      orders: null,
+      foodOrders: [],
       auth: null,
     }
-  },
-  components: {
-
   },
   async mounted() {
     if (this.auth_store.isAuthen) {
       this.auth = this.auth_store.getAuth
+      await this.order_store.fetchOrdersCustomer(this.auth.customer_id)
+      this.foodOrders = this.order_store.getOrderById(parseInt(this.$route.params.order_id))
     } else {
       this.auth = null
+      this.foodOrders = []
     }
-    if(this.auth != null){
-      await this.order_store.fetchOrdersCustomer(this.auth.customer_id)
-      this.orders = this.order_store.getOrders
-    }
-    else {
-      this.orders = null
-    }
-    // console.log(this.orders[0].order_id)
+
   }
 }
+
 </script>
 
 <template>
-  <div>
-    order
-  </div>
-  {{orders}}
+  {{foodOrders}}
 </template>
