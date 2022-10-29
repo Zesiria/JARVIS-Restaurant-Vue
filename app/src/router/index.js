@@ -77,6 +77,21 @@ const router = createRouter({
       path: '/waiter/order',
       name: 'waiter-order',
       component: () => import('@/views/waiter/WaiterOrderFood.vue')
+    },
+    {
+      path: '/chef/kitchen/',
+      name: 'kitchen',
+      component: () => import('@/views/chef/KitchenView.vue')
+    },
+    {
+      path: '/order/view/{$}',
+      name: 'order-view',
+      component: () => import('@/views/customer/OrderView.vue')
+    },
+    {
+      path: '/chef/kitchen/order/:orderId',
+      name: 'chef-order',
+      component: () => import('@/views/chef/OrderListView.vue')
     }
   ]
 })
