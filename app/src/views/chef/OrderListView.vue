@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
-        <div  class="flex flex-col items-center">
+        <div v-bind:order="order.order_id" class="flex flex-col items-center">
           <button @click="handleServeOrder"
                   class="flex py-2 px-6 rounded-full bg-blue-600 text-white mt-3 ">
             เสิร์ฟ
@@ -48,8 +48,13 @@ export default {
     return {
       orderID : null,
       order : Object,
-      foods : []
+      foods : [],
+      // status: this.order.status,
+      // isUpdatingOrder: false,
     }
+  },
+  async mounted(){
+    // await this.order_store.fetch()
   },
   async created() {
     await this.order_store.fetchWithId(this.$route.params.orderId)
@@ -60,10 +65,38 @@ export default {
     this.foods = this.food_store.getFoods
         .filter(food => foodsId.indexOf(food.id) > -1)
     console.log(this.foods)
+
+    this.status = this.order.status
+    isUpdatingOrder: false,
+    console.log(this.status)
   },
   methods:{
     handleServeOrder(){
+      this.error = ""
+      try {
+        this.updateOrderStatus({
+          'id' : this.order.order_id,
+          'status' : 'serve'
+        })
 
+      }catch (error){
+        this.error = error.message
+        console.log(this.error)
+      }
+      console.log(this.order.order_id);
+      this.$router.push(`/chef/kitchen`);
+    },
+    updateOrderStatus(status){
+      this.error = ""
+      this.isUpdatingOrder = true
+      try{
+        this.order_store.update(status)
+      } catch (error){
+        this.error = error.message
+        console.log(this.error)
+      }
+      this.order_store.fetch()
+      this.status = this.order_store.getAll
     }
   }
 }

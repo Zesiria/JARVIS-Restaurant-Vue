@@ -52,10 +52,8 @@ export default {
         this.error = error.message
         console.log(this.error)
       }
-      // this.$router.put(`/orders/${this.order.order_id}`)
       console.log(this.order.order_id);
       this.$router.push(`/chef/kitchen/order/${this.order.order_id}`);
-      // this.order.push(this.updateOrderStatus)
     },
     updateOrderStatus(status){
       this.error = ""
