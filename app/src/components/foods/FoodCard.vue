@@ -27,12 +27,6 @@ export default {
             type: String,
             default: ''
         }
-    },
-    methods:{
-      getPicturePath(){
-        console.log(food.img_path)
-        return '@/assets'.concat(food.img_path);
-      }
     }
 }   
 </script>

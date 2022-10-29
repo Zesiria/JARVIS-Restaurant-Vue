@@ -24,6 +24,17 @@
         <input type="number" v-model="food.quantity">
       </div>
 
+      <div>
+        <label class="col-md-4 col-form-label text-md-right">รูปภาพ</label>
+        <div class="col-md-6">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile" 
+                ref="file" @change="handleFileObject()">
+            <label class="custom-file-label text-left" for="customFile">{{}}</label>
+          </div>
+        </div>
+      </div>
+
       <button @click="saveNewFood"
           class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-5 float-right">
         ยืนยัน
@@ -61,16 +72,19 @@
         </template>
 
       </Popup>
+      
 
+      <button @click="debug()">Debug Button</button>
     </div>
   </div>
-
-</template>
+  
+  </template>
 
 <script>
 import Axios from 'axios'
 import Popup from "@/components/foods/Popup.vue"
-import {ref} from "vue";
+import {ref} from "vue"
+import axios from 'axios'
 
 export default {
   setup () {
@@ -87,15 +101,16 @@ export default {
         name: "",
         type: "",
         quantity: 0,
-        img_path: null
+        img_path: ""
       },
+      imageData: null,
       error: null
     }
   },
   methods: {
     async saveNewFood() {
       const url = 'http://localhost/api/foods'
-
+      await this.uploadImage()
       try {
         const response = await Axios.post(url, this.food)
         if(response.status == 201){
@@ -108,6 +123,24 @@ export default {
     },
     async close() {
       this.$router.push(`/foods`)
+    },
+    async uploadImage(){
+      let formData = new FormData()
+      formData.append('image', this.imageData)
+
+      const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+      const respone = await axios.post('http://localhost/api/image-upload', formData, config)
+      this.food.img_path = respone.data.path
+    },
+    handleFileObject() {
+      this.imageData = this.$refs.file.files[0]
+    },
+    debug(){
+      this.uploadImage()
     }
   }
 }
