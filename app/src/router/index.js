@@ -79,6 +79,11 @@ const router = createRouter({
       component: () => import('@/views/waiter/WaiterOrderFood.vue')
     },
     {
+      path: '/chef/kitchen',
+      name: 'kitchen',
+      component: () => import('@/views/chef/KitchenView.vue')
+    },
+    {
       path: '/order/view/{$}',
       name: 'order-view',
       component: () => import('@/views/customer/OrderView.vue')
