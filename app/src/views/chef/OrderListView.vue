@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
-        <div v-bind:order="order.order_id" class="flex flex-col items-center">
+        <div class="flex flex-col items-center">
           <button @click="handleServeOrder"
                   class="flex py-2 px-6 rounded-full bg-blue-600 text-white mt-3 ">
             เสิร์ฟ
