@@ -44,6 +44,9 @@ export const useOrderStore = defineStore("orders", {
         async fetchOrdersToday (){
             this.ordersToday = await orderAPI.getAllOrdersToday()
         },
+        async fetchOrdersCustomer (id){
+            this.orders = await orderAPI.getOrdersByIdCustomer(id)
+        },
         delete (id) {
             this.orders = this.orders.filter(order => order.id !== id)
         }
