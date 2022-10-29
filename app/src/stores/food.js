@@ -42,7 +42,7 @@ export const useFoodStore = defineStore("foods", {
           this.foods.push({
             ...food
           })
-          return response.food_id
+          return response
         }
 	      return false
     },
