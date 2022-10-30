@@ -13,6 +13,7 @@
             <p class="text-lg text-right">เหลือ : {{food.quantity}}</p>
             <div id="button-flex" class="flex flex-warp">
                 <slot name="food_button"></slot>
+                <slot name="quantity_food_order"></slot>
             </div>
         </div>
     </div>
