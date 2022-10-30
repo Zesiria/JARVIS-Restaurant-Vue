@@ -41,30 +41,27 @@ export default {
       this.newOrder()
       this.$router.push(`/waiter/foods`)
     },
-    newOrder() {
+    async newOrder() {
       this.error = ""
+      await this.food_order_store.fetch()
+      if (this.food_order_store.getFoodOrders === null || this.food_order_store.getFoodOrders.length === 0){
+        this.$router.push(`/foods`)
+        return
+      }
       try{
         this.customer_id = this.table_store.getTables.filter(table => table.id === parseInt(this.table_id))[0].customer_id
         this.order_store.add({
-          'customer_id': this.customer_id
+          'customer_id': this.customer_id,
+          'foodOrders': this.food_order_store.getFoodOrders
         }).then(res => {
-          console.log("Order Id : " + res)
-          this.postFoodOrder(res)
+          console.log(res)
+          this.food_order_store.removeFoodOrder()
         })
       } catch (error) {
         this.error = error.message
         console.log(this.error)
       }
       localStorage.removeItem('selectTableID')
-    },
-    postFoodOrder(order_id) {
-      this.error = ""
-      try {
-        this.food_order_store.add(order_id)
-      } catch (error) {
-        this.error = error.message
-        console.log(this.error)
-      }
     },
     handleIncreaseFoodOrder() {
       this.$router.push(`/waiter/foods`)

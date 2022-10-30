@@ -24,6 +24,17 @@
         <input type="number" v-model="food.quantity">
       </div>
 
+      <div>
+        <label class="col-md-4 col-form-label text-md-right">รูปภาพ</label>
+        <div class="col-md-6">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile" 
+                ref="file" @change="handleFileObject()">
+            <label class="custom-file-label text-left" for="customFile">{{}}</label>
+          </div>
+        </div>
+      </div>
+
       <button @click="saveNewFood"
           class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-5 float-right">
         ยืนยัน
@@ -58,18 +69,24 @@
           <button data-modal-toggle="defaultModal" type="button" @click="close" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             ปิด
           </button>
+          <button data-modal-toggle="defaultModal" type="button" @click="backToHomePage" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            หน้าหลัก
+          </button>
         </template>
 
       </Popup>
+      
 
+      <button @click="debug()">Debug Button</button>
     </div>
   </div>
-
-</template>
+  
+  </template>
 
 <script>
 import Popup from "@/components/foods/Popup.vue"
 import {ref} from "vue"
+import axios from 'axios'
 import {useFoodStore} from "@/stores/food";
 
 export default {
@@ -88,13 +105,17 @@ export default {
         name: "",
         type: "",
         quantity: 0,
-        img_path: null
+        img_path: ""
       },
+      imageData: null,
       error: null
     }
   },
   methods: {
     async saveNewFood() {
+      const url = 'http://localhost/api/foods'
+      await this.uploadImage()
+
       try {
         this.food_store.add(this.food).then(res => {
           console.log(res)
@@ -106,7 +127,33 @@ export default {
       }
     },
     async close() {
+      this.food.name = ""
+      this.food.type = ""
+      this.food.quantity = 0
+      this.food.img_path = null
+      this.error = null
+      this.isOpen = false
+    },
+    backToHomePage() {
       this.$router.push(`/foods`)
+    },
+    async uploadImage(){
+      let formData = new FormData()
+      formData.append('image', this.imageData)
+
+      const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+      const respone = await axios.post('http://localhost/api/image-upload', formData, config)
+      this.food.img_path = respone.data.path
+    },
+    handleFileObject() {
+      this.imageData = this.$refs.file.files[0]
+    },
+    debug(){
+      this.uploadImage()
     }
   }
 }

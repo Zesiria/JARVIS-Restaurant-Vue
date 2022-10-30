@@ -4,12 +4,16 @@ import { orderAPI } from '@/services/api.js'
 export const useOrderStore = defineStore("orders", {
     state: () => {
         return {
+            order: Object,
             orders: [],
             ordersToday:[],
         }
     },
 
     getters: {
+        getOrder (state) {
+          return state.order
+        },
         getOrders (state) {
             return state.orders
         },
@@ -23,6 +27,9 @@ export const useOrderStore = defineStore("orders", {
         async fetch () {
             this.orders = await orderAPI.getAll()
 
+        },
+        async fetchWithId (id){
+            this.order = await orderAPI.getByID(id)
         },
         async add (order) {
             const response = await orderAPI.saveNew(order)
