@@ -37,7 +37,7 @@ export const useOrderStore = defineStore("orders", {
                 this.orders.push({
                     ...order
                 })
-                return response.order_id
+                return response
             }
             return false
         },

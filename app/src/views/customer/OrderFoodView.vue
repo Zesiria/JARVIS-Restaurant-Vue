@@ -32,7 +32,7 @@ export default {
   methods: {
     async handleSubmitOrder(){
       await this.newOrder()
-      this.$router.push(`/foods`)
+      this.$router.push('/order/view')
     },
     async newOrder() {
       await this.food_order_store.fetch()
@@ -46,8 +46,7 @@ export default {
           'customer_id': this.auth.customer_id,
           'foodOrders': this.food_order_store.getFoodOrders
         }).then(res => {
-          console.log(res)
-          // this.postFoodOrder(res)
+          console.log(res.order_id)
           this.food_order_store.removeFoodOrder()
         })
       } catch (error) {
@@ -88,11 +87,11 @@ export default {
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div class="flex flex-col items-center">
       <div class="flex space-x-4">
-        <button @click="handleIncreaseFoodOrder" class="bg-gray-200 px-4 py-2 rounded">
-          ย้อนกลับ
-        </button>
         <button @click="handleSubmitOrder" class="bg-gray-200 px-4 py-2 rounded">
           สั่งอาหาร
+        </button>
+        <button @click="handleIncreaseFoodOrder" class="bg-gray-200 px-4 py-2 rounded">
+          ย้อนกลับ
         </button>
       </div>
     </div>
