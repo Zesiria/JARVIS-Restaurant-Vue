@@ -17,6 +17,7 @@ export default {
       foodOrders: null,
       error: "",
       auth: null,
+      orderId: null,
     }
   },
   components: {
@@ -32,7 +33,7 @@ export default {
   methods: {
     async handleSubmitOrder(){
       await this.newOrder()
-      this.$router.push('/order/view')
+      this.$router.push('/order/'.concat(this.orderId))
     },
     async newOrder() {
       await this.food_order_store.fetch()
@@ -42,13 +43,13 @@ export default {
       }
       this.error = ""
       try{
-        this.order_store.add({
+        const response = await this.order_store.add({
           'customer_id': this.auth.customer_id,
           'foodOrders': this.food_order_store.getFoodOrders
-        }).then(res => {
-          console.log(res.order_id)
-          this.food_order_store.removeFoodOrder()
         })
+        // console.log(response)
+        this.orderId = response.order_id
+        this.food_order_store.removeFoodOrder()
       } catch (error) {
         this.error = error.message
         console.log(this.error)
