@@ -2,8 +2,8 @@
   <div>
     <div class="flex flex-col md:flex-row  flex-wrap bg-green-200 border-2 border-black m-4 p-2 justify-between">
       <div class="text-xl">
-        <p>โต๊ะ {{order.table_id}}</p>
-        <p>รายการอาหาร {{order.quantity}}</p>
+        <p>โต๊ะ: {{order.table_id}}</p>
+        <p>รายการอาหาร: {{order.quantity}}</p>
         <p>สถานะ: {{this.thaiStatus[order.status]}}</p>
 
       </div>
@@ -16,7 +16,7 @@
       <div class="flex md:block justify-center" v-if="order.status === 'IN PROCESS' || order.status ===  'COMPLETED' ">
         <button @click="handleViewOrder"
                 class="bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded shadow py-2 px-6 rounded-full bg-blue-600 mt-3 ">
-          ดูรายการอาการ
+          ดูรายการอาหาร
         </button>
       </div>
     </div>
