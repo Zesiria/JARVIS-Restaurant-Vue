@@ -192,6 +192,13 @@ export const orderAPI = {
     }
     return []
   },
+  async getByID (id) {
+    const response = await axiosInstance.get('/orders/'.concat(id))
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
   async saveNew (order) {
     const response = await axiosInstance.post('/orders', order)
     if (response.status == 201) {
@@ -202,7 +209,7 @@ export const orderAPI = {
     }
   },
   async updateOrder (order) {
-    const response = await axiosInstance.put('/tables/'.concat(order.id), order)
+    const response = await axiosInstance.put('/orders/'.concat(order.id), order)
     if (response.status == 200) {
       return {
         success: true
@@ -211,5 +218,19 @@ export const orderAPI = {
     return {
       success: false
     }
+  },
+  async getAllOrdersToday () {
+    const response = await axiosInstance.get('/orders-today')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async getOrdersByIdCustomer (id) {
+    const response = await axiosInstance.get('/order-from/'.concat(id))
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
   }
 }

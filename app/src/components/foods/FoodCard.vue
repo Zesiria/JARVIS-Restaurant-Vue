@@ -3,7 +3,7 @@
     <div id="flex-container" class="flex flex-wrap bg-gray-200 m-4 p-2 justify-between">
         <div id="img-name" class="flex flex-wrap">
             <div class="flex border border-2 rounded">
-                <img src="{{food.image}}" alt="Food's Picture" class="w-[120px] h-[100px] border-2 border border-black rounded">
+                <img :src="this.food.img_path" alt="Foods Picture" class="w-[120px] h-[100px] border-2 border border-black rounded">
             </div>
             <div id="name" class="flex-wrap mt-4">
                 <p class="text-2xl mx-4">{{food.name}}</p>
@@ -13,6 +13,7 @@
             <p class="text-lg text-right">เหลือ : {{food.quantity}}</p>
             <div id="button-flex" class="flex flex-warp">
                 <slot name="food_button"></slot>
+                <slot name="quantity_food_order"></slot>
             </div>
         </div>
     </div>

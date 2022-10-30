@@ -103,6 +103,9 @@ export default {
     handleNewFood() {
       this.$router.push(`/foods/new`)
     },
+    handleSubmitHistoryOrder() {
+      this.$router.push(`/order/view`)
+    },
     }, watch: {
       async selectedType(newOption, oldOption) {
         await this.food_store.fetch()
@@ -265,9 +268,15 @@ export default {
   
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div v-if="auth.role === 'customer'" class="flex flex-col items-center">
-      <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded">
-        ตรวจสอบรายการอาหาร
-      </button>
+      <div class="flex flex-row space-x-4">
+        <button @click="handleSubmitHistoryOrder" class="bg-gray-200 px-4 py-2 rounded">
+          ประวิติการสั่ง
+        </button>
+        <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded">
+          ตรวจสอบรายการอาหาร
+        </button>
+      </div>
+
     </div>
     <div v-else class="flex flex-col items-center">
       <button @click="handleNewFood" class="bg-gray-200 px-4 py-2 rounded">
