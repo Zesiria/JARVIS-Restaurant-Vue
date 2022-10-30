@@ -225,5 +225,12 @@ export const orderAPI = {
       return response.data
     }
     return []
+  },
+  async getOrdersByIdCustomer (id) {
+    const response = await axiosInstance.get('/order-from/'.concat(id))
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
   }
 }

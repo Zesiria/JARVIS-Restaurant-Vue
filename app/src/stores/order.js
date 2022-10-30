@@ -37,7 +37,7 @@ export const useOrderStore = defineStore("orders", {
                 this.orders.push({
                     ...order
                 })
-                return response.order_id
+                return response
             }
             return false
         },
@@ -51,8 +51,14 @@ export const useOrderStore = defineStore("orders", {
         async fetchOrdersToday (){
             this.ordersToday = await orderAPI.getAllOrdersToday()
         },
+        async fetchOrdersCustomer (id){
+            this.orders = await orderAPI.getOrdersByIdCustomer(id)
+        },
         delete (id) {
             this.orders = this.orders.filter(order => order.id !== id)
-        }
+        },
+        getOrderById (id){
+            return this.orders.filter(order => order.order_id === id)
+        },
     },
 })
