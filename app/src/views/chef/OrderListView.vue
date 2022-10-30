@@ -1,9 +1,16 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+      <div>
+        <button @click="handleBackPage">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path d="M20 34 6 20 20 6.042l2.667 2.625-9.5 9.5H34v3.708H13.167l9.5 9.5Z"/></svg>
+        </button>
+      </div>
+
       <h1 class="text-3xl">
         รายการอาหารของ โต๊ะ: {{order.table_id}}
       </h1>
+      <p>สถานะ: {{this.thaiStatus[order.status]}}</p>
       <div id="flex-container" class="flex flex-wrap border-b-2 m-4 p-2 justify-between" v-for="food in foods">
         <div id="img-name" class="flex flex-wrap">
           <div class="flex border border-2 rounded">
@@ -13,11 +20,11 @@
             <p class="text-2xl mx-4">{{food.name}}</p>
           </div>
         </div>
-        <div id="quan" class=" p-2">
-          <p class="text-lg text-right">จำนวน : {{food.quantity}}</p>
+        <div id="quan" class=" pt-4">
+          <p class="text-lg text-right">จำนวน: {{food.quantity}}</p>
         </div>
       </div>
-      <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
+      <div v-if="order.status === 'IN PROCESS' " class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
         <div class="flex flex-col items-center">
           <button @click="handleServeOrder"
                   class="flex py-2 px-6 rounded-full bg-blue-600 text-white mt-3 ">
@@ -49,6 +56,7 @@ export default {
       orderID : null,
       order : Object,
       foods : [],
+      thaiStatus: {'PENDING': 'รอดำเนินการ', 'IN PROCESS': 'กำลังเตรียม', 'COMPLETED': 'เสร็จสิ้น'}
       // status: this.order.status,
       // isUpdatingOrder: false,
     }
@@ -97,6 +105,10 @@ export default {
       }
       this.order_store.fetch()
       this.status = this.order_store.getAll
+    },
+    handleBackPage(){
+      console.log(this.order.order_id);
+      this.$router.push(`/chef/kitchen`);
     }
   }
 }
