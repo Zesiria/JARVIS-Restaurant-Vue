@@ -1,20 +1,21 @@
 <template>
   <div>
     <div class="flex flex-wrap bg-green-200 border-2 border-black m-4 p-2 justify-between">
-      <div class="text-2xl">
+      <div class="text-xl">
         <p>โต๊ะ {{order.table_id}}</p>
         <p>รายการอาหาร {{order.quantity}}</p>
-        <p>สถานะ {{order.status}}</p>
+        <p>สถานะ: {{this.thaiStatus[order.status]}}</p>
+
       </div>
       <div v-if="order.status === 'PENDING'">
         <button @click="handleTakeOrder"
-                class="flex py-2 px-6 rounded-full bg-blue-600 text-white mt-3 ">
+                class="py-2 px-6 rounded-full bg-blue-600 text-white mt-3 ">
           รับออเดอร์
         </button>
       </div>
       <div v-if="order.status === 'IN PROCESS' || order.status ===  'COMPLETED' ">
         <button @click="handleViewOrder"
-                class="flex py-2 px-6 rounded-full bg-blue-600 text-white mt-3 ">
+                class="py-2 px-6 rounded-full bg-blue-600 text-white mt-3 ">
           ดูรายการอาการ
         </button>
       </div>
@@ -34,6 +35,7 @@ export default {
     return{
       status: this.order.status,
       isUpdatingOrder: false,
+      thaiStatus: {'PENDING': 'รอดำเนินการ', 'IN PROCESS': 'กำลังเตรียม', 'COMPLETED': 'เสร็จสิ้น'}
     }
   },
   props: {
@@ -45,7 +47,6 @@ export default {
   },
   async mounted(){
     await this.order_store.fetch()
-
   },
   methods:{
     handleTakeOrder(){

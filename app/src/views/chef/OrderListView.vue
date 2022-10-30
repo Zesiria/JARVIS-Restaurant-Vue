@@ -10,7 +10,7 @@
       <h1 class="text-3xl">
         รายการอาหารของ โต๊ะ: {{order.table_id}}
       </h1>
-      <p>สถานะ {{order.status}}</p>
+      <p>สถานะ: {{this.thaiStatus[order.status]}}</p>
       <div id="flex-container" class="flex flex-wrap border-b-2 m-4 p-2 justify-between" v-for="food in foods">
         <div id="img-name" class="flex flex-wrap">
           <div class="flex border border-2 rounded">
@@ -20,8 +20,8 @@
             <p class="text-2xl mx-4">{{food.name}}</p>
           </div>
         </div>
-        <div id="quan" class=" p-2">
-          <p class="text-lg text-right">จำนวน : {{food.quantity}}</p>
+        <div id="quan" class=" pt-4">
+          <p class="text-lg text-right">จำนวน: {{food.quantity}}</p>
         </div>
       </div>
       <div v-if="order.status === 'IN PROCESS' " class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
@@ -56,6 +56,7 @@ export default {
       orderID : null,
       order : Object,
       foods : [],
+      thaiStatus: {'PENDING': 'รอดำเนินการ', 'IN PROCESS': 'กำลังเตรียม', 'COMPLETED': 'เสร็จสิ้น'}
       // status: this.order.status,
       // isUpdatingOrder: false,
     }
