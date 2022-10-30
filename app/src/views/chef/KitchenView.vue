@@ -17,16 +17,14 @@ export default {
     return {
       foodOrders: [],
       orders: [],
-      categories: ["รอดำเนินการ", "กำลังเตรียม", "เสร็จสิ้น"],
+      categories: ["ทั้งหมด", "รอดำเนินการ", "กำลังเตรียม", "เสร็จสิ้น"],
       selectedType: null,
     }
   },
   async mounted() {
     await this.order_store.fetchOrdersToday()
     this.orders = this.order_store.getOrdersToday
-    this.order = this.order_store.getOrder
-    this.status = this.order.status
-
+    console.log(this.orders)
   },
   methods: {
     selectType(status) {
@@ -36,21 +34,25 @@ export default {
   },
   watch: {
     async selectedType(newOption, oldOption) {
-      await this.order_store.fetch()
+      await this.order_store.fetchOrdersToday()
       switch (newOption) {
+        case 'ทั้งหมด':
+          this.orders = this.order_store.getOrdersToday
+          break
         case 'รอดำเนินการ':
-          this.order = this.order_store.getPendingFoods
+          this.orders = this.order_store.getPendingFoods
           break
         case 'กำลังเตรียม':
-          this.order = this.order_store.getInProcessFoods
+          this.orders = this.order_store.getInProcessFoods
           break
         case 'เสร็จสิ้น':
-          this.order = this.order_store.getCompletedFoods
+          this.orders = this.order_store.getCompletedFoods
           break
         default:
-
+          this.orders = this.orders
           break
       }
+      console.log(this.orders);
     }
   }
 }
@@ -64,12 +66,13 @@ export default {
       <div class="menu">
         <div class="text-center">
           <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
-          <button v-for="category in categories" id="button-category" @click="selectedType(category)" class="items-center justify-center text-center mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full">
-            {{category}}rer
-            <p v-if="category===selectedStatus" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
+          <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full">
+            {{category}}
+            <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
           </button>
         </div>
       </div>
+
 
       <food-order-card v-for="order in orders " v-bind:order="order" :key="order.id" :order="{...order}" :url="`orders/${order.id}`" >
       </food-order-card>

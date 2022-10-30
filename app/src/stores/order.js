@@ -22,13 +22,13 @@ export const useOrderStore = defineStore("orders", {
             // return state.orders.filter(order => order.status === "PENDING")
         },
         getPendingFoods (state) {
-            return state.orders.filter(order => order.status === "PENDING")
+            return state.ordersToday.filter(order => order.status === "PENDING")
         },
         getInProcessFoods (state) {
-            return state.orders.filter(order => order.status === "IN PROCESS")
+            return state.ordersToday.filter(order => order.status === "IN PROCESS")
         },
         getCompletedFoods (state) {
-            return state.orders.filter(order => order.status === "COMPLETED")
+            return state.ordersToday.filter(order => order.status === "COMPLETED")
         },
     },
 
