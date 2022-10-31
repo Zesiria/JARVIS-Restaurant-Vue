@@ -51,16 +51,19 @@
 </script>
 
 <template>
-    <h1>แสดงความคิดเห็น</h1>
+  <div class="m-8">
+    <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+<div class="">
+    <h1>แสดงความคิดเห็นร้านอาหาร</h1>
 
     <div>
         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your message</label>
-        <textarea v-model="this.message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+        <textarea v-model="this.message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="เขียนแสดงความคิดเห็นของคุณที่นี่"></textarea>
     </div>
 
     <Popup :open="isOpen">
         <template v-slot:header>
-            ยินยันการแสดงความคิดเห็น
+            ยืนยันการแสดงความคิดเห็น
         </template>
 
         <template v-slot:content>
@@ -76,6 +79,8 @@
             </button>
           </template>
         </Popup>
-
-    <button @click="handleCompleteReview" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Completed</button>
+      <button @click="handleCompleteReview" class="float-right mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">ยืนยัน</button>
+    </div>
+  </div>
+  </div>
 </template>
