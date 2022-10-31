@@ -123,7 +123,7 @@ export default {
             this.foods = this.food_store.getLowInStock
             break
           default:
-            this.foods = this.foods
+            this.foods = this.food_store.getFoods
             break
         }
       },

@@ -1,55 +1,55 @@
-<script setup>
-import TheWelcome from '@/components/TheWelcome.vue'
-import { RouterLink, RouterView } from 'vue-router'
-
+<script>
+import Index from "@/components/Index.vue"
+export default {
+  components:{
+    Index
+  },
+}
 </script>
+
 <template>
-  <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-    <div class="p-2 justify-between bg-[#080039]  text-white ">
-      <RouterLink to="/customer/login"  class="float-right underline" >เข้าสู่ระบบ</RouterLink>
-      <div class="p-5 m-4 text-center">
-        <h1 class="text-5xl ">Welcome!!</h1>
-        <h1 class=""> JARVIS RESTAURANT</h1>
+  <div class="m-8">
+  <div class="m-auto sm:w-2/3  lg:w-1/2">
+    <div class="menu">
+      <div class="flex gap-3 w-full lg:justify-center bg-white border-y-4 border-gray-300 overflow-auto whitespace-no-wrap py-3 px-4">
+        <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
+        <div class="flex">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20">
+            <path d="M4.167 16.667V7.938L10 3.521l5.833 4.417v8.729h-4.708V11.5H8.854v5.167Z"/>
+          </svg>
+          <button class="w-[100px] shrink-0">
+            หน้าหลัก
+          </button>
+        </div>
+
+        <RouterLink to="/customer/login">
+        <div class="flex">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20">
+            <path d="M9.812 17v-.667h5.021q.188 0 .344-.156.156-.156.156-.365V5.021q0-.209-.156-.365t-.344-.156H9.812v-.667h5.021q.5 0 .834.334.333.333.333.854v10.791q0 .521-.333.855-.334.333-.834.333Zm-.291-4.292-.5-.458 1.5-1.5H4v-.667h6.521l-1.5-1.5.5-.458 2.291 2.292Z"/>
+          </svg>
+          <button class="w-[100px]  shrink-0">
+            สำหรับลูกค้า
+          </button>
+        </div>
+        </RouterLink>
+
+        <RouterLink to="/login">
+        <div class="flex">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20">
+            <path d="M9.646 17v-.667h5.333q.229 0 .375-.145.146-.146.146-.376v-5.75q0-1.145-.427-2.145t-1.177-1.75q-.75-.75-1.75-1.188-1-.437-2.146-.437t-2.146.437q-1 .438-1.75 1.188t-1.177 1.75q-.427 1-.427 2.145v4.667h-.583q-.459 0-.771-.323-.313-.323-.313-.802v-1.542q0-.354.271-.666.271-.313.729-.417l.021-1.062q.021-1.146.5-2.229.479-1.084 1.302-1.938.823-.854 1.938-1.354 1.114-.5 2.406-.5 1.271 0 2.396.489 1.125.49 1.948 1.334.823.843 1.291 1.927.469 1.083.511 2.271l.021 1.062q.437.104.718.375.282.271.282.625v1.75q0 .333-.282.615-.281.281-.718.385v1.083q0 .5-.344.844t-.844.344Zm-1.563-5.375q-.229 0-.395-.167-.167-.166-.167-.375 0-.229.167-.395.166-.167.374-.167.23 0 .396.167.167.166.167.374 0 .23-.167.396-.166.167-.375.167Zm3.855 0q-.23 0-.396-.167-.167-.166-.167-.375 0-.229.167-.395.166-.167.375-.167.229 0 .395.167.167.166.167.374 0 .23-.167.396-.166.167-.374.167Zm-5.855-1.146q-.062-.854.198-1.646.261-.791.792-1.395.531-.605 1.302-.959t1.667-.354q1.5 0 2.593 1.01 1.094 1.011 1.24 2.511-1.542 0-2.802-.854-1.261-.854-1.969-2.209-.25 1.271-1.042 2.302-.791 1.032-1.979 1.594Z"/>
+          </svg>
+          <button  class="w-[140px]  shrink-0">
+            สำหรับพนักงงาน
+          </button>
+        </div>
+        </RouterLink>
       </div>
     </div>
 
-    <div>
-      <div class="text-center p-2 bg-gray-100">
-        <div class="flex justify-center">
-          <div class="mt-2 w-[150px] text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
-            เมนูแนะนำ
-          </div>
-        </div>
-        <div class="flex justify-center ">
-          <div class="bg-gray-200  flex-row justify-center m-3 p-2 rounded-lg">
-            <p>เนื้อ Premium</p>
-            <img src="{{food.image}}" alt="Food's Picture" class="mt-2 h-20 w-full object-cover md:w-20 border-2 border border-black rounded  ">
-          </div>
-          <div class="bg-gray-200  flex-row justify-center m-3 p-2 rounded-lg">
-            <p>เนื้อ Premium</p>
-            <img src="{{food.image}}" alt="Food's Picture" class="mt-2 h-20 w-full object-cover md:w-20 border-2 border border-black rounded  ">
-          </div>
-          <div class="bg-gray-200  flex-row justify-center m-3 p-2 rounded-lg">
-            <p>เนื้อ Premium</p>
-            <img src="{{food.image}}" alt="Food's Picture" class="mt-2 h-20 w-full object-cover md:w-20 border-2 border border-black rounded  ">
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="justify-center">
+      <index></index>
 
-    <div class="p-4 text-center bg-gray-100">
-      <div class="flex justify-center">
-        <div class=" w-[150px] text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
-          รีวิวจากลูกค้า
-        </div>
-      </div>
-      <div class="flex mt-3 justify-center content-center">
-        <a class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md  dark:border-gray-700 ">
-          <h class="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">วันที่ 26/10/2022 เวลา 12.00</h>
-          <p class="font-normal text-gray-700 dark:text-gray-400">อาหารอร่อยมาก คุ้มค้ากับราคา พนักงานน่ารัก </p>
-        </a>
-      </div>
     </div>
   </div>
-  <!--    <TheWelcome />-->
+  </div>
 </template>
