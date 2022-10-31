@@ -97,6 +97,11 @@ const router = createRouter({
       path: '/chef/kitchen/order/:orderId',
       name: 'chef-order',
       component: () => import('@/views/chef/OrderListView.vue')
+    },
+    {
+      path: '/customer/review',
+      name: 'customer-review',
+      component: () => import('@/views/customer/ReviewView.vue')
     }
   ]
 })

@@ -51,7 +51,7 @@ export default {
       this.disabledButton = true
       try {
         if (await this.auth_store.customerLogin(this.code)) {
-          this.$router.push('/')
+          this.$router.push('/foods')
         } else {
           this.disabledButton = false
         }
