@@ -30,6 +30,8 @@ export const useAuthStore = defineStore({
 
         getRole: (state) => state.auth.role,
 
+        getCustomerId: (state) => state.auth.customer_id,
+
         isAuthen (state) {
             return (state.auth.email != null || state.auth.code != null)
         },
@@ -74,9 +76,7 @@ export const useAuthStore = defineStore({
             localStorage.removeItem('auth.email')
             localStorage.removeItem('auth.role')
             localStorage.removeItem('auth.code')
-            this.auth = {
-                email: null,
-            }
+            localStorage.removeItem('auth.id')
         }
     }
 })
