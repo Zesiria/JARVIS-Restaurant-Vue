@@ -239,7 +239,7 @@ export const reviewAPI = {
   async getAll () {
     const response = await axiosInstance.get('/reviews')
     if (response.status == 200) {
-      return response.data
+      return response.data.data
     }
     return []
   },

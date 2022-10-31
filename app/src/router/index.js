@@ -99,6 +99,11 @@ const router = createRouter({
       component: () => import('@/views/chef/OrderListView.vue')
     },
     {
+      path: '/reviews',
+      name: 'review-index',
+      component: () => import('@/views/ReviewView.vue')
+    },
+    {
       path: '/customer/review',
       name: 'customer-review',
       component: () => import('@/views/customer/ReviewView.vue')
