@@ -77,9 +77,6 @@ export const useAuthStore = defineStore({
             localStorage.removeItem('auth.role')
             localStorage.removeItem('auth.code')
             localStorage.removeItem('auth.id')
-            this.auth = {
-                email: null,
-            }
         }
     }
 })
