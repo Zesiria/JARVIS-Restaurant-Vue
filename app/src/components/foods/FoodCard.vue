@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="flex-container" class="flex flex-wrap bg-gray-200 m-4 p-2 justify-between">
+    <div id="flex-container" class="flex flex-wrap bg-gray-200 m-4 p-2 justify-between rounded-lg rounded-lg border border-gray-200 shadow-md ">
         <div id="img-name" class="flex flex-wrap">
             <div class="flex border border-2 rounded">
                 <img :src="this.food.img_path" alt="Foods Picture" class="w-[120px] h-[100px] border-2 border border-black rounded">
