@@ -79,7 +79,7 @@ const router = createRouter({
       component: () => import('@/views/waiter/WaiterOrderFood.vue')
     },
     {
-      path: '/chef/kitchen/',
+      path: '/chef/kitchen',
       name: 'kitchen',
       component: () => import('@/views/chef/KitchenView.vue')
     },
