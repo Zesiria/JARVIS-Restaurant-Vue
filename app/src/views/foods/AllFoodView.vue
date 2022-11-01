@@ -154,43 +154,21 @@ export default {
     เพิ่มลงออเดอร์สำเร็จ
   </template>
 </AlertSuccess>
-  <nav>
-    <div class="navbar">
-      <div class="container nav-container">
-        <input class="checkbox" type="checkbox" name="" id="" />
-        <div class="hamburger-lines">
-          <span class="line line1"></span>
-          <span class="line line2"></span>
-          <span class="line line3"></span>
-        </div>
-
-        <div class="menu-items">
-          <RouterLink to="/foods"><li><a> หน้าหลัก</a></li></RouterLink>
-          <RouterLink to="/order/view"  v-if="auth.role === 'customer'"><li><a href="#">ประวัติการสั่งอาหาร</a></li></RouterLink>
-          <RouterLink to=""  v-if="auth.role === 'customer'"><li><a href="#">ค่าใช้จ่าย</a></li></RouterLink>
-          <RouterLink to="/customer/review"  v-if="auth.role === 'customer'"><li><a href="#">แสดงความคิดเห็น</a></li></RouterLink>
-
-
-        </div>
-      </div>
-    </div>
-  </nav>
 <div class="m-8">
-  <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+  <div class="m-auto  lg:w-1/2">
     <div class="mt-6">
         <h1 class="text-3xl">
             เมนูอาหาร
         </h1>
-<!--        class="mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full"-->
-    </div>
-    <div class="menu">
-        <div class="text-center">
-<!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
-          <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full">
-              {{category}}
-          <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
+      <div class="menu">
+        <div class=" flex gap-2 w-full lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
+          <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
+          <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center bg-gray-100 w-[100px] border border-2 rounded-full shrink-0">
+            {{category}}
+            <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
           </button>
         </div>
+      </div>
     </div>
     
     <div>
