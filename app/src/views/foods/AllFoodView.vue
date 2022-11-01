@@ -148,15 +148,36 @@ export default {
 </script>
 
 <template>
+
 <AlertSuccess :open="alertOrderFoodSuccess">
   <template v-slot:content>
     เพิ่มลงออเดอร์สำเร็จ
   </template>
 </AlertSuccess>
+  <nav>
+    <div class="navbar">
+      <div class="container nav-container">
+        <input class="checkbox" type="checkbox" name="" id="" />
+        <div class="hamburger-lines">
+          <span class="line line1"></span>
+          <span class="line line2"></span>
+          <span class="line line3"></span>
+        </div>
 
+        <div class="menu-items">
+          <RouterLink to="/foods"><li><a> หน้าหลัก</a></li></RouterLink>
+          <RouterLink to="/order/view"  v-if="auth.role === 'customer'"><li><a href="#">ประวัติการสั่งอาหาร</a></li></RouterLink>
+          <RouterLink to=""  v-if="auth.role === 'customer'"><li><a href="#">ค่าใช้จ่าย</a></li></RouterLink>
+          <RouterLink to="/customer/review"  v-if="auth.role === 'customer'"><li><a href="#">แสดงความคิดเห็น</a></li></RouterLink>
+
+
+        </div>
+      </div>
+    </div>
+  </nav>
 <div class="m-8">
   <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-    <div>
+    <div class="mt-6">
         <h1 class="text-3xl">
             เมนูอาหาร
         </h1>
@@ -306,4 +327,5 @@ export default {
     width: 75px;
   }
 }
+
 </style>
