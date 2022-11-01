@@ -59,7 +59,7 @@ export default {
             this.$router.push('/waiter/home')
           }
           if(this.auth_store.getRole === 'Chef'){
-            this.$router.push('/')
+            this.$router.push('/chef/kitchen')
           }
           if(this.auth_store.getRole === 'Manager'){
             this.$router.push('/')
