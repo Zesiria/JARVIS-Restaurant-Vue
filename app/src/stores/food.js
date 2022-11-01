@@ -19,13 +19,13 @@ export const useFoodStore = defineStore("foods", {
           })
     },
     getMeatFoods (state) {
-      return state.foods.filter(food => food.type === "เนื้อสัตว์")
+      return state.foods.filter(food => food.type === "meat")
     },
     getVegetableFoods (state) {
-      return state.foods.filter(food => food.type === "ผัก")
+      return state.foods.filter(food => food.type === "vegetable")
     },
     getAppertizerFoods (state) {
-      return state.foods.filter(food => food.type === "ของทานเล่น")
+      return state.foods.filter(food => food.type === "appetizer")
     },
     getLowInStock (state) {
       return state.foods.filter(food => food.quantity <= 10)
