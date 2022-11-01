@@ -1,11 +1,13 @@
 <script>
 import { useFoodStore } from "@/stores/food"
+import { useReviewStore } from '@/stores/review'
 import FoodList from "@/components/foods/FoodList.vue";
 
 export default {
   setup() {
     const food_store = useFoodStore()
-    return {food_store}
+    const review_store = useReviewStore()
+    return {food_store, review_store}
   },
   components: {
     FoodList,
@@ -16,14 +18,17 @@ export default {
       meat: [],
       vegetable: [],
       appertizer: [],
+      reviews : []
     }
   },
   async mounted() {
     await this.food_store.fetch()
+    await this.review_store.fetch()
     this.foods = this.food_store.getFoods
     this.meat = this.food_store.getMeatFoods
     this.vegetable = this.food_store.getVegetableFoods
     this.appertizer = this.food_store.getAppertizerFoods
+    this.reviews = this.review_store.getReviews
   },
 }
 </script>
@@ -35,7 +40,7 @@ export default {
       <h1 class=""> JARVIS RESTAURANT</h1>
     </div>
   </div>
-<div>
+  <div>
     <div class="">
       <div class="w-full text-xl text-white bg-blue-800 rounded px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
         เมนูอาหาร
@@ -70,16 +75,22 @@ export default {
         </div>
       </div>
     </div>
+  </div>
+  <div class="">
+    <div class="mt-4 w-full text-xl text-white bg-blue-800 rounded px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
+      รีวิวจากลูกค้า
     </div>
-<div class="">
-  <div class="w-full text-xl text-white bg-blue-800 rounded px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
-    รีวิวจากลูกค้า
+      <div v-for="review in reviews">
+        <div class="mt-3">
+          <a class="block p-3 bg-white rounded-lg border border-gray-200 shadow-md  dark:border-gray-700 ">
+            <h1 class="flex gap-2 mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20"><path d="m10 12.438 1.271-2.855 2.854-1.271-2.854-1.25L10 4.208 8.729 7.062l-2.833 1.25 2.833 1.271Zm-8.125 5.583V3.5q0-.688.479-1.167.479-.479 1.167-.479h12.958q.688 0 1.167.479.479.479.479 1.167v9.667q0 .687-.479 1.166-.479.479-1.167.479H5.083Zm1.646-3.979.875-.875h12.083V3.5H3.521Zm0-10.542v10.542Z"/></svg>
+              รีวิวที่ {{review.review_id}}</h1>
+            <p class="font-normal text-gray-700 dark:text-gray-400"> {{ review.description }}</p>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              {{ review.updated_at }}</p>
+          </a>
+        </div>
+    </div>
   </div>
-  <div class="flex mt-3 justify-center content-center">
-    <a class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md  dark:border-gray-700 ">
-      <h1 class="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">วันที่ 26/10/2022 เวลา 12.00</h1>
-      <p class="font-normal text-gray-700 dark:text-gray-400">อาหารอร่อยมาก คุ้มค้ากับราคา พนักงานน่ารัก </p>
-    </a>
-  </div>
-</div>
 </template>
