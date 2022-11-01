@@ -34,14 +34,14 @@ export default {
 </script>
 
 <template>
-  <div class="p-2 justify-between">
-    <div class="p-5 m-4 text-center">
+  <div class="justify-between">
+    <div class="p-2 m-2 text-center">
       <h1 class="text-5xl ">Welcome!!</h1>
       <h1 class=""> JARVIS RESTAURANT</h1>
     </div>
   </div>
   <div>
-    <div class="">
+    <div class="menu">
       <div class="w-full text-xl text-white bg-blue-800 rounded px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
         เมนูอาหาร
       </div>
