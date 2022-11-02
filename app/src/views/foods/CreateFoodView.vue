@@ -1,7 +1,7 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-      <h1 class="text-3xl">
+      <h1 class="title-page">
         เพิ่มรายการอาหาร
       </h1>
       <!-- input name -->

@@ -95,7 +95,7 @@ export default {
       </div>
 
       <div class="mt-6">
-        <h1 class="text-xl lg:text-3xl ml-6">
+        <h1 class="title-page">
           ตรวจสอบรายการอาหารที่จะสั่ง
         </h1>
   <div class="pb-24">

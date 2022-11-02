@@ -76,10 +76,10 @@ export default {
 <template>
     <div class="m-8">
       <div class="m-auto lg:w-1/2">
-        <h1 class="text-3xl">ครัว</h1>
+        <h1 class="title-page">ครัว</h1>
 
         <div class="menu">
-          <div class=" flex gap-2 w-full lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
+          <div class=" flex gap-2 w-full justify-center lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
             <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
             <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center bg-gray-100 w-[100px] border border-2 rounded-full shrink-0">
               {{category}}

@@ -54,7 +54,7 @@ export default {
         </RouterLink>
       </div>
       <div class="mt-6">
-        <h1 class="text-2xl lg:text-3xl ml-6">
+        <h1 class="title-page">
           ประวัติการสั่งอาหาร
         </h1>
 

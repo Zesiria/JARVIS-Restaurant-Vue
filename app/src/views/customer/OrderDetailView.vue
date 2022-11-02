@@ -43,7 +43,7 @@ export default {
         </RouterLink>
       </div>
       <div class="mt-6">
-        <h1 class="text-2xl lg:text-3xl ml-6">
+        <h1 class="title-page">
           รายการอาหาร
         </h1>
     <FoodCard v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="foodOrder.food">

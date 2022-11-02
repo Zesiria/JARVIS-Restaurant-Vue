@@ -132,7 +132,7 @@ export default {
 
   <div class="pb-24">
     <div>
-        <h1 class="text-3xl">
+        <h1 class="title-page">
             เมนูอาหาร
         </h1>
     </div>

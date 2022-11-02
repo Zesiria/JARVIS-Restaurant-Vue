@@ -3,14 +3,15 @@
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
       <div>
         <button @click="handleBackPage">
-        <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path d="M20 34 6 20 20 6.042l2.667 2.625-9.5 9.5H34v3.708H13.167l9.5 9.5Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
         </button>
       </div>
 
-      <h1 class="text-3xl">
+      <div class="title-page">
         รายการอาหารของ โต๊ะ: {{order.table_id}}
-      </h1>
-      <p>สถานะ: {{this.thaiStatus[order.status]}}</p>
+        <p>สถานะ: {{this.thaiStatus[order.status]}}</p>
+      </div>
+
       <div id="flex-container" class="flex flex-wrap border-b-2 m-4 p-2 justify-between" v-for="food in foods">
         <div id="img-name" class="flex flex-wrap">
           <div class="flex border border-2 rounded">

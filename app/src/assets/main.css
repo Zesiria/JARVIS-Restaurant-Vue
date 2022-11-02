@@ -175,3 +175,19 @@
 .nav-container input[type="checkbox"]:checked ~ .logo{
   display: none;
 }
+/*----------------------Title-page--------------------------*/
+.title-page{
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+@media only screen and (min-width: 640px) {
+  /* For tablets: */
+  .title-page{
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 20px;
+
+  }
+}

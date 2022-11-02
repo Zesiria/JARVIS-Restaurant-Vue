@@ -157,7 +157,7 @@ export default {
 <div class="m-8">
   <div class="m-auto  lg:w-1/2">
     <div class="mt-6">
-        <h1 class="text-3xl">
+        <h1 class="title-page">
             เมนูอาหาร
         </h1>
       <div class="menu">

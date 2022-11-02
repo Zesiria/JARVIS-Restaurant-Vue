@@ -1,7 +1,7 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-      <h1 class="text-3xl">รายการโต๊ะทั้งหมด</h1>
+      <h1 class="title-page">รายการโต๊ะทั้งหมด</h1>
       <div class="text-center mt-4">
         <button class=" mt-2 text-center bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-5 border-b-4 border-blue-800 hover:border-blue-500 rounded" @click="openAddTablePopup">เพิ่มโต๊ะ</button>
       </div>
