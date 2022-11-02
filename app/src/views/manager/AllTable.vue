@@ -1,6 +1,11 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+      <div>
+        <RouterLink to="/manager">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        </RouterLink>
+      </div>
       <h1 class="title-page">รายการโต๊ะทั้งหมด</h1>
       <div class="text-center mt-4">
         <button class=" mt-2 text-center bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-5 border-b-4 border-blue-800 hover:border-blue-500 rounded" @click="openAddTablePopup">เพิ่มโต๊ะ</button>

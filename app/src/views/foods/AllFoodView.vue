@@ -155,7 +155,7 @@ export default {
   </template>
 </AlertSuccess>
 <div class="m-8">
-  <div class="m-auto  lg:w-1/2">
+  <div class="m-auto  lg:w-1/2 pb-24">
     <div class="mt-6">
         <h1 class="title-page">
             เมนูอาหาร

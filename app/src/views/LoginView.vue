@@ -62,7 +62,7 @@ export default {
             this.$router.push('/chef/kitchen')
           }
           if(this.auth_store.getRole === 'Manager'){
-            this.$router.push('/')
+            this.$router.push('/manager')
           }
         } else {
           this.disabledButton = false

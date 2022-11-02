@@ -1,11 +1,18 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-      <h1 class="title-page">
+      <div>
+        <RouterLink to="/foods">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        </RouterLink>
+      </div>
+      <div class="title-page">
         เพิ่มรายการอาหาร
-      </h1>
+      </div>
+      <div class="flex justify-center">
       <!-- input name -->
-      <div class="flex flex-col py-2 mt-10">
+      <div>
+      <div class="flex flex-col py-2 mt-5 w-48">
         <label for="name"> ชื่อ </label>
         <input type="text" v-model="food.name">
       </div>
@@ -19,14 +26,14 @@
         </select>
       </div>
       <!-- input quantity -->
-      <div class="flex flex-col py-2">
+      <div class="flex flex-col py-2 w-20">
         <label for="quantity"> จำนวน </label>
         <input type="number" v-model="food.quantity">
       </div>
 
       <div>
         <label class="col-md-4 col-form-label text-md-right">รูปภาพ</label>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-2">
           <div class="custom-file">
             <input type="file" class="custom-file-input" id="customFile" 
                 ref="file" @change="handleFileObject()">
@@ -34,11 +41,14 @@
           </div>
         </div>
       </div>
-
+        <div class="flex float-right">
       <button @click="saveNewFood"
-          class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-5 float-right">
+          class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-5">
         ยืนยัน
       </button>
+        </div>
+      </div>
+      </div>
       <!--<button @click="isOpen = true">open</button>-->
 
       <!-- Popup -->
@@ -75,12 +85,10 @@
         </template>
 
       </Popup>
-      
 
-      <button @click="debug()">Debug Button</button>
-    </div>
+      </div>
   </div>
-  
+
   </template>
 
 <script>
