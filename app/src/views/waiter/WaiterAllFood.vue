@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       foods: [],
-      categories: ["ทั้งหมด", "เนื้อสัตว์", "ผัก", "ของทานเล่น","ของใกล้หมด"],
+      categories: ["ทั้งหมด", "เนื้อสัตว์", "ผัก", "ของทานเล่น"],
       selectedType: null,
       selectedFood:[],
       selectedTable: null,
@@ -96,9 +96,6 @@ export default {
           case 'ของทานเล่น':
             this.foods = this.food_store.getAppertizerFoods
             break
-          case 'ของใกล้หมด':
-            this.foods = this.food_store.getLowInStock
-            break
           default:
             this.foods = this.foods
             break
@@ -129,19 +126,25 @@ export default {
         เพิ่มลงออเดอร์สำเร็จ
       </template>
     </AlertSuccess>
-
-  <div class="pb-24">
+  <div class="m-8">
+    <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+      <div>
+  <div class="">
     <div>
         <h1 class="title-page">
             เมนูอาหาร
         </h1>
     </div>
     <div>
-        <nav class="mx-4">
-            <button v-for="category in categories" class="mx-4 my-2 bg-gray-100 w-[100px] border border-2 rounded" @click="selectType(category)">
-                {{category}}
-            </button>
-        </nav>
+      <div class="menu">
+        <div class=" flex gap-2 w-full text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
+          <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
+          <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center bg-gray-100 w-[100px] border border-2 rounded-full shrink-0">
+            {{category}}
+            <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
+          </button>
+        </div>
+      </div>
     </div>
     <div>
       <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
@@ -200,5 +203,8 @@ export default {
         ตรวจสอบรายการอาหาร
       </button>
     </div>  
+  </div>
+      </div>
+    </div>
   </div>
 </template>
