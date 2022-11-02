@@ -129,7 +129,7 @@ export default {
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
       <div>
-  <div class="">
+  <div class="pb-24">
     <div>
         <h1 class="title-page">
             เมนูอาหาร
