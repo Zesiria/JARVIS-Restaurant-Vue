@@ -42,6 +42,7 @@ export default {
   watch: {
     async selectedType(newOption, oldOption) {
       await this.order_store.fetchOrdersToday()
+      this.orders = null
       switch (newOption) {
         case 'ทั้งหมด':
           this.orders = this.order_store.getOrdersToday
