@@ -56,7 +56,7 @@ export default {
           this.orders = this.order_store.getCompletedFoods
           break
         default:
-          this.orders = this.orders
+          this.orders =this.order_store.getOrdersToday
           break
       }
       console.log(this.orders);
