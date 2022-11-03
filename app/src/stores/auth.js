@@ -69,6 +69,13 @@ export const useAuthStore = defineStore({
             localStorage.setItem('auth.role', "customer")
             localStorage.setItem('auth.code', this.auth.code)
             localStorage.setItem('auth.id', this.auth.id)
+
+            this.auth = {
+                email: auth_storage.email,
+                role: auth_storage.role,
+                code: auth_storage.code,
+                customer_id: auth_storage.customer_id,
+            }
         },
 
         logout () {
@@ -77,6 +84,12 @@ export const useAuthStore = defineStore({
             localStorage.removeItem('auth.role')
             localStorage.removeItem('auth.code')
             localStorage.removeItem('auth.id')
+            this.auth = {
+                email: null,
+                role: null,
+                code: null,
+                customer_id: null
+            }
         }
     }
 })
