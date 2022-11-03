@@ -53,8 +53,8 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-<div class="">
-    <h1>แสดงความคิดเห็นร้านอาหาร</h1>
+  <div>
+    <h1 class="title-page">แสดงความคิดเห็นร้านอาหาร</h1>
 
     <div>
         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your message</label>

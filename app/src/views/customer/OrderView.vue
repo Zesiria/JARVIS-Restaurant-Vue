@@ -46,9 +46,22 @@ export default {
 </script>
 
 <template>
+  <div class="m-8">
+    <div class="m-auto  lg:w-1/2">
+      <div>
+        <RouterLink to="/foods">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        </RouterLink>
+      </div>
+      <div class="mt-6">
+        <h1 class="title-page">
+          ประวัติการสั่งอาหาร
+        </h1>
 
   <OrderCard v-for="order in orders" :key="order.order_id" :index="orders.indexOf(order) + 1"
              :order="{...order}" @click="handleSelectOrder(order)">
-
   </OrderCard>
+      </div>
+    </div>
+  </div>
 </template>

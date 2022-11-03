@@ -5,7 +5,6 @@ import PlusMinusButtonCard from "@/components/foods/PlusMinusButtonCard.vue";
 import {useOrderStore} from "@/stores/order";
 import {useAuthStore} from "@/stores/auth";
 import Popup from "@/components/foods/Popup.vue";
-import {ref} from "vue";
 
 export default {
   setup() {
@@ -87,6 +86,18 @@ export default {
 </script>
 
 <template>
+  <div class="m-8">
+    <div class="m-auto  lg:w-1/2">
+      <div>
+        <RouterLink to="/foods">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        </RouterLink>
+      </div>
+
+      <div class="mt-6">
+        <h1 class="title-page">
+          ตรวจสอบรายการอาหารที่จะสั่ง
+        </h1>
   <div class="pb-24">
     <food-card v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="{...foodOrder.food}" :url="`foods/${foodOrder.food.id}`">
       <template #food_button>
@@ -97,7 +108,9 @@ export default {
       </template>
     </food-card>
   </div>
-  
+      </div>
+    </div>
+  </div>
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div class="flex flex-col items-center">
       <div class="flex space-x-4">
@@ -134,7 +147,9 @@ export default {
               <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
             </svg>
             <span class="sr-only">Check icon</span>
+
           </div>
+          <div>สั่งอาหารสำเร็จ</div>
         </div>
       </transition>
 

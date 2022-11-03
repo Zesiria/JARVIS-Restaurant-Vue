@@ -35,10 +35,24 @@ export default {
 </script>
 
 <template>
+  <div class="m-8">
+    <div class="m-auto  lg:w-1/2">
+      <div>
+        <RouterLink to="/order/view">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        </RouterLink>
+      </div>
+      <div class="mt-6">
+        <h1 class="title-page">
+          รายการอาหาร
+        </h1>
     <FoodCard v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="foodOrder.food">
       <template v-slot:quantity_food_order>
         จำนวนที่สั่ง {{foodOrder.quantity}}
       </template>
     </FoodCard>
+      </div>
+    </div>
+  </div>
 <!--  {{foodOrders}}-->
 </template>

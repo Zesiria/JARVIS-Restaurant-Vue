@@ -148,28 +148,27 @@ export default {
 </script>
 
 <template>
+
 <AlertSuccess :open="alertOrderFoodSuccess">
   <template v-slot:content>
     เพิ่มลงออเดอร์สำเร็จ
   </template>
 </AlertSuccess>
-
 <div class="m-8">
-  <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-    <div>
-        <h1 class="text-3xl">
+  <div class="m-auto  lg:w-1/2 pb-24">
+    <div class="mt-6">
+        <h1 class="title-page">
             เมนูอาหาร
         </h1>
-<!--        class="mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full"-->
-    </div>
-    <div class="menu">
-        <div class="text-center">
-<!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
-          <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center mx-2 my-2 bg-gray-100 w-[100px] border border-2 rounded-full">
-              {{category}}
-          <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
+      <div class="menu">
+        <div class=" flex gap-2 w-full lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
+          <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
+          <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center bg-gray-100 w-[100px] border border-2 rounded-full shrink-0">
+            {{category}}
+            <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
           </button>
         </div>
+      </div>
     </div>
     
     <div>
@@ -306,4 +305,5 @@ export default {
     width: 75px;
   }
 }
+
 </style>

@@ -70,7 +70,7 @@ export default {
       </a>
       <div class="flex gap-3 w-full bg-white overflow-auto whitespace-no-wrap py-3 px-4">
         <div class="flex">
-          <FoodList v-for="food in vegetable" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
+          <FoodList v-for="food in appertizer" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
           </FoodList>
         </div>
       </div>

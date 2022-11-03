@@ -82,7 +82,17 @@ export default {
 </script>
 
 <template>
-    <div class="pb-24">
+  <div class="m-8">
+    <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+      <div>
+        <RouterLink to="/waiter/foods">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        </RouterLink>
+      </div>
+      <h1 class="title-page">ตรวจสอบรายการอาหาร</h1>
+      <h1 class="title-page">โต๊ะ {{this.table_id}}</h1>
+
+      <div class="pb-24">
     <food-card v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="{...foodOrder.food}" :url="`foods/${foodOrder.food.id}`">
       <template #food_button>
         <div class="flex flex-col space-y-2">
@@ -110,6 +120,8 @@ export default {
           สั่งอาหาร
         </button>
       </div>
+    </div>
+  </div>
     </div>
   </div>
 </template>
