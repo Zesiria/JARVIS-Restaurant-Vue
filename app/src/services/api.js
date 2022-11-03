@@ -253,3 +253,34 @@ export const reviewAPI = {
     }
   }
 }
+
+export const reportAPI = {
+  async getFoodSale(){
+    const response = await axiosInstance.get('/report/food-sale')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async getIndividualFoodSale(){
+    const response = await axiosInstance.get('/report/food-sale-daily')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async getIncomeToday(){
+    const response = await axiosInstance.get('/report/income-today')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async getBillOf(id){
+    const response = await axiosInstance.get('/bill/'+id)
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  }
+}

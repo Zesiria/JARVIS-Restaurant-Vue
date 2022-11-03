@@ -21,7 +21,7 @@
       <div id="flex-container" class="flex flex-wrap border-b-2 m-4 p-2 justify-between" v-for="food in foods">
         <div id="img-name" class="flex flex-wrap">
           <div class="flex border border-2 rounded">
-            <img src="{{food.image}}" alt="Food's Picture" class="w-[80px] h-[60px] border-2 border border-black rounded">
+            <img :src="food.img_path" alt="Food's Picture" class="w-[80px] h-[60px] border-2 border border-black rounded">
           </div>
           <div id="name" class="flex-wrap mt-4">
             <p class="text-2xl mx-4">{{food.name}}</p>
