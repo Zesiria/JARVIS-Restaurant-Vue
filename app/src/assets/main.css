@@ -191,3 +191,13 @@
 
   }
 }
+/*----------button-dropdown-----------*/
+#button-dropdown {
+  float: right;
+  z-index: 1;
+}
+#button-dropdown button {
+  display: flex;
+  align-items: center;
+
+}

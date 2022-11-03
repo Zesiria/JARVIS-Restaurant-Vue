@@ -76,10 +76,21 @@ export default {
 <template>
     <div class="m-8">
       <div class="m-auto lg:w-1/2">
-        <h1 class="title-page">ครัว</h1>
+
+        <div id="button-dropdown" class="dropdown">
+          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>
+          <ul class="dropdown-menu">
+            <RouterLink to="/chef/kitchen"><li><a class="dropdown-item" href="#">หน้าหลัก</a></li></RouterLink>
+          </ul>
+        </div>
+        <div >
+          <h1 class="title-page">ครัว</h1>
+        </div>
+
 
         <div class="menu">
-          <div class=" flex gap-2 w-full justify-center lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
+          <div class=" flex gap-2 w-full lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
             <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
             <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center bg-gray-100 w-[100px] border border-2 rounded-full shrink-0">
               {{category}}
