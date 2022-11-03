@@ -107,6 +107,11 @@ const router = createRouter({
       path: '/customer/review',
       name: 'customer-review',
       component: () => import('@/views/customer/ReviewView.vue')
+    },
+    {
+      path: '/manager/report',
+      name: 'manager-report',
+      component: () => import('@/views/manager/ReportDashboardView.vue')
     }
   ]
 })
