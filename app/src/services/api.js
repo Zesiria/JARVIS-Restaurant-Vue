@@ -253,3 +253,27 @@ export const reviewAPI = {
     }
   }
 }
+
+export const reportAPI = {
+  async getFoodSale(){
+    const response = await axiosInstance.get('/report/foodSale')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async getIncomeToday(){
+    const response = await axiosInstance.get('/report/incomeToday')
+    if (response.status == 200) {
+      return response.data.data
+    }
+    return []
+  },
+  async getIncomeWeek(){
+    const response = await axiosInstance.get('/report/incomeWeek')
+    if (response.status == 200) {
+      return response.data.data
+    }
+    return []
+  }
+}
