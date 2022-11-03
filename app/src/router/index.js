@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CoinDeskView from '@/views/CoinDeskView.vue'
+import {useAuthStore} from "../stores/auth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -109,6 +110,15 @@ const router = createRouter({
       component: () => import('@/views/customer/ReviewView.vue')
     }
   ]
+})
+
+router.beforeEach(async  (to) =>{
+  const publicPage = ['/', '/login', '/customer/login'];
+  const authRequired = !publicPage.includes(to.path);
+  const auth = useAuthStore();
+  if (authRequired && !auth.isAuthen){
+    return '/'
+  }
 })
 
 export default router

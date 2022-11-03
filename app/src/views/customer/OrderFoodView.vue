@@ -5,6 +5,7 @@ import PlusMinusButtonCard from "@/components/foods/PlusMinusButtonCard.vue";
 import {useOrderStore} from "@/stores/order";
 import {useAuthStore} from "@/stores/auth";
 import Popup from "@/components/foods/Popup.vue";
+import HamburgerMenu from "@/components/HamburgerMenu.vue";
 
 export default {
   setup() {
@@ -27,6 +28,7 @@ export default {
     FoodCard,
     PlusMinusButtonCard,
     Popup,
+    HamburgerMenu
   },
   async mounted() {
     await this.food_order_store.fetch()
@@ -115,7 +117,7 @@ export default {
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div class="flex flex-col items-center">
       <div class="flex space-x-4">
-        <button @click="handleSubmitOrder" class="bg-gray-200 px-4 py-2 rounded">
+        <button @click="handleSubmitOrder" class="bg-sky-300 px-4 py-2 rounded">
           สั่งอาหาร
         </button>
         <button @click="handleIncreaseFoodOrder" class="bg-gray-200 px-4 py-2 rounded">

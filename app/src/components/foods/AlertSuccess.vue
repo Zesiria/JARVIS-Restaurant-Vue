@@ -1,9 +1,9 @@
 <template>
   <!-- Main modal -->
   <transition name="fade drop-in">
-    <div v-show="open" class="alert flex flex-col items-center overflow-y-auto overflow-x-hidden font-medium text-white
+    <div v-show="open" class="alert flex flex-col items-center overflow-y-auto overflow-x-hidden font-medium
                               fixed top-0 right-0 left-0 w-full md:inset-0 h-14
-                              text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800">
+                              bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800">
       <!-- Modal content -->
       <slot name="content"></slot>
     </div>
