@@ -174,13 +174,13 @@ export default {
     <div>
       <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
         <template #food_button>
-          <div v-if="auth.role === 'Manager'">
+          <div v-if="auth && auth.role === 'Manager'">
             <button @click="handleIncreaseForm(food)"
                     class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
               เพิ่ม
             </button>
           </div>
-          <div v-if="auth.role === 'customer'">
+          <div v-if="auth && auth.role === 'customer'">
             <button @click="handleIncreaseOrder(food)"
                     class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
               เพิ่มลงออเดอร์
