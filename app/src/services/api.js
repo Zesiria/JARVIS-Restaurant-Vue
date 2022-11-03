@@ -275,5 +275,12 @@ export const reportAPI = {
       return response.data
     }
     return []
+  },
+  async getBillOf(id){
+    const response = await axiosInstance.get('/bill/'+id)
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
   }
 }

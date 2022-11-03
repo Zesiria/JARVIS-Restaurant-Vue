@@ -2,9 +2,6 @@
   <div id="container">
     <div class="flex flex-col text-2xl text-center my-4">
         <div>
-            <button @click="">เช็คบิล</button>
-        </div>
-        <div>
             <button @click="allFood" class="bg-green-200 rounded my-4 py-2 px-10">ตรวจสอบรายการอาหาร</button>
         </div>
         <div>
@@ -14,7 +11,7 @@
             <button @click="reportView" class="px-10">สถิติ</button>
         </div>
         <div>
-            <button @click="manageTable">เพิ่ม - ลดโต๊ะ</button>
+            <button @click="manageTable">รายการโต๊ะทั้งหมด</button>
         </div>
     </div>
   </div>
@@ -35,7 +32,7 @@ export default {
         this.$router.push(`foods/new`)
     },
     manageTable(){
-        this.$router.push(`tables`)
+        this.$router.push(`/manager/tables`)
     },
     reportView(){
       this.$router.push(`/manager/report`)

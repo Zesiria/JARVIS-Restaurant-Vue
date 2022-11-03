@@ -49,7 +49,7 @@ const router = createRouter({
       component: () => import('@/views/manager/Menu.vue')
     },
     {
-      path: '/tables',
+      path: '/manager/tables',
       name: 'table.index',
       component: () => import('@/views/manager/AllTable.vue')
     },
@@ -112,6 +112,11 @@ const router = createRouter({
       path: '/manager/report',
       name: 'manager-report',
       component: () => import('@/views/manager/ReportDashboardView.vue')
+    },
+    {
+      path: '/manager/billing/:tableId',
+      name: 'manager-talble-bill',
+      component: () => import('@/views/manager/BillDetailView.vue')
     }
   ]
 })

@@ -4,7 +4,8 @@ import { reportAPI } from '@/services/api.js'
 export const useReportStore = defineStore("reports", {
   state: () => {
     return {
-        reports:[]
+        reports:[],
+        bill:null
     }
   },
   
@@ -12,6 +13,9 @@ export const useReportStore = defineStore("reports", {
     getReports (state) {
         return state.reports
     },
+    getBill(state){
+      return state.bill
+    }
   },
 
   actions: {
@@ -23,6 +27,9 @@ export const useReportStore = defineStore("reports", {
     },
     async fetchIncomeWeek () {
         this.reports = await reportAPI.getIncomeWeek()
+    },
+    async fetchBillFrom(id){
+        this.bill = await reportAPI.getBillOf(id)
     }
   },
 })
