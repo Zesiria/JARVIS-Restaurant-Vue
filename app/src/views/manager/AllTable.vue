@@ -1,10 +1,11 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-      <div>
-        <RouterLink to="/manager">
+      <div class="flex justify-between">
+        <RouterLink to="/foods">
           <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
         </RouterLink>
+        <HamburgerMenu></HamburgerMenu>
       </div>
       <h1 class="title-page">รายการโต๊ะทั้งหมด</h1>
       <div class="text-center mt-4">
@@ -99,6 +100,7 @@ import { useAuthStore } from "@/stores/auth.js"
 import { useTableStore} from '@/stores/table.js'
 import { useCustomerStore} from '@/stores/customer.js'
 import Popup from "@/components/foods/Popup.vue"
+import HamburgerMenu from "@/components/HamburgerMenu.vue";
 
 export default {
     setup() {
@@ -130,7 +132,8 @@ export default {
         error: ""
     }
   }, components :{
-    Popup
+    Popup,
+    HamburgerMenu
   },
   async mounted() {
     await this.table_store.fetch()

@@ -11,6 +11,7 @@ export default {
   <div class="m-auto sm:w-2/3  lg:w-1/2">
     <div class="menu">
       <div class="flex gap-3 w-full lg:justify-center bg-white border-b-4 border-gray-300 overflow-auto whitespace-no-wrap py-3 px-4">
+        <RouterLink to="/foods">
         <div class="flex">
           <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20">
             <path d="M4.167 16.667V7.938L10 3.521l5.833 4.417v8.729h-4.708V11.5H8.854v5.167Z"/>
@@ -19,6 +20,7 @@ export default {
             หน้าหลัก
           </button>
         </div>
+        </RouterLink>
 
         <RouterLink to="/customer/login">
           <div class="flex">
