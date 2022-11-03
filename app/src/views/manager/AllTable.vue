@@ -59,8 +59,8 @@
           <button v-if="this.selectedTable.status === 1" data-modal-toggle="defaultModal" type="button" @click="openNumberPeopleInputPopup" v-bind:disabled="false" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             เปิดโต๊ะ
           </button>
-          <button v-if="this.selectedTable.status === 0" data-modal-toggle="defaultModal" type="button" @click="checkoutTable" v-bind:disabled="false" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            ปิดโต๊ะ
+          <button v-if="this.selectedTable.status === 0" data-modal-toggle="defaultModal" type="button" @click="toCheckoutTable" v-bind:disabled="false" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            เช็คบิล
           </button>
           <button data-modal-toggle="defaultModal" type="button" @click="closeTablePopup" class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
             ปิด
@@ -202,11 +202,8 @@ export default {
       this.closeTablePopup()
       this.tables = this.table_store.getTables
     },
-    async checkoutTable(){
-      this.updateTable({
-        'property' : 'check-out',
-        'id' : this.selectedTable.id,
-      })
+    async toCheckoutTable(){
+      this.$router.push("/manager/billing/" + this.selectedTable.id)
     },
     async updateTable(table){
       this.error = ""
