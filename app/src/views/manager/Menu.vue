@@ -11,7 +11,7 @@
             <button @click="addFood">เพิ่มรายการอาหาร</button>
         </div>
         <div>
-            <button @click="" class="px-10">รายงานทั้งหมด</button>
+            <button @click="reportView" class="px-10">สถิติ</button>
         </div>
         <div>
             <button @click="manageTable">เพิ่ม - ลดโต๊ะ</button>
@@ -36,6 +36,9 @@ export default {
     },
     manageTable(){
         this.$router.push(`tables`)
+    },
+    reportView(){
+      this.$router.push(`/manager/report`)
     }
   }
 }
