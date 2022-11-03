@@ -256,23 +256,23 @@ export const reviewAPI = {
 
 export const reportAPI = {
   async getFoodSale(){
-    const response = await axiosInstance.get('/report/foodSale')
+    const response = await axiosInstance.get('/report/food-sale')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async getIndividualFoodSale(){
+    const response = await axiosInstance.get('/report/food-sale-daily')
     if (response.status == 200) {
       return response.data
     }
     return []
   },
   async getIncomeToday(){
-    const response = await axiosInstance.get('/report/incomeToday')
+    const response = await axiosInstance.get('/report/income-today')
     if (response.status == 200) {
-      return response.data.data
-    }
-    return []
-  },
-  async getIncomeWeek(){
-    const response = await axiosInstance.get('/report/incomeWeek')
-    if (response.status == 200) {
-      return response.data.data
+      return response.data
     }
     return []
   }

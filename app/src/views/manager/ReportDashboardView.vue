@@ -10,13 +10,18 @@
             <option value="week">สัปดาห์</option>
             <option value="allTime">ทั้งหมด</option>
         </select>
-
-        <BarChart :chartData="todaySale" />
+        <div class="w-3/4 max-h-30">
+            <BarChart :chartData="todaySale" />
+        </div>
+        <div class="w-3/4 max-h-30">
+            <LineChart :chartData="dailyIncome" />
+        </div>
     </div>
 </template>
 
 <script>
 import BarChart from '@/components/chart/BarChart.vue'
+import LineChart from '@/components/chart/LineChart.vue'
 import { useReportStore } from '@/stores/report.js'
 
 export default {
@@ -32,15 +37,23 @@ export default {
                 labels: [],
                 datasets: []
             },
+            dailyIncome : {
+                labels: [],
+                datasets: []
+            }
         }
     },
     async mounted(){
         await this.report_store.fetchSale()
         let reports = this.report_store.getReports
         this.fetchSaleChart(reports)
+        await this.report_store.fetchIncomeDay()
+        let incomeDailyReports = this.report_store.getReports
+        this.fetchIncomeDayChart(incomeDailyReports)
     },
     components:{
-        BarChart
+        BarChart,
+        LineChart
     },
     watch:{
         async sortOption(newOption, oldOption) {
@@ -74,7 +87,6 @@ export default {
     },
     methods:{
         fetchSaleChart(reports){
-            console.log(reports)
             this.todaySale = {
                 labels: [],
                 datasets: []
@@ -90,17 +102,25 @@ export default {
 
             let weekDataset = {
                 label: '1 สัปดาห์ที่ผ่านมา',
-                backgroundColor: '#f87979',
+                backgroundColor: '#FF00FF',
                 data: reports.map( report => report.sale_in_a_week)
             }
             this.todaySale.datasets.push(weekDataset)
 
             let allTimeDataset = {
                 label: 'ยอดขายทั้งหมด',
-                backgroundColor: '#f87979',
+                backgroundColor: '#A1FF00',
                 data: reports.map( report => report.sale_all_time)
             }
             this.todaySale.datasets.push(allTimeDataset)
+        },
+        fetchIncomeDayChart(reports){
+            this.dailyIncome.labels = reports.map(report => report.date)
+            this.dailyIncome.datasets.push({
+                label: 'รายได้ต่อวัน',
+                backgroundColor: '#FF00FF',
+                data: reports.map(report => report.data)
+            })
         }
     }
 }

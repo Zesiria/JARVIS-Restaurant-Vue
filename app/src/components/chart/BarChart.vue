@@ -7,7 +7,6 @@
       :plugins="plugins"
       :css-classes="cssClasses"
       :styles="styles"
-      :width="width"
       :height="height"
     />
   </template>
@@ -29,10 +28,6 @@
       datasetIdKey: {
         type: String,
         default: 'label'
-      },
-      width: {
-        type: Number,
-        default: 100
       },
       height: {
         type: Number,
