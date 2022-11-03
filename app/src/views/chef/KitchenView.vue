@@ -42,7 +42,6 @@ export default {
   watch: {
     async selectedType(newOption, oldOption) {
       await this.order_store.fetchOrdersToday()
-      this.orders = null
       switch (newOption) {
         case 'ทั้งหมด':
           this.orders = this.order_store.getOrdersToday
@@ -88,7 +87,7 @@ export default {
             </button>
           </div>
         </div>
-        <food-order-card v-for="order in orders " v-bind:order="order" :key="order.id" :order="{...order}" :url="`orders/${order.id}`" >
+        <food-order-card v-for="order in orders " v-bind:order="order" :key="order.order_id" :order="{...order}" :url="`orders/${order.id}`" >
         </food-order-card>
       </div>
     </div>
