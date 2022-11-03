@@ -69,6 +69,7 @@ import { useAuthStore } from "@/stores/auth.js"
 import { useTableStore} from '@/stores/table.js'
 import { useCustomerStore} from '@/stores/customer.js'
 import { useReportStore } from '@/stores/report.js'
+import HamburgerMenu from "@/components/HamburgerMenu.vue";
 
 export default {
     setup() {
@@ -114,6 +115,9 @@ export default {
         async handleBack(){
             this.$router.back()
         }
-    }
+    },
+  components:{
+      HamburgerMenu
+  }
 }
 </script>

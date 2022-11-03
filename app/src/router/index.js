@@ -118,6 +118,11 @@ const router = createRouter({
       path: '/manager/billing/:tableId',
       name: 'manager-talble-bill',
       component: () => import('@/views/manager/BillDetailView.vue')
+    },
+    {
+      path: '/manager/bill/check',
+      name: 'manager-bill-check',
+      component: () => import('@/views/manager/BillCheck.vue')
     }
   ]
 })
