@@ -3,7 +3,7 @@
     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>
     <ul class="dropdown-menu">
-      <RouterLink to="/foods"><li><a class="dropdown-item"> หน้าหลัก</a></li></RouterLink>
+      <RouterLink to="/foods"><li><a class="dropdown-item">เมนูอาหาร</a></li></RouterLink>
       <RouterLink to="/order/view"  v-if="auth && auth.role === 'customer'"><li><a class="dropdown-item">ประวัติการสั่งอาหาร</a></li></RouterLink>
       <RouterLink to="" v-if="auth && auth.role === 'customer'"><li><a class="dropdown-item">ค่าใช้จ่าย</a ></li></RouterLink>
       <RouterLink to="/customer/review"  v-if="auth && auth.role === 'customer'"><li><a class="dropdown-item">แสดงความคิดเห็น</a></li></RouterLink>

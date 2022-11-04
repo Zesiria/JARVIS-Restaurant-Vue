@@ -2,7 +2,7 @@
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
       <div>
-        <button @click="handleBackPage">
+        <button onclick="history.back()">
           <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
         </button>
       </div>
@@ -113,10 +113,6 @@ export default {
       this.order_store.fetch()
       this.status = this.order_store.getAll
     },
-    handleBackPage(){
-      console.log(this.order.order_id);
-      this.$router.push(`/chef/kitchen`);
-    }
   }
 }
 </script>
