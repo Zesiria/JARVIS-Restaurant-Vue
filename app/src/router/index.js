@@ -116,7 +116,7 @@ const router = createRouter({
     },
     {
       path: '/manager/billing/:tableId',
-      name: 'manager-talble-bill',
+      name: 'manager-table-bill',
       component: () => import('@/views/manager/BillDetailView.vue')
     },
     {
@@ -127,11 +127,36 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach(async  (to) =>{
-  const publicPage = ['/', '/login', '/customer/login'];
-  const authRequired = !publicPage.includes(to.path);
+router.beforeEach(async (to) =>{
+  const publicPage = ['home', 'login', 'customer-login','logout'];
+
+  const authRequired = !publicPage.includes(to.name);
   const auth = useAuthStore();
   if (authRequired && !auth.isAuthen){
+    return '/'
+  }
+
+  const managerPage = ['foods', 'foods.create','manager-menu','table.index','manager-report','manager-table-bill','manager-bill-check']
+  const managerAuthRequired = managerPage.includes(to.name);
+  if(managerAuthRequired && !(auth.getRole == 'Manager')){
+    return '/'
+  }
+
+  const chefPage = ['kitchen', 'chef-order']
+  const chefAuthRequired = chefPage.includes(to.name);
+  if(chefAuthRequired && !(auth.getRole == 'Chef')){
+    return '/'
+  }
+
+  const waiterPage = ['foods', 'waiter-homepage', 'waiter-foods', 'waiter-order']
+  const waiterAuthRequired = waiterPage.includes(to.name);
+  if(waiterAuthRequired && !(auth.getRole == 'Waiter')){
+    return '/'
+  }
+
+  const customerPage = ['foods', 'order-food', 'order-view', 'order-detail','customer-review']
+  const customerAuthRequired = customerPage.includes(to.name);
+  if(customerAuthRequired && !(auth.getRole == 'customer')){
     return '/'
   }
 })

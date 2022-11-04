@@ -60,8 +60,7 @@ export default {
       this.$router.push(`foods/new`)
     },
     manageTable(){
-      this.$router.push(`tables`)
-        this.$router.push(`/manager/tables`)
+      this.$router.push(`/manager/tables`)
     },
     reportView(){
       this.$router.push(`/manager/report`)
