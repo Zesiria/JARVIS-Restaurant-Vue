@@ -27,7 +27,7 @@
     <div v-else>
       <div class="col payment-summary justify-center">
         <div class="card px-md-3 px-2 pt-4">
-          <div class="unregistered mb-4"> <span class="py-1">ค่าบุฟเฟ่ต์</span> </div>
+          <div class="unregistered mb-4"> <span class="py-1 fw-bold">ค่าบุฟเฟ่ต์</span> </div>
           <div class="d-flex flex-column b-bottom">
             <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">จำนวนลูกค้า {{this.bill.number_people}}  ท่าน</h1>
               <p class="fw-bold">{{this.bill.buffet_price }} บาท</p>
@@ -35,18 +35,11 @@
             <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">เครื่องดื่มรีฟิล</h1>
               <p class="fw-bold">{{this.bill.beverage_price }} บาท</p>
             </div>
-            <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">เมนูอาหารพิเศษ</h1>
-              <div v-if="this.bill.add_foods != []">
-                <div v-for="food in this.bill.add_foods">
-                  {{ food }}
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">ภาษี 10%</h1>
+            <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">เซอร์วิซชาร์จ</h1>
               <p class="fw-bold">{{this.bill.service_charge_price }} บาท</p>
             </div>
 
-            <div class="d-flex justify-content-between"> <h1 class="text-muted fw-bold">รวมทั้งสิ้น</h1>
+            <div class="d-flex justify-content-between"> <h1 class="fw-bold">รวมทั้งสิ้น</h1>
               <p class="fw-bold">{{ this.bill.total_price }} บาท</p>
             </div>
           </div>
