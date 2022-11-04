@@ -7,16 +7,14 @@
           <h1 class="text-3xl">Welcome!!</h1>
           <h1 class="m-4"> JARVIS RESTAURANT</h1>
     <h1 class="text text-center m-8">โปรดเข้าสู่ระบบก่อนสั่งอาหาร</h1>
-
-    <div v-if="error">
-      {{ error }}
-    </div>
       <form @submit.prevent="onFormSubmit()">
         <div>
           <label class="flex">รหัสโต๊ะ</label>
           <input type="text" v-model="code" placeholder="ตัวอักษร 6 หลัก " required class="rounded-lg" autocomplete="off" >
         </div>
-
+        <div class="text-red-400 " v-if="error">
+          {{ error }}
+        </div>
         <button type="submit" :disabled="disabledButton"
                 class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 :class="disabledButton ? 'cursor-not-allowed bg-blue-200 dark:bg-blue-200': 'bg-blue-600 dark:bg-blue-500'"
@@ -48,18 +46,33 @@ export default {
   methods: {
     async onFormSubmit() {
       this.error = null
-      this.disabledButton = true
-      try {
-        if (await this.auth_store.customerLogin(this.code)) {
-          await this.auth_store.customerFetch()
-          this.$router.push('/foods')
-        } else {
+      if(this.validateCode()){
+        this.error = null
+        this.disabledButton = true
+        try {
+          if (await this.auth_store.customerLogin(this.code)) {
+            await this.auth_store.customerFetch()
+            this.$router.push('/foods')
+          } else {
+            this.disabledButton = false
+          }
+        } catch (error) {
+          // this.error = error.message
+          this.error = "รหัสโต๊ะไม่ถูกต้อง"
           this.disabledButton = false
         }
-      } catch (error) {
-        this.error = error.message
-        this.disabledButton = false
       }
+    },
+    validateCode(){
+      if(this.code){
+        if(this.code.length == 6){
+          return true
+        }
+        this.error = "รหัสโต๊ะมีความยาวไม่ถูกต้อง"
+        return false
+      }
+      this.error = "กรุณาใส่รหัสโต๊ะ"
+      return false
     }
   },
 }
