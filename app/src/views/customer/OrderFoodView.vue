@@ -104,9 +104,9 @@ export default {
   <div class="pb-24">
     <food-card v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="{...foodOrder.food}" :url="`foods/${foodOrder.food.id}`">
       <template #food_button>
-        <div @click="deleteFoodOrder(foodOrder.food.id)" class="flex flex-col space-y-2">
+        <div class="flex flex-col space-y-2">
           <plus-minus-button-card :key="foodOrder.food.id" :foodOrder="{...foodOrder}"></plus-minus-button-card>
-          <button class="text-red-600 "> ลบ </button>
+          <button class="text-red-600" v-on:click="deleteFoodOrder(foodOrder.food.id)"> ลบ </button>
         </div>
       </template>
     </food-card>

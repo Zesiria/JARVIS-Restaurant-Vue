@@ -18,7 +18,8 @@
                 },
                 message : "",
                 isOpen : false,
-                submitButton: false
+                submitButton: false,
+                error : null
             }
         },
         components:{
@@ -27,7 +28,12 @@
         },
         methods:{
             handleCompleteReview(){
+              if(this.review.description.length == 0){
+                this.error = "โปรดใส่ข้อความ"
+              }
+              else {
                 this.isOpen = true
+              }
             },
             close(){
                 this.isOpen = false
@@ -66,6 +72,9 @@
 
       <div class="pl-5 pt-3">
           <textarea v-model="this.message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="เขียนแสดงความคิดเห็นของคุณที่นี่"></textarea>
+      </div>
+      <div class="pl-5 pt-3 text-red-400">
+        <p>{{ this.error }}</p>
       </div>
 
     <Popup :open="isOpen">

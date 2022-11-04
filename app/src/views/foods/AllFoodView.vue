@@ -107,6 +107,14 @@ export default {
     handleSubmitHistoryOrder() {
       this.$router.push(`/order/view`)
     },
+    incrementQuantity(){
+      this.addQuantity++
+    },
+    decrementQuantity(){
+      if(this.addQuantity > 1){
+        this.addQuantity--
+      }
+    }
     }, watch: {
       async selectedType(newOption, oldOption) {
         await this.food_store.fetch()
@@ -142,6 +150,14 @@ export default {
         handler(newValue, oldValue) {
           // console.log(newValue.getFoodOrder)
           this.foodOrders = this.food_order_store.getFoodOrder
+        }
+      },
+      addQuantity(newOption, oldOption){
+        if(newOption <= 0){
+          this.addQuantity = 1
+        }
+        if(newOption > this.selectedFood.quantity){
+          this.addQuantity = this.selectedFood.quantity
         }
       }
     }
@@ -253,12 +269,12 @@ export default {
 
         <template v-slot:content>
           <div class="flex flex-row h-8 w-44 rounded-lg mx-auto">
-            <button class="w-10 rounded-l cursor-pointer outline-none border">
+            <button class="w-10 rounded-l cursor-pointer outline-none border" v-on:click="this.decrementQuantity()">
               <span class="m-auto text-2xl">−</span>
             </button>
             <input type="number" class="outline-none focus:outline-none text-center w-24 bg-gray-300 flex items-center mx-auto outline-none"
                    v-model="addQuantity" required>
-            <button class="h-full w-10 rounded-r cursor-pointer border">
+            <button class="h-full w-10 rounded-r cursor-pointer border" v-on:click="this.incrementQuantity()">
               <span class="m-auto text-2xl">+</span>
             </button>
           </div>
@@ -319,4 +335,9 @@ export default {
   }
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 </style>

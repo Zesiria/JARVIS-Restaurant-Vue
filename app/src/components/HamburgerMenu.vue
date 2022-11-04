@@ -34,7 +34,6 @@ export default {
   async mounted() {
     if (this.auth_store.isAuthen) {
       this.auth = this.auth_store.getAuth
-      console.log(this.auth)
     } else {
       this.auth = null
     }
