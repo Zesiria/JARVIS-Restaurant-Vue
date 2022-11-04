@@ -51,6 +51,7 @@ export default {
       this.disabledButton = true
       try {
         if (await this.auth_store.customerLogin(this.code)) {
+          await this.auth_store.customerFetch()
           this.$router.push('/foods')
         } else {
           this.disabledButton = false
