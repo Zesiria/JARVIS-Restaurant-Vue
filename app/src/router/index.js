@@ -32,6 +32,91 @@ const router = createRouter({
       path: '/foods/new',
       name: 'foods.create',
       component: () => import('@/views/foods/CreateFoodView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/LoginView.vue')
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('@/views/LogoutView.vue')
+    },
+    {
+      path: '/manager',
+      name: 'manager-menu',
+      component: () => import('@/views/manager/Menu.vue')
+    },
+    {
+      path: '/manager/tables',
+      name: 'table.index',
+      component: () => import('@/views/manager/AllTable.vue')
+    },
+    {
+      path: '/order/food',
+      name: 'order-food',
+      component: () => import('@/views/customer/OrderFoodView.vue')
+    },
+    {
+      path: '/customer/login',
+      name: 'customer-login',
+      component: () => import('@/views/customer/LoginView.vue')
+    },
+    {
+      path: '/waiter/home',
+      name: 'waiter-homepage',
+      component: () => import('@/views/waiter/WaiterMenu.vue')
+    },
+    {
+      path: '/waiter/foods',
+      name: 'waiter-foods',
+      component: () => import('@/views/waiter/WaiterAllFood.vue')
+    },
+    {
+      path: '/waiter/order',
+      name: 'waiter-order',
+      component: () => import('@/views/waiter/WaiterOrderFood.vue')
+    },
+    {
+      path: '/chef/kitchen',
+      name: 'kitchen',
+      component: () => import('@/views/chef/KitchenView.vue')
+    },
+    {
+      path: '/order/view',
+      name: 'order-view',
+      component: () => import('@/views/customer/OrderView.vue')
+    },
+    {
+      path: '/order/:order_id',
+      name: 'order-detail',
+      component: () => import('@/views/customer/OrderDetailView.vue')
+    },
+    {
+      path: '/chef/kitchen/order/:orderId',
+      name: 'chef-order',
+      component: () => import('@/views/chef/OrderListView.vue')
+    },
+    {
+      path: '/reviews',
+      name: 'review-index',
+      component: () => import('@/views/ReviewView.vue')
+    },
+    {
+      path: '/customer/review',
+      name: 'customer-review',
+      component: () => import('@/views/customer/ReviewView.vue')
+    },
+    {
+      path: '/manager/report',
+      name: 'manager-report',
+      component: () => import('@/views/manager/ReportDashboardView.vue')
+    },
+    {
+      path: '/manager/billing/:tableId',
+      name: 'manager-talble-bill',
+      component: () => import('@/views/manager/BillDetailView.vue')
     }
   ]
 })

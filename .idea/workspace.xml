@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="466ef379-9e58-437d-9d57-a4d135d8c42f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/views/foods/CheckMenuView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/router/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/components/foods/FoodList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/views/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/views/customer/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/views/customer/LoginView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/views/foods/AllFoodView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/views/foods/AllFoodView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,14 +34,20 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/13092565/vue3-cs442-11",
+    "last_opened_file_path": "D:/3-1/Project-SE-WebTech/JARVIS-Restaurant-Laravel",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\nattakarn\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PhpStorm\\ch-0\\222.3345.135\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\3-1\Project-SE-WebTech\JARVIS-Restaurant-Vue\app\src\views" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -53,6 +59,7 @@
       <workItem from="1664093048845" duration="7263000" />
       <workItem from="1664100374425" duration="928000" />
       <workItem from="1664157872433" duration="18919000" />
+      <workItem from="1665382801046" duration="7707000" />
     </task>
     <servers />
   </component>
