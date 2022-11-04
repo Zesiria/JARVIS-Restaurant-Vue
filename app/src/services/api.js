@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: process.env.API_URL
+  baseURL: import.meta.env.VITE_API_URL
 })
-// import.meta.env.VITE_API_URL
+
 const JWT_TOKEN_LOCALSTORAGE_KEY = 'jwt_token'
 const token = localStorage.getItem(JWT_TOKEN_LOCALSTORAGE_KEY);
 
