@@ -8,7 +8,7 @@
         </button>
         <HamburgerMenu></HamburgerMenu>
       </div>
-      <h1 class="title-page">โต๊ะที่ {{ this.table.id }}</h1>
+      <h1 class="title-page">โต๊ะที่ {{ this.$route.params.tableId }}</h1>
 
     <div>
       <p class="fw-bold pt-lg-0 pt-4 pb-2 pl-3">ค่าใช้จ่ายทั้งหมด</p>
