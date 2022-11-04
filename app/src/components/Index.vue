@@ -42,7 +42,7 @@ export default {
   </div>
   <div>
     <div class="menu">
-      <div class="w-full text-xl text-white bg-blue-800 rounded px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
+      <div class="mt-4 w-full text-xl text-white bg-blue-800 rounded px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
         เมนูอาหาร
       </div>
       <a class="text-center font-bold inline-block p-2 w-full bg-gray-100 text-blue-700 border-b-4 border-gray-300">

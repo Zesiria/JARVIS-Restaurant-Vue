@@ -2,11 +2,17 @@
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
       <div>
-        <button @click="handleBackPage">
+        <button onclick="history.back()">
           <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
         </button>
       </div>
-
+      <div id="button-dropdown" class="dropdown">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>
+        <ul class="dropdown-menu">
+          <RouterLink to="/chef/kitchen"><li><a class="dropdown-item" href="#">หน้าหลัก</a></li></RouterLink>
+        </ul>
+      </div>
       <div class="title-page">
         รายการอาหารของ โต๊ะ: {{order.table_id}}
         <p>สถานะ: {{this.thaiStatus[order.status]}}</p>
@@ -22,7 +28,7 @@
           </div>
         </div>
         <div id="quan" class=" pt-4">
-          <p class="text-lg text-right">จำนวน: {{food.quantity}}</p>
+          <p class="text-lg text-right">จำนวน: {{ this.getOrderQuantity(food) }}</p>
         </div>
       </div>
       <div v-if="order.status === 'IN PROCESS' " class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
@@ -73,7 +79,6 @@ export default {
     let foodsId = this.order.food_list.map(food => food.food_id);
     this.foods = this.food_store.getFoods
         .filter(food => foodsId.indexOf(food.id) > -1)
-    console.log(this.foods)
 
     this.status = this.order.status
     isUpdatingOrder: false,
@@ -107,9 +112,8 @@ export default {
       this.order_store.fetch()
       this.status = this.order_store.getAll
     },
-    handleBackPage(){
-      console.log(this.order.order_id);
-      this.$router.push(`/chef/kitchen`);
+    getOrderQuantity(inputFood){
+      return this.order.food_list.filter(food => food.id == inputFood.food_id)[0].quantity
     }
   }
 }

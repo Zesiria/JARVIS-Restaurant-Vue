@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CoinDeskView from '@/views/CoinDeskView.vue'
+import {useAuthStore} from "../stores/auth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -117,8 +118,22 @@ const router = createRouter({
       path: '/manager/billing/:tableId',
       name: 'manager-talble-bill',
       component: () => import('@/views/manager/BillDetailView.vue')
+    },
+    {
+      path: '/manager/bill/check',
+      name: 'manager-bill-check',
+      component: () => import('@/views/manager/BillCheck.vue')
     }
   ]
+})
+
+router.beforeEach(async  (to) =>{
+  const publicPage = ['/', '/login', '/customer/login'];
+  const authRequired = !publicPage.includes(to.path);
+  const auth = useAuthStore();
+  if (authRequired && !auth.isAuthen){
+    return '/'
+  }
 })
 
 export default router

@@ -6,7 +6,7 @@ import { useFoodStore } from "@/stores/food"
 import {useAuthStore} from "@/stores/auth";
 import {useFoodOrderStore} from "@/stores/foodOrder";
 import AlertSuccess from "@/components/foods/AlertSuccess.vue";
-
+import HamburgerMenu from "@/components/HamburgerMenu.vue";
 export default {
   setup() {
     const food_store = useFoodStore()
@@ -18,6 +18,7 @@ export default {
     Popup,
     FoodCard,
     AlertSuccess,
+    HamburgerMenu
   },
   data() {
     return {
@@ -157,6 +158,18 @@ export default {
 <div class="m-8">
   <div class="m-auto  lg:w-1/2 pb-24">
     <div class="mt-6">
+      <HamburgerMenu></HamburgerMenu>
+<!--      <div id="button-dropdown" class="dropdown">-->
+<!--        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>-->
+<!--        <ul class="dropdown-menu">-->
+<!--          <RouterLink to="/foods"><li><a class="dropdown-item"> หน้าหลัก</a></li></RouterLink>-->
+<!--          <RouterLink to="/order/view"  v-if="auth.role === 'customer'"><li><a class="dropdown-item">ประวัติการสั่งอาหาร</a></li></RouterLink>-->
+<!--          <RouterLink to="" v-if="auth.role === 'customer'"><li><a class="dropdown-item">ค่าใช้จ่าย</a ></li></RouterLink>-->
+<!--          <RouterLink to="/customer/review"  v-if="auth.role === 'customer'"><li><a class="dropdown-item">แสดงความคิดเห็น</a></li></RouterLink>-->
+<!--        </ul>-->
+<!--      </div>-->
+
         <h1 class="title-page">
             เมนูอาหาร
         </h1>

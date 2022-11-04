@@ -64,6 +64,9 @@ export default {
           if(this.auth_store.getRole === 'Manager'){
             this.$router.push('/manager')
           }
+          if(this.auth_store.getRole === 'customer'){
+            this.$router.push('/foods')
+          }
         } else {
           this.disabledButton = false
         }

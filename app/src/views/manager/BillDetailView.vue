@@ -1,7 +1,17 @@
 <template>
+
+  <div class="m-8">
+    <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+      <div class="flex justify-between">
+        <button onclick="history.back()">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        </button>
+        <HamburgerMenu></HamburgerMenu>
+      </div>
+      <h1 class="title-page">โต๊ะที่ {{ this.$route.params.tableId }}</h1>
+
     <div>
-        <h1>โต๊ะที่ {{ this.table.id }}</h1>
-        ค่าใช้จ่ายทั้งหมด
+      <p class="fw-bold pt-lg-0 pt-4 pb-2 pl-3">ค่าใช้จ่ายทั้งหมด</p>
     </div>
     <div v-if="this.bill == null">
         <div class="text-center">
@@ -15,51 +25,36 @@
         </div>
     </div>
     <div v-else>
-        <div>
-        <label for="">ค่าบุฟเฟ่ต์</label>
-            <div>
-                จำนวนคน : {{this.bill.number_people}}
-                เป็นเงินทั้งหมด {{this.bill.buffet_price }}
+      <div class="col payment-summary justify-center">
+        <div class="card px-md-3 px-2 pt-4">
+          <div class="unregistered mb-4"> <span class="py-1 fw-bold">ค่าบุฟเฟ่ต์</span> </div>
+          <div class="d-flex flex-column b-bottom">
+            <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">จำนวนลูกค้า {{this.bill.number_people}}  ท่าน</h1>
+              <p class="fw-bold">{{this.bill.buffet_price }} บาท</p>
             </div>
-        </div>
-
-        <div>
-            <label for="">เครื่องดื่มรีฟิล</label>
-            <div>
-                เป็นเงินทั้งหมด {{this.bill.beverage_price }}
+            <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">เครื่องดื่มรีฟิล</h1>
+              <p class="fw-bold">{{this.bill.beverage_price }} บาท</p>
             </div>
-        </div>
-
-        <div>
-            <label for="">เซอร์วิซชาร์จ</label>
-            <div>
-                เป็นเงินทั้งหมด {{this.bill.service_charge_price }}
+            <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">เซอร์วิซชาร์จ</h1>
+              <p class="fw-bold">{{this.bill.service_charge_price }} บาท</p>
             </div>
-        </div>
 
-        <div>
-            <label for="">เมนูอาหารพิเศษ</label>
-            <div v-if="this.bill.add_foods != []">
-                <div v-for="food in this.bill.add_foods">
-                    {{ food }}
-                </div>
+            <div class="d-flex justify-content-between"> <h1 class="fw-bold">รวมทั้งสิ้น</h1>
+              <p class="fw-bold">{{ this.bill.total_price }} บาท</p>
             </div>
-        </div>
+          </div>
+          <div class="d-flex justify-content-between b-bottom pt-4">
 
-        <div>
-            <label for="">รวมทั้งสิ้น</label>
-            <div> {{ this.bill.total_price }} </div>
+            <div @click="handleBack" class="btn btn-secondary">ย้อนกลับ</div>
+            <div @click="checkoutTable" class="btn btn-success">ปิดโต๊ะ</div>
+          </div>
+          <div class=" my-3 text-center"> -- ราคาอาหารรวมภาษีมูลค่าเพิ่มแล้ว -- </div>
         </div>
-
-        
+      </div>
     </div>
-    
-    <button @click="handleBack">
-        ย้อนกลับ
-    </button>
-    <button @click="checkoutTable">
-        ปิดโต๊ะ
-    </button>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -67,6 +62,7 @@ import { useAuthStore } from "@/stores/auth.js"
 import { useTableStore} from '@/stores/table.js'
 import { useCustomerStore} from '@/stores/customer.js'
 import { useReportStore } from '@/stores/report.js'
+import HamburgerMenu from "@/components/HamburgerMenu.vue";
 
 export default {
     setup() {
@@ -112,6 +108,9 @@ export default {
         async handleBack(){
             this.$router.back()
         }
-    }
+    },
+  components:{
+      HamburgerMenu
+  }
 }
 </script>
