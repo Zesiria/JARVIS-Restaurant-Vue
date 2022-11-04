@@ -28,7 +28,7 @@
           </div>
         </div>
         <div id="quan" class=" pt-4">
-          <p class="text-lg text-right">จำนวน: {{food.quantity}}</p>
+          <p class="text-lg text-right">จำนวน: {{ this.getOrderQuantity(food) }}</p>
         </div>
       </div>
       <div v-if="order.status === 'IN PROCESS' " class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
@@ -79,7 +79,6 @@ export default {
     let foodsId = this.order.food_list.map(food => food.food_id);
     this.foods = this.food_store.getFoods
         .filter(food => foodsId.indexOf(food.id) > -1)
-    console.log(this.foods)
 
     this.status = this.order.status
     isUpdatingOrder: false,
@@ -113,6 +112,9 @@ export default {
       this.order_store.fetch()
       this.status = this.order_store.getAll
     },
+    getOrderQuantity(inputFood){
+      return this.order.food_list.filter(food => food.id == inputFood.food_id)[0].quantity
+    }
   }
 }
 </script>
