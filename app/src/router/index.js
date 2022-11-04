@@ -132,30 +132,30 @@ router.beforeEach(async (to) =>{
 
   const authRequired = !publicPage.includes(to.name);
   const auth = useAuthStore();
+  const managerPage = ['foods.create','manager-menu','table.index','manager-report','manager-table-bill','manager-bill-check']
+  const managerAuthRequired = managerPage.includes(to.name);
+  const chefPage = ['kitchen', 'chef-order']
+  const chefAuthRequired = chefPage.includes(to.name);
+  const waiterPage = ['waiter-homepage', 'waiter-foods', 'waiter-order']
+  const waiterAuthRequired = waiterPage.includes(to.name);
+  const customerPage = ['order-food', 'order-view', 'order-detail','customer-review']
+  const customerAuthRequired = customerPage.includes(to.name);
+
   if (authRequired && !auth.isAuthen){
     return '/'
   }
-
-  const managerPage = ['foods', 'foods.create','manager-menu','table.index','manager-report','manager-table-bill','manager-bill-check']
-  const managerAuthRequired = managerPage.includes(to.name);
-  if(managerAuthRequired && !(auth.getRole == 'Manager')){
+  else if(to.name == "foods" && (!(auth.getRole == 'Manager') && !(auth.getRole == 'Chef') && !(auth.getRole == 'customer'))){
     return '/'
   }
-
-  const chefPage = ['kitchen', 'chef-order']
-  const chefAuthRequired = chefPage.includes(to.name);
-  if(chefAuthRequired && !(auth.getRole == 'Chef')){
+  else if(managerAuthRequired && !(auth.getRole == 'Manager')){
     return '/'
   }
-
-  const waiterPage = ['foods', 'waiter-homepage', 'waiter-foods', 'waiter-order']
-  const waiterAuthRequired = waiterPage.includes(to.name);
-  if(waiterAuthRequired && !(auth.getRole == 'Waiter')){
+  else if(chefAuthRequired && !(auth.getRole == 'Chef')){
     return '/'
   }
-
-  const customerPage = ['foods', 'order-food', 'order-view', 'order-detail','customer-review']
-  const customerAuthRequired = customerPage.includes(to.name);
+  else if(waiterAuthRequired && !(auth.getRole == 'Waiter')){
+    return '/'
+  }
   if(customerAuthRequired && !(auth.getRole == 'customer')){
     return '/'
   }
