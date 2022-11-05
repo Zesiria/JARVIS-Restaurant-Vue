@@ -123,6 +123,16 @@ const router = createRouter({
       path: '/manager/bill/check',
       name: 'manager-bill-check',
       component: () => import('@/views/manager/BillCheck.vue')
+    },
+    {
+      path: '/manager/users',
+      name: 'manager-users',
+      component: () => import('@/views/manager/AllUsersView.vue')
+    },
+    {
+      path: '/users/change-password',
+      name: 'user-change-password',
+      component: () => import('@/views/ChangePasswordView.vue'),
     }
   ]
 })
@@ -132,7 +142,7 @@ router.beforeEach(async (to) =>{
 
   const authRequired = !publicPage.includes(to.name);
   const auth = useAuthStore();
-  const managerPage = ['foods.create','manager-menu','table.index','manager-report','manager-table-bill','manager-bill-check']
+  const managerPage = ['foods.create','manager-menu','table.index','manager-report','manager-table-bill','manager-bill-check','manager-users']
   const managerAuthRequired = managerPage.includes(to.name);
   const chefPage = ['kitchen', 'chef-order']
   const chefAuthRequired = chefPage.includes(to.name);
@@ -145,6 +155,9 @@ router.beforeEach(async (to) =>{
     return '/'
   }
   else if(to.name == "foods" && (!(auth.getRole == 'Manager') && !(auth.getRole == 'Chef') && !(auth.getRole == 'customer'))){
+    return '/'
+  }
+  else if(to.name == "user-change-password" && !auth.isAuthen){
     return '/'
   }
   else if(managerAuthRequired && !(auth.getRole == 'Manager')){

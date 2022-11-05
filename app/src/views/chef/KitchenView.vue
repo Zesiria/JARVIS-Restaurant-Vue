@@ -76,6 +76,14 @@ export default {
 <template>
     <div class="m-8">
       <div class="m-auto lg:w-1/2">
+        <div id="button-dropdown" class="dropdown">
+          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>
+          <ul class="dropdown-menu">
+            <RouterLink to="/chef/kitchen"><li><a class="dropdown-item" href="#">หน้าหลัก</a></li></RouterLink>
+            <RouterLink to="/users/change-password"><li><a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a></li></RouterLink>
+          </ul>
+        </div>
         <div >
           <h1 class="title-page">ครัว</h1>
         </div>
