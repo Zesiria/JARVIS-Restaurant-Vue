@@ -38,17 +38,23 @@ export default {
   },
   methods: {
     async handleSubmitOrder(){
-      this.newOrder()
-      this.$router.push(`/waiter/foods`)
+      if(await this.newOrder()){
+        this.$router.push(`/waiter/foods`)
+      }
     },
     async newOrder() {
       this.error = ""
       await this.food_order_store.fetch()
       if (this.food_order_store.getFoodOrders === null || this.food_order_store.getFoodOrders.length === 0){
-        this.$router.push(`/waiter/foods`)
-        return
+        this.error = "กรุณาเลือกอาหารที่ต้องการจะสั่ง"
+        return false
       }
-      try{
+      else if(this.table_id === "null"){
+        this.error = "กรุณาเลือกโต๊ะที่ต้องการจะสั่งให้"
+        return false
+      }
+      else{
+        try{
         this.customer_id = this.table_store.getTables.filter(table => table.id === parseInt(this.table_id))[0].customer_id
         this.order_store.add({
           'customer_id': this.customer_id,
@@ -57,11 +63,13 @@ export default {
           console.log(res)
           this.food_order_store.removeFoodOrder()
         })
-      } catch (error) {
-        this.error = error.message
-        console.log(this.error)
+        } catch (error) {
+          this.error = error.message
+          console.log(this.error)
+        }
+        localStorage.removeItem('selectTableID')
+        return true
       }
-      localStorage.removeItem('selectTableID')
     },
     handleIncreaseFoodOrder() {
       this.$router.push(`/waiter/foods`)
@@ -119,6 +127,9 @@ export default {
         <button @click="handleSubmitOrder" class="bg-gray-200 px-4 py-2 rounded">
           สั่งอาหาร
         </button>
+      </div>
+      <div>
+        <p class="text-red-400">{{ this.error }}</p>
       </div>
     </div>
   </div>
