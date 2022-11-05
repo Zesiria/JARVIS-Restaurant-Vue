@@ -71,7 +71,7 @@ export const foodAPI = {
     return []
   },
   async update (food) {
-    const response = await axiosInstance.put('/foods/'.concat(food.id), {'quantity' : food.quantity})
+    const response = await axiosInstance.put('/foods/'.concat(food.id), {'addQuantity' : food.addQuantity})
     if (response.status == 200) {
       return {
         success: true

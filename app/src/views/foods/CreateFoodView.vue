@@ -15,12 +15,12 @@
       <div>
       <div class="flex flex-col py-2 mt-5 w-48">
         <label for="name"> ชื่อ </label>
-        <input type="text" v-model="food.name">
+        <input type="text" v-model="this.inputName" required>
       </div>
       <!-- select type -->
       <div class="flex flex-col w-48 py-2">
         <label for="type"> หมวดหมู่อาหาร </label>
-        <select class="rounded-lg" v-model="food.type">
+        <select class="rounded-lg" v-model="this.inputType">
           <option v-for="category in categories" >
             {{category}}
           </option>
@@ -29,7 +29,7 @@
       <!-- input quantity -->
       <div class="flex flex-col py-2 w-20">
         <label for="quantity"> จำนวน </label>
-        <input type="number" v-model="food.quantity">
+        <input type="number" v-model="this.inputQuantity" required>
       </div>
 
       <div>
@@ -61,17 +61,17 @@
         <template v-slot:content>
           <div class="flex flex-row">
             <div class="basis-1/4"> ชื่อ </div>
-            <div class="basis-3/4"> {{food.name}} </div>
+            <div class="basis-3/4"> {{inputName}} </div>
           </div>
 
           <div class="flex flex-row">
             <div class="basis-1/4"> ประเภท </div>
-            <div class="basis-3/4"> {{food.type}} </div>
+            <div class="basis-3/4"> {{inputType}} </div>
           </div>
 
           <div class="flex flex-row">
             <div class="basis-1/4"> จำนวน </div>
-            <div class="basis-3/4"> {{food.quantity}} </div>
+            <div class="basis-3/4"> {{inputQuantity}} </div>
           </div>
 
         </template>
@@ -112,6 +112,9 @@ export default {
   data() {
     return {
       categories: ["เนื้อสัตว์","ผัก","ของทานเล่น"],
+      inputName:"",
+      inputQuantity: 1,
+      inputType: "",
       food: {
         name: "",
         type: "",
@@ -124,12 +127,15 @@ export default {
   },
   methods: {
     async saveNewFood() {
-      const url = 'http://localhost/api/foods'
       await this.uploadImage()
-
+      this.food.name = this.inputName,
+      this.food.type = this.inputType
+      this.food.quantity = this.inputQuantity
+      if(this.inputType == "เนื้อสัตว์"){this.food.type = "meat"}
+      else if(this.inputType == "ผัก"){this.food.type = "vegetable"}
+      else if(this.inputType == "ของทานเล่น"){this.food.type = "appetizer"}
       try {
         this.food_store.add(this.food).then(res => {
-          console.log(res)
           this.isOpen = true
         })
       }catch (error) {
@@ -138,9 +144,14 @@ export default {
       }
     },
     async close() {
-      this.food.name = ""
-      this.food.type = ""
-      this.food.quantity = 0
+      this.food = {
+        name: "",
+        type: "",
+        quantity: 0,
+        img_path: ""
+      }
+      this.inputName = ""
+      this.inputQuantity = ""
       this.food.img_path = null
       this.error = null
       this.isOpen = false
@@ -166,6 +177,13 @@ export default {
     debug(){
       this.uploadImage()
     }
+  },
+  watch:{
+    inputQuantity(newOption, oldOption){
+      if(newOption <= 0){
+          this.inputQuantity = 1
+      }
+    }
   }
 }
 </script>
@@ -173,6 +191,12 @@ export default {
 <style scoped>
 input{
   border-radius: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
 
