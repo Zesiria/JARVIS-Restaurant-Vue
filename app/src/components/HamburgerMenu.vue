@@ -5,7 +5,6 @@
     <ul class="dropdown-menu">
       <RouterLink to="/foods"><li><a class="dropdown-item">เมนูอาหาร</a></li></RouterLink>
       <RouterLink to="/order/view"  v-if="auth && auth.role === 'customer'"><li><a class="dropdown-item">ประวัติการสั่งอาหาร</a></li></RouterLink>
-      <RouterLink to="" v-if="auth && auth.role === 'customer'"><li><a class="dropdown-item">ค่าใช้จ่าย</a ></li></RouterLink>
       <RouterLink to="/customer/review"  v-if="auth && auth.role === 'customer'"><li><a class="dropdown-item">แสดงความคิดเห็น</a></li></RouterLink>
       <RouterLink to="/manager/bill/check"  v-if="auth && auth.role === 'Manager'"><li><a class="dropdown-item">เช็คบิล</a></li></RouterLink>
       <RouterLink to="/foods"  v-if="auth && auth.role === 'Manager'"><li><a class="dropdown-item">ตรวจสอบรายการอาหาร</a></li></RouterLink>
