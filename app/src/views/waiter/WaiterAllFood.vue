@@ -167,7 +167,7 @@ export default {
         <template #food_button>
           <div v-if="auth.role === 'Waiter'">
             <button @click="handleIncreaseOrder(food)"
-                    class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+                    class="py-2 px-6 rounded-lg bg-blue-600 text-white mt-2 ">
               เพิ่มลงออเดอร์
             </button>
           </div>
