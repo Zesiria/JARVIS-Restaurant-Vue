@@ -28,7 +28,7 @@ export default {
       selectedType: null,
       selectedFood:[],
       selectedTable: null,
-      addQuantity: 1,
+      orderQuantity: 1,
       auth: null,
       isFoodOrderOpen: false,
       isAddingQuantityOrder: false,
@@ -53,7 +53,7 @@ export default {
       console.log(this.selectedType)
     },
     handleIncreaseOrder(food){
-      this.addQuantity = 1
+      this.orderQuantity = 1
       this.selectedFood = food
       this.isFoodOrderOpen = true
     },
@@ -61,10 +61,10 @@ export default {
       this.isAddingQuantityOrder = true
       const foodOrder = this.food_order_store.getFoodById(this.selectedFood.id)
       if(foodOrder.length === 1){
-        this.food_order_store.addQuantityFoodOrder(this.selectedFood.id, this.addQuantity)
+        this.food_order_store.addQuantityFoodOrder(this.selectedFood.id, this.orderQuantity)
       }
       else if(foodOrder.length === 0){
-        this.food_order_store.addFoodOrder(this.selectedFood, this.addQuantity)
+        this.food_order_store.addFoodOrder(this.selectedFood, this.orderQuantity)
       }
       else{
         console.log("getFoodById return foodOrder > 1")
@@ -82,6 +82,14 @@ export default {
     async handleSubmitCheckOrder(){
       localStorage.setItem("selectTableID", this.selectedTable);
       this.$router.push(`/waiter/order`)
+    },
+    incrementQuantity(){
+      this.orderQuantity++
+    },
+    decrementQuantity(){
+      if(this.orderQuantity > 1){
+        this.orderQuantity--
+      }
     }
     }, watch: {
       async selectedType(newOption, oldOption) {
@@ -114,6 +122,14 @@ export default {
         deep: true,
         handler(newValue, oldValue) {
           this.foodOrders = this.food_order_store.getFoodOrder
+        }
+      },
+      orderQuantity(newOption, oldOption){
+        if(newOption <= 0){
+          this.orderQuantity = 1
+        }
+        if(newOption > this.selectedFood.quantity){
+          this.orderQuantity = this.selectedFood.quantity
         }
       }
     }
@@ -166,12 +182,12 @@ export default {
 
         <template v-slot:content>
           <div class="flex flex-row h-8 w-44 rounded-lg mx-auto">
-            <button class="w-10 rounded-l cursor-pointer outline-none border">
+            <button class="w-10 rounded-l cursor-pointer outline-none border" v-on:click="this.decrementQuantity">
               <span class="m-auto text-2xl">−</span>
             </button>
             <input type="number" class="outline-none focus:outline-none text-center w-24 bg-gray-300 flex items-center mx-auto outline-none"
-                   v-model="addQuantity" required>
-            <button class="h-full w-10 rounded-r cursor-pointer border">
+                   v-model="orderQuantity" required>
+            <button class="h-full w-10 rounded-r cursor-pointer border" v-on:click="this.incrementQuantity">
               <span class="m-auto text-2xl">+</span>
             </button>
           </div>
@@ -208,3 +224,11 @@ export default {
     </div>
   </div>
 </template>
+
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>

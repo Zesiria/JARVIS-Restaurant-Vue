@@ -45,7 +45,7 @@ export default {
       this.error = ""
       await this.food_order_store.fetch()
       if (this.food_order_store.getFoodOrders === null || this.food_order_store.getFoodOrders.length === 0){
-        this.$router.push(`/foods`)
+        this.$router.push(`/waiter/foods`)
         return
       }
       try{
