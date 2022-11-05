@@ -185,26 +185,14 @@ export default {
   <div class="m-auto  lg:w-1/2 pb-24">
     <div class="mt-6">
       <HamburgerMenu></HamburgerMenu>
-<!--      <div id="button-dropdown" class="dropdown">-->
-<!--        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>-->
-<!--        <ul class="dropdown-menu">-->
-<!--          <RouterLink to="/foods"><li><a class="dropdown-item"> หน้าหลัก</a></li></RouterLink>-->
-<!--          <RouterLink to="/order/view"  v-if="auth.role === 'customer'"><li><a class="dropdown-item">ประวัติการสั่งอาหาร</a></li></RouterLink>-->
-<!--          <RouterLink to="" v-if="auth.role === 'customer'"><li><a class="dropdown-item">ค่าใช้จ่าย</a ></li></RouterLink>-->
-<!--          <RouterLink to="/customer/review"  v-if="auth.role === 'customer'"><li><a class="dropdown-item">แสดงความคิดเห็น</a></li></RouterLink>-->
-<!--        </ul>-->
-<!--      </div>-->
-
         <h1 class="title-page">
             เมนูอาหาร
         </h1>
       <div class="menu">
         <div class=" flex gap-2 w-full lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
-          <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
           <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center bg-gray-100 w-[100px] border border-2 rounded-full shrink-0">
             {{category}}
-            <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
+            <p v-if="category===selectedType" class="bg-blue-300  border-blue-300 border-4 rounded-sm"></p>
           </button>
         </div>
       </div>
@@ -215,13 +203,13 @@ export default {
         <template #food_button>
           <div v-if="auth && auth.role === 'Manager'">
             <button @click="handleIncreaseForm(food)"
-                    class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+                    class="py-2 px-6 rounded-lg bg-blue-600 text-white mt-2 ">
               เพิ่ม
             </button>
           </div>
           <div v-if="auth && auth.role === 'customer'">
             <button @click="handleIncreaseOrder(food)"
-                    class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+                    class="py-2 px-6 rounded-lg bg-blue-600 text-white mt-2 ">
               เพิ่มลงออเดอร์
             </button>
           </div>
@@ -265,7 +253,7 @@ export default {
             <button data-modal-toggle="defaultModal" type="button" @click="handleSubmitForm" v-bind:disabled="isAddingQuantity" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               ยืนยัน
             </button>
-            <button data-modal-toggle="defaultModal" type="button" @click="close" class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
+            <button data-modal-toggle="defaultModal" type="button" @click="close" class="w-1/2 text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
               ปิด
             </button>
           </template>
@@ -292,11 +280,11 @@ export default {
 
         <template v-slot:footer>
           <button data-modal-toggle="defaultModal" type="button" @click="handleSubmitFoodOrder" v-bind:disabled="isAddingQuantityOrder"
-                  class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             ยืนยัน
           </button>
           <button data-modal-toggle="defaultModal" type="button" @click="close"
-                  class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
+                  class="text-blue-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-white dark:hover:bg-gray-50 dark:focus:ring-blue-800">
             ปิด
           </button>
         </template>
@@ -304,13 +292,13 @@ export default {
     </div>
   </div>
   
-  <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
+  <div class="fixed bottom-0 left-0 p-3 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div v-if="auth.role === 'customer'" class="flex flex-col items-center">
       <div class="flex flex-row space-x-4">
-        <button @click="handleSubmitHistoryOrder" class="bg-gray-200 px-4 py-2 rounded">
+        <button @click="handleSubmitHistoryOrder" class="bg-gray-200 px-2 py-2 rounded">
           ประวิติการสั่ง
         </button>
-        <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded">
+        <button @click="handleSubmitCheckOrder" class="bg-sky-300 px-2 py-2 rounded">
           ตรวจสอบรายการอาหาร
         </button>
       </div>

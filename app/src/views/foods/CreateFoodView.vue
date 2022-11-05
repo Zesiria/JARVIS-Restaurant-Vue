@@ -10,15 +10,16 @@
       <div class="title-page">
         เพิ่มรายการอาหาร
       </div>
-      <div class="flex justify-center">
+      <div class="bg-gray-100 shadow-md rounded-lg m-10">
+      <div class="flex justify-center ">
       <!-- input name -->
       <div>
-      <div class="flex flex-col py-2 mt-5 w-48">
+      <div class="flex flex-col py-2 mt-5 w-auto">
         <label for="name"> ชื่อ </label>
         <input type="text" v-model="this.inputName" required>
       </div>
       <!-- select type -->
-      <div class="flex flex-col w-48 py-2">
+      <div class="flex flex-col w-auto py-2">
         <label for="type"> หมวดหมู่อาหาร </label>
         <select class="rounded-lg" v-model="this.inputType">
           <option v-for="category in categories" >
@@ -42,9 +43,9 @@
           </div>
         </div>
       </div>
-        <div class="flex float-right">
+        <div class="flex justify-center mb-5">
       <button @click="saveNewFood"
-          class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-5">
+          class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-3 hover:caret-blue-600">
         ยืนยัน
       </button>
         </div>
@@ -77,7 +78,7 @@
         </template>
 
         <template v-slot:footer>
-          <button data-modal-toggle="defaultModal" type="button" @click="close" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button data-modal-toggle="defaultModal" type="button" @click="close" class="bg-gray-200 border border-blue-700 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             ปิด
           </button>
           <button data-modal-toggle="defaultModal" type="button" @click="backToHomePage" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -89,7 +90,7 @@
 
       </div>
   </div>
-
+  </div>
   </template>
 
 <script>

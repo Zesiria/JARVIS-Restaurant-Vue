@@ -157,7 +157,7 @@ export default {
           <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
           <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center bg-gray-100 w-[100px] border border-2 rounded-full shrink-0">
             {{category}}
-            <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
+            <p v-if="category===selectedType" class="bg-blue-300  border-blue-300 border-4 rounded-sm"></p>
           </button>
         </div>
       </div>
@@ -167,7 +167,7 @@ export default {
         <template #food_button>
           <div v-if="auth.role === 'Waiter'">
             <button @click="handleIncreaseOrder(food)"
-                    class="py-2 px-6 rounded-full bg-blue-600 text-white mt-2 ">
+                    class="py-2 px-6 rounded-lg bg-blue-600 text-white mt-2 ">
               เพิ่มลงออเดอร์
             </button>
           </div>

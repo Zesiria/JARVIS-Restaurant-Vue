@@ -35,7 +35,7 @@
             <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">เครื่องดื่มรีฟิล</h1>
               <p class="fw-bold">{{this.bill.beverage_price }} บาท</p>
             </div>
-            <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">เซอร์วิซชาร์จ</h1>
+            <div class="d-flex justify-content-between pb-3"> <h1 class="text-muted">เซอร์วิสชาร์จ</h1>
               <p class="fw-bold">{{this.bill.service_charge_price }} บาท</p>
             </div>
 
