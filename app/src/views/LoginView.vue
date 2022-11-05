@@ -56,7 +56,7 @@ export default {
           await this.auth_store.fetch()
           console.log(this.auth_store.getRole)
           if(this.auth_store.getRole === 'Waiter'){
-            this.$router.push('/waiter/home')
+            this.$router.push('/waiter/foods')
           }
           if(this.auth_store.getRole === 'Chef'){
             this.$router.push('/chef/kitchen')
