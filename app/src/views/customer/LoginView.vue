@@ -51,8 +51,7 @@ export default {
         this.disabledButton = true
         try {
           if (await this.auth_store.customerLogin(this.code)) {
-            await this.auth_store.customerFetch()
-            this.$router.push('/foods')
+            this.$router.push('/foods').then(() => { this.$router.go() })
           } else {
             this.disabledButton = false
           }
