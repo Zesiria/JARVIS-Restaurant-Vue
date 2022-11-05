@@ -2,8 +2,11 @@
   <div  id="container">
     <div class="flex flex-col text-2xl text-center my-4">
       <div>
-            <button @click="orderFood" class="bg-green-200 rounded my-4 py-2 px-10">สั่งอาหาร</button>
-        </div>
+        <button @click="orderFood" class="bg-green-200 rounded my-4 py-2 px-10">สั่งอาหาร</button>
+      </div>
+      <div>
+        <button @click="changePassword">เปลี่ยนรหัสผ่าน</button>
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +22,9 @@ export default {
     orderFood(){
         this.$router.push(`/waiter/foods`)
     },
+    changePassword(){
+      this.$router.push('/users/change-password')
+    }
   }
 }
 </script>

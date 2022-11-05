@@ -284,3 +284,41 @@ export const reportAPI = {
     return []
   }
 }
+
+export const userAPI = {
+  async getUsers(){
+    const response = await axiosInstance.get('/users')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async saveNewUser(user){
+    const response = await axiosInstance.post('/users', user)
+    if (response.status == 201) {
+      return response.data
+    }
+    return []
+  },
+  async updateUser(id, user){
+    const response = await axiosInstance.put('/user'+id, user)
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async deleteUser(id){
+    const response = await axiosInstance.delete('/users/'+id)
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async updatePassword(user){
+    const response = await axiosInstance.post('/change-password',user)
+    if(response.status == 200){
+      return response.data
+    }
+    return []
+  }
+}

@@ -18,6 +18,12 @@
         <div>
             <button @click="manageTable">รายการโต๊ะทั้งหมด</button>
         </div>
+        <div>
+            <button @click="checkUser">พนักงานทั้งหมด</button>
+        </div>
+        <div>
+            <button @click="changePassword">เปลี่ยนรหัสผ่าน</button>
+        </div>
     </div>
   </div>
 
@@ -67,8 +73,14 @@ export default {
     },
     checkBill(){
       this.$router.push(`/manager/bill/check`)
+    },
+    checkUser(){
+      this.$router.push(`/manager/users`)
+    },
+    changePassword(){
+      this.$router.push('/users/change-password')
     }
-  },
+  }
 }
 </script>
 
