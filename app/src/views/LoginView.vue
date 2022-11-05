@@ -2,6 +2,12 @@
   <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
     <div id="container">
       <div id="signup">
+        <div class="float-left">
+          <button onclick="history.back()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+          </button>
+        </div>
+        <div class="m-8">
       <img alt="logo" class="logo items-center m-auto " src="@/assets/logo.jpg" width="125" height="125" />
       <h1 class="text-3xl text-center">Welcome!!</h1>
       <h1 class="m-4 text-center"> JARVIS RESTAURANT</h1>
@@ -27,7 +33,9 @@
         </button>
       </form>
       </div>
+      </div>
     </div>
+
   </div>
 </template>
 
