@@ -77,7 +77,7 @@
         <template v-slot:content>
           <div class="flex flex-col py-2">
             <label for=""> จำนวนลูกค้า </label>
-            <input type="number" v-model="numberPeople" min="1">
+            <input type="number" v-model="numberPeople">
           </div>
         </template>
 
@@ -122,7 +122,7 @@ export default {
           code: null,
         },
         inputNumberPeople: 1,
-        numberPeople: 0,
+        numberPeople: 1,
         isAddTablePopupOpen: false,
         isTableDetailOpen: false,
         isNumberPeopleInputOpen: false,
@@ -229,19 +229,16 @@ export default {
    },
    watch:{
     inputNumberPeople(newOption){
-      console.log(this.selectedTable)
       if(newOption <= 0){
         this.inputNumberPeople = 1
       }
-      if(newOption > this.selectedTable.size)
-        this.inputNumberPeople = this.selectedTable.size
     },
-    numberPeople(){
+    numberPeople(newOption){
       if(newOption <= 0){
-        this.inputNumberPeople = 1
+        this.numberPeople = 1
       }
-      if(newOption > this.selectedTable.size)
-        this.inputNumberPeople = this.selectedTable.size
+      else if(newOption > this.selectedTable.size)
+        this.numberPeople = this.selectedTable.size
     }
    }
 }
