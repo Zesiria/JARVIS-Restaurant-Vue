@@ -29,7 +29,7 @@
         <template v-slot:content>
           <div class="flex flex-col py-2">
             <label for=""> จำนวนคนสูงสุด </label>
-            <input type="number" min="1" v-model="this.table.size">
+            <input type="number" requried v-model="this.inputNumberPeople">
           </div>
         </template>
 
@@ -121,6 +121,7 @@ export default {
           number_people: null,
           code: null,
         },
+        inputNumberPeople: 1,
         numberPeople: 0,
         isAddTablePopupOpen: false,
         isTableDetailOpen: false,
@@ -147,7 +148,7 @@ export default {
         this.$router.push('tables/new')
     },
     openAddTablePopup(){
-      this.table.size = 1;
+      this.inputNumberPeople = 1;
       this.isAddTablePopupOpen = true;
     },
     openTableDetailPopup(table){
@@ -224,6 +225,23 @@ export default {
       this.tables = this.table_store.getTables
       this.isTableDetailOpen = false
       this.isUpdatingTable = false
+    }
+   },
+   watch:{
+    inputNumberPeople(newOption){
+      console.log(this.selectedTable)
+      if(newOption <= 0){
+        this.inputNumberPeople = 1
+      }
+      if(newOption > this.selectedTable.size)
+        this.inputNumberPeople = this.selectedTable.size
+    },
+    numberPeople(){
+      if(newOption <= 0){
+        this.inputNumberPeople = 1
+      }
+      if(newOption > this.selectedTable.size)
+        this.inputNumberPeople = this.selectedTable.size
     }
    }
 }

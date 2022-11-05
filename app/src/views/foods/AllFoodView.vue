@@ -26,7 +26,8 @@ export default {
       categories: ["ทั้งหมด", "เนื้อสัตว์", "ผัก", "ของทานเล่น","ของใกล้หมด"],
       selectedType: null,
       selectedFood:[],
-      addQuantity:0,
+      addQuantity:1,
+      orderQuanti:1,
       isOpen: false,
       isAddingQuantity: false,
       auth: null,
@@ -55,12 +56,14 @@ export default {
       this.selectedFood = food
       this.isOpen = true
     },
-    handleSubmitForm(){
+    async handleSubmitForm(){
         this.isAddingQuantity = true;
-        const food = this.selectedFood
-        console.log(food)
-        food.quantity = parseInt(this.addQuantity) + parseInt(food.quantity )
-        this.food_store.addQuantity(food).then((res) => {
+        const food = {
+          id : this.selectedFood.id,
+          addQuantity : this.addQuantity
+        }
+        console.log(food, this.selectedFood)
+        await this.food_store.addQuantity(food).then((res) => {
         console.log(res)
         this.isOpen = false
         this.isAddingQuantity = false;
@@ -68,9 +71,11 @@ export default {
         console.log(error)
         this.isAddingQuantity = false;
       })
+      await this.food_store.fetch()
+      this.foods = this.food_store.getFoods
     },
     handleIncreaseOrder(food){
-      this.addQuantity = 1
+      this.orderQuantity = 1
       this.selectedFood = food
       this.isFoodOrderOpen = true
     },
@@ -78,10 +83,10 @@ export default {
       this.isAddingQuantityOrder = true
       const foodOrder = this.food_order_store.getFoodById(this.selectedFood.id)
       if(foodOrder.length === 1){
-        this.food_order_store.addQuantityFoodOrder(this.selectedFood.id, this.addQuantity)
+        this.food_order_store.addQuantityFoodOrder(this.selectedFood.id, this.orderQuantity)
       }
       else if(foodOrder.length === 0){
-        this.food_order_store.addFoodOrder(this.selectedFood, this.addQuantity)
+        this.food_order_store.addFoodOrder(this.selectedFood, this.orderQuantity)
       }
       else{
         console.log("getFoodById return foodOrder > 1")
@@ -152,12 +157,17 @@ export default {
           this.foodOrders = this.food_order_store.getFoodOrder
         }
       },
+      orderQuantity(newOption, oldOption){
+        if(newOption <= 0){
+          this.orderQuantity = 1
+        }
+        if(newOption > this.selectedFood.quantity){
+          this.orderQuantity = this.selectedFood.quantity
+        }
+      },
       addQuantity(newOption, oldOption){
         if(newOption <= 0){
           this.addQuantity = 1
-        }
-        if(newOption > this.selectedFood.quantity){
-          this.addQuantity = this.selectedFood.quantity
         }
       }
     }
@@ -245,7 +255,7 @@ export default {
               <div @submit.prevent="handleIncreaseForm">
                 <div>
                   <label for="quantity" >จำนวนที่ต้องการเพิ่ม</label>
-                  <input class="border-2 mx-1" type="quantity" v-model="addQuantity" required>
+                  <input type="number" class="border-2 mx-1" v-model="addQuantity" required>
                 </div>
               </div>
             </div>
