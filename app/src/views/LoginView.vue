@@ -61,19 +61,18 @@ export default {
       this.disabledButton = true
       try {
         if (await this.auth_store.login(this.email, this.password)) {
-          await this.auth_store.fetch()
           console.log(this.auth_store.getRole)
           if(this.auth_store.getRole === 'Waiter'){
-            this.$router.push('/waiter/foods')
+            this.$router.push('/waiter/home').then(() => { this.$router.go() })
           }
           if(this.auth_store.getRole === 'Chef'){
-            this.$router.push('/chef/kitchen')
+            this.$router.push('/chef/kitchen').then(() => { this.$router.go() })
           }
           if(this.auth_store.getRole === 'Manager'){
-            this.$router.push('/manager')
+            this.$router.push('/manager').then(() => { this.$router.go() })
           }
           if(this.auth_store.getRole === 'customer'){
-            this.$router.push('/foods')
+            this.$router.push('/foods').then(() => { this.$router.go() })
           }
         } else {
           this.disabledButton = false

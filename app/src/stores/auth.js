@@ -41,7 +41,7 @@ export const useAuthStore = defineStore({
     actions: {
         async login (email, password) {
             if (await authAPI.login(email, password)) {
-                this.fetch()
+                await this.fetch()
                 return true
             }
             return false
@@ -49,7 +49,7 @@ export const useAuthStore = defineStore({
 
         async customerLogin (code) {
             if (await authAPI.customerLogin(code)) {
-                this.customerFetch()
+                await this.customerFetch()
                 return true
             }
             return false
