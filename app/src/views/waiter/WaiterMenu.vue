@@ -16,7 +16,7 @@ import { useAuthStore } from "@/stores/auth.js"
 export default {
     setup() {
     const auth_store = useAuthStore()
-    return auth_store
+    return {auth_store}
   },
   methods : {
     orderFood(){
