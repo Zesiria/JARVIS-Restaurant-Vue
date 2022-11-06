@@ -27,7 +27,7 @@ export default {
       selectedType: null,
       selectedFood:[],
       addQuantity:1,
-      orderQuanti:1,
+      orderQuantity:1,
       isOpen: false,
       isAddingQuantity: false,
       auth: null,
@@ -114,11 +114,11 @@ export default {
       this.$router.push(`/order/view`)
     },
     incrementQuantity(){
-      this.addQuantity++
+      this.orderQuantity++
     },
     decrementQuantity(){
-      if(this.addQuantity > 1){
-        this.addQuantity--
+      if(this.orderQuantity > 1){
+        this.orderQuantity--
       }
     }
     }, watch: {
@@ -297,7 +297,7 @@ export default {
                 <span class="m-auto text-2xl">−</span>
               </button>
               <input type="number" class="outline-none focus:outline-none text-center w-24 bg-gray-300 flex items-center mx-auto outline-none"
-                     v-model="addQuantity" required>
+                     v-model="orderQuantity" required>
               <button class="h-full w-10 rounded-r cursor-pointer border" v-on:click="this.incrementQuantity()">
                 <span class="m-auto text-2xl">+</span>
               </button>
