@@ -269,7 +269,7 @@ export const reportAPI = {
     }
     return []
   },
-  async getIncomeToday(){
+  async getIncome(){
     const response = await axiosInstance.get('/report/income-today')
     if (response.status == 200) {
       return response.data
