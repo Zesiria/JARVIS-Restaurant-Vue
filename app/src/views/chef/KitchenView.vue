@@ -21,6 +21,7 @@ export default {
       categories: ["ทั้งหมด", "รอดำเนินการ", "กำลังเตรียม", "เสร็จสิ้น"],
       selectedType: null,
       auth: null,
+      loading: false,
     }
   },
   async mounted() {
@@ -41,22 +42,28 @@ export default {
   },
   watch: {
     async selectedType(newOption, oldOption) {
+      this.loading = true
       await this.order_store.fetchOrdersToday()
       switch (newOption) {
         case 'ทั้งหมด':
           this.orders = this.order_store.getOrdersToday
+          this.loading = false
           break
         case 'รอดำเนินการ':
           this.orders = this.order_store.getPendingFoods
+          this.loading = false
           break
         case 'กำลังเตรียม':
           this.orders = this.order_store.getInProcessFoods
+          this.loading = false
           break
         case 'เสร็จสิ้น':
           this.orders = this.order_store.getCompletedFoods
+          this.loading = false
           break
         default:
           this.orders =this.order_store.getOrdersToday
+          this.loading = false
           break
       }
       console.log(this.orders);
@@ -95,7 +102,22 @@ export default {
             </button>
           </div>
         </div>
-        <food-order-card v-for="order in orders " v-bind:order="order" :key="order.order_id" :order="{...order}" :url="`orders/${order.id}`" >
+
+        <div v-show="loading" role="status" class="max-w-sm animate-pulse ml-6 mt-4">
+          <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+          <span class="sr-only">Loading...</span>
+
+          <!--        <div class="mt-4">-->
+          <!--          <img src="https://media.tenor.com/KEzW7ALwfUAAAAAC/cat-what.gif">-->
+          <!--        </div>-->
+        </div>
+
+        <food-order-card v-show="!loading" v-for="order in orders " v-bind:order="order" :key="order.order_id" :order="{...order}" :url="`orders/${order.id}`" >
         </food-order-card>
       </div>
     </div>
