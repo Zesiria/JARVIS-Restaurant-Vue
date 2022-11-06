@@ -22,11 +22,8 @@ export const useReportStore = defineStore("reports", {
     async fetchSale () {
         this.reports = await reportAPI.getFoodSale()
     },
-    async fetchIncomeDay () {
-        this.reports = await reportAPI.getIncomeToday()
-    },
-    async fetchIncomeWeek () {
-        this.reports = await reportAPI.getIncomeWeek()
+    async fetchIncome () {
+        this.reports = await reportAPI.getIncome()
     },
     async fetchBillFrom(id){
         this.bill = await reportAPI.getBillOf(id)
