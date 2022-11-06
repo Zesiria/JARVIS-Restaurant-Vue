@@ -110,38 +110,38 @@ export default {
       <h1 class="title-page">โต๊ะ {{this.table_id}}</h1>
 
       <div class="pb-24">
-    <food-card v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="{...foodOrder.food}" :url="`foods/${foodOrder.food.id}`">
-      <template #food_button>
-        <div class="flex flex-col space-y-2">
-          <plus-minus-button-card :key="foodOrder.food.id" :foodOrder="{...foodOrder}"></plus-minus-button-card>
-          <button class="text-red-600" @click="deleteFoodOrder(foodOrder.food.id)"> ลบ </button>
-        </div>
-      </template>
-    </food-card>
-  </div>
+        <food-card v-for="foodOrder in foodOrders" :key="foodOrder.food.id" :food="{...foodOrder.food}" :url="`foods/${foodOrder.food.id}`">
+          <template #food_button>
+            <div class="flex flex-col space-y-2">
+              <plus-minus-button-card :key="foodOrder.food.id" :foodOrder="{...foodOrder}"></plus-minus-button-card>
+              <button class="text-red-600" @click="deleteFoodOrder(foodOrder.food.id)"> ลบ </button>
+            </div>
+          </template>
+        </food-card>
+      </div>
   
-  <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
-    <div class="flex flex-warp items-center justify-center">
-      <div class="flex-warp flex mx-4">
-        <p class="mt-3 mx-5">โต๊ะที่ต้องการสั่งให้โต๊ะที่</p>
-        <select v-model="table_id">
-          <option disabled value="">Please select one</option>
-          <option v-for="table in tables" :key="table.id" :table="{...table}">{{ table.id }}</option>
-        </select>
+      <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
+        <div class="flex flex-warp items-center justify-center">
+          <div class="flex-warp flex mx-4">
+            <p class="mt-3 mx-5">โต๊ะที่ต้องการสั่งให้โต๊ะที่</p>
+            <select v-model="table_id">
+              <option disabled value="">Please select one</option>
+              <option v-for="table in tables" :key="table.id" :table="{...table}">{{ table.id }}</option>
+            </select>
+          </div>
+          <div class="flex space-x-4 mx-4">
+            <button @click="handleIncreaseFoodOrder" class="bg-gray-200 px-4 py-2 rounded">
+              ย้อนกลับ
+            </button>
+            <button @click="handleSubmitOrder" class="bg-blue-700 text-white px-4 py-2 rounded">
+              สั่งอาหาร
+            </button>
+          </div>
+          <div>
+            <p class="text-red-400">{{ this.error }}</p>
+          </div>
+        </div>
       </div>
-      <div class="flex space-x-4 mx-4">
-        <button @click="handleIncreaseFoodOrder" class="bg-gray-200 px-4 py-2 rounded">
-          ย้อนกลับ
-        </button>
-        <button @click="handleSubmitOrder" class="bg-blue-700 text-white px-4 py-2 rounded">
-          สั่งอาหาร
-        </button>
-      </div>
-      <div>
-        <p class="text-red-400">{{ this.error }}</p>
-      </div>
-    </div>
-  </div>
     </div>
   </div>
 </template>

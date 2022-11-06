@@ -8,34 +8,33 @@
           </button>
         </div>
         <div class="m-8">
-      <img alt="logo" class="logo items-center m-auto " src="@/assets/logo.jpg" width="125" height="125" />
-      <h1 class="text-3xl text-center">Welcome!!</h1>
-      <h1 class="m-4 text-center"> JARVIS RESTAURANT</h1>
-        <div v-if="error">
-          {{ error }}
-        </div>
-      <form @submit.prevent="onFormSubmit()">
-        <div>
-          <label>Username</label>
-          <input type="email" v-model="email" placeholder="Email" required autocomplete="off" class="rounded-lg">
-        </div>
+          <img alt="logo" class="logo items-center m-auto " src="@/assets/logo.jpg" width="125" height="125" />
+          <h1 class="text-3xl text-center">Welcome!!</h1>
+          <h1 class="m-4 text-center"> JARVIS RESTAURANT</h1>
+            <div v-if="error">
+              {{ error }}
+            </div>
+          <form @submit.prevent="onFormSubmit()">
+            <div>
+              <label>Username</label>
+              <input type="email" v-model="email" placeholder="Email" required autocomplete="off" class="rounded-lg">
+            </div>
 
-        <div>
-          <label>Password</label>
-          <input type="password" v-model="password" placeholder="Password" required class="rounded-lg">
-        </div>
+            <div>
+              <label>Password</label>
+              <input type="password" v-model="password" placeholder="Password" required class="rounded-lg">
+            </div>
 
-        <button type="submit" :disabled="disabledButton"
-                class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                :class="disabledButton ? 'cursor-not-allowed bg-blue-200 dark:bg-blue-200': 'bg-blue-600 dark:bg-blue-500'"
-        >
-          Login
-        </button>
-      </form>
+            <button type="submit" :disabled="disabledButton"
+                    class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    :class="disabledButton ? 'cursor-not-allowed bg-blue-200 dark:bg-blue-200': 'bg-blue-600 dark:bg-blue-500'"
+            >
+              Login
+            </button>
+          </form>
       </div>
       </div>
     </div>
-
   </div>
 </template>
 

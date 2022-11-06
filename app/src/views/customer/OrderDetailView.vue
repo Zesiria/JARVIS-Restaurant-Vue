@@ -33,7 +33,6 @@ export default {
 
   }
 }
-
 </script>
 
 <template>
@@ -57,5 +56,4 @@ export default {
       </div>
     </div>
   </div>
-<!--  {{foodOrders}}-->
 </template>

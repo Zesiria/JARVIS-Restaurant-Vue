@@ -51,7 +51,6 @@
         </div>
       </div>
       </div>
-      <!--<button @click="isOpen = true">open</button>-->
 
       <!-- Popup -->
       <Popup :open="isOpen">
@@ -85,9 +84,7 @@
             หน้าหลัก
           </button>
         </template>
-
       </Popup>
-
       </div>
   </div>
   </div>
