@@ -143,7 +143,7 @@ export default {
       </template>
     </AlertSuccess>
   <div class="m-8">
-    <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2"><div>
+    <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
       <div class="pb-24">
         <div id="button-dropdown" class="dropdown">
           <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -215,7 +215,8 @@ export default {
             </template>
           </Popup>
     </div>
-
+  </div>
+  
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div class="flex flex-warp items-center justify-center">
       <div class="flex-warp flex mx-4">
