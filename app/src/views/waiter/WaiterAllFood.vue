@@ -228,16 +228,20 @@ export default {
   </div>
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
     <div class="flex flex-warp items-center justify-center">
-      <div class="flex-warp flex mx-4">
-        <p class="mt-3 mx-5">โต๊ะที่ต้องการสั่งให้โต๊ะที่</p>
-        <select v-model="selectedTable">
-          <option disabled value="">Please select one</option>
-          <option v-for="table in tables" :key="table.id" :table="{...table}">{{ table.id }}</option>
-        </select>
+      <div class="flex flex-warp mx-4">
+        <div class="mt-3 mx-5">โต๊ะที่ต้องการสั่งให้โต๊ะที่</div>
+        <div>
+          <select v-model="selectedTable" class="w-36">
+            <option disabled value="">Please select one</option>
+            <option v-for="table in tables" :key="table.id" :table="{...table}">{{ table.id }}</option>
+          </select>
+        </div>
+        <div>
+          <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded mx-4">
+            ตรวจสอบรายการอาหาร
+          </button>
+        </div>
       </div>
-      <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded mx-4">
-        ตรวจสอบรายการอาหาร
-      </button>
     </div>  
   </div>
       </div>
