@@ -35,6 +35,7 @@ export default {
       foodOrders: [],
       tables: [],
       alertOrderFoodSuccess: false,
+      loading: false,
     }
   }, async mounted() {
       await this.food_store.fetch()
@@ -93,19 +94,24 @@ export default {
     }
     }, watch: {
       async selectedType(newOption, oldOption) {
+        this.loading = true
         await this.food_store.fetch()
         switch (newOption) {
           case 'เนื้อสัตว์':
             this.foods = this.food_store.getMeatFoods
+            this.loading = false
             break
           case 'ผัก':
             this.foods = this.food_store.getVegetableFoods
+            this.loading = false
             break
           case 'ของทานเล่น':
             this.foods = this.food_store.getAppertizerFoods
+            this.loading = false
             break
           default:
-            this.foods = this.foods
+            this.foods = this.food_store.getFoods
+            this.loading = false
             break
         }
       },
@@ -170,18 +176,32 @@ export default {
             </div>
           </div>
         </div>
+
+        <div v-show="loading" role="status" class="max-w-sm animate-pulse ml-6 mt-4">
+          <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+          <span class="sr-only">Loading...</span>
+
+          <!--        <div class="mt-4">-->
+          <!--          <img src="https://media.tenor.com/KEzW7ALwfUAAAAAC/cat-what.gif">-->
+          <!--        </div>-->
+        </div>
+
+        <food-card v-show="!loading" v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
+          <template #food_button>
+            <div v-if="auth.role === 'Waiter'">
+              <button @click="handleIncreaseOrder(food)"
+                      class="py-2 px-6 rounded-lg bg-blue-600 text-white mt-2 ">
+                เพิ่มลงออเดอร์
+              </button>
+            </div>
+          </template>
+        </food-card>
       </div>
-    <div>
-      <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
-        <template #food_button>
-          <div v-if="auth.role === 'Waiter'">
-            <button @click="handleIncreaseOrder(food)"
-                    class="py-2 px-6 rounded-lg bg-blue-600 text-white mt-2 ">
-              เพิ่มลงออเดอร์
-            </button>
-          </div>
-        </template>
-      </food-card>
 
           <!-- Popup Food Order -->
           <Popup :open="isFoodOrderOpen">
@@ -214,7 +234,6 @@ export default {
             </template>
           </Popup>
     </div>
-  </div>
   </div>
   
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
