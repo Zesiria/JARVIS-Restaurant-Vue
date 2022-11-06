@@ -193,11 +193,14 @@ export default {
 
         <food-card v-show="!loading" v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
           <template #food_button>
-            <div v-if="auth.role === 'Waiter'">
+            <div v-if="auth.role === 'Waiter' && food.quantity > 0">
               <button @click="handleIncreaseOrder(food)"
                       class="py-2 px-6 rounded-lg bg-blue-600 text-white mt-2 ">
                 เพิ่มลงออเดอร์
               </button>
+            </div>
+            <div v-if="food.quantity <= 0" class="text-red-600 text-lg mt-2">
+              หมด
             </div>
           </template>
         </food-card>
