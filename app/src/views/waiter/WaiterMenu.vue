@@ -5,7 +5,7 @@
         <button @click="orderFood" class="bg-green-200 rounded my-4 py-2 px-10">สั่งอาหาร</button>
       </div>
       <div>
-        <button @click="changePassword">เปลี่ยนรหัสผ่าน</button>
+        <button @click="changePassword" class="bg-green-200 rounded my-4 py-2 px-10">เปลี่ยนรหัสผ่าน</button>
       </div>
     </div>
   </div>
@@ -42,7 +42,7 @@ button{
   color: #FFFFFF;
   width: 150px;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 5px;
   margin: 10px;
 }
