@@ -11,6 +11,9 @@
       <RouterLink to="/foods/new"  v-if="auth && auth.role === 'Manager'"><li><a class="dropdown-item">เพิ่มรายการอาหาร</a></li></RouterLink>
       <RouterLink to="/manager/report"  v-if="auth && auth.role === 'Manager'"><li><a class="dropdown-item">รายงานการขายทั้งหมด</a></li></RouterLink>
       <RouterLink to="/manager/tables"  v-if="auth && auth.role === 'Manager'"><li><a class="dropdown-item">รายการโต๊ะทั้งหมด</a></li></RouterLink>
+      <RouterLink to="/manager/users" v-if="auth && auth.role === 'Manager'"><li><a class="dropdown-item">พนักงานทั้งหมด</a></li></RouterLink>
+      <RouterLink to="/users/change-password"  v-if="auth && auth.role === 'Manager'"><li><a class="dropdown-item">เปลี่ยนรหัสผ่าน</a></li></RouterLink>
+      <RouterLink to="/users/change-password"  v-if="auth && auth.role === 'Waiter'"><li><a class="dropdown-item">เปลี่ยนรหัสผ่าน</a></li></RouterLink>
 
     </ul>
   </div>

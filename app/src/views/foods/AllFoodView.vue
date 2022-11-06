@@ -298,7 +298,7 @@ export default {
         <button @click="handleSubmitHistoryOrder" class="bg-gray-200 px-2 py-2 rounded">
           ประวิติการสั่ง
         </button>
-        <button @click="handleSubmitCheckOrder" class="bg-sky-300 px-2 py-2 rounded">
+        <button @click="handleSubmitCheckOrder" class="text-white bg-blue-700 px-2 py-2 rounded">
           ตรวจสอบรายการอาหาร
         </button>
       </div>

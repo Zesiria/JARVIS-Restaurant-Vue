@@ -10,7 +10,7 @@
       <div class="title-page">
         เพิ่มรายการอาหาร
       </div>
-      <div class="bg-gray-100 shadow-md rounded-lg m-10">
+      <div class=" shadow rounded m-10">
       <div class="flex justify-center ">
       <!-- input name -->
       <div>

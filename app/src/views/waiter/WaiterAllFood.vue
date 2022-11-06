@@ -146,6 +146,14 @@ export default {
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
       <div>
   <div class="pb-24">
+    <div id="button-dropdown" class="dropdown">
+      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>
+      <ul class="dropdown-menu">
+        <RouterLink to="/waiter/foods"><li><a class="dropdown-item">เมนูอาหาร</a></li></RouterLink>
+        <RouterLink to="/users/change-password"><li><a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a></li></RouterLink>
+      </ul>
+    </div>
     <div>
         <h1 class="title-page">
             เมนูอาหาร
@@ -215,7 +223,7 @@ export default {
           <option v-for="table in tables" :key="table.id" :table="{...table}">{{ table.id }}</option>
         </select>
       </div>
-      <button @click="handleSubmitCheckOrder" class="bg-gray-200 px-4 py-2 rounded mx-4">
+      <button @click="handleSubmitCheckOrder" class="bg-green-700 text-white px-4 py-2 rounded mx-4">
         ตรวจสอบรายการอาหาร
       </button>
     </div>  

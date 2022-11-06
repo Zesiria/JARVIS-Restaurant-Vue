@@ -97,7 +97,7 @@ button{
   color: #FFFFFF;
   width: 300px;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 5px;
   margin: 10px;
 }

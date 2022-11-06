@@ -96,7 +96,16 @@ export default {
         <button onclick="history.back()">
           <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
         </button>
+        <div id="button-dropdown" class="dropdown">
+          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>
+          <ul class="dropdown-menu">
+            <RouterLink to="/waiter/foods"><li><a class="dropdown-item">เมนูอาหาร</a></li></RouterLink>
+            <RouterLink to="/users/change-password"><li><a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a></li></RouterLink>
+          </ul>
+        </div>
       </div>
+
       <h1 class="title-page">ตรวจสอบรายการอาหาร</h1>
       <h1 class="title-page">โต๊ะ {{this.table_id}}</h1>
 
@@ -124,7 +133,7 @@ export default {
         <button @click="handleIncreaseFoodOrder" class="bg-gray-200 px-4 py-2 rounded">
           ย้อนกลับ
         </button>
-        <button @click="handleSubmitOrder" class="bg-gray-200 px-4 py-2 rounded">
+        <button @click="handleSubmitOrder" class="bg-blue-700 text-white px-4 py-2 rounded">
           สั่งอาหาร
         </button>
       </div>
