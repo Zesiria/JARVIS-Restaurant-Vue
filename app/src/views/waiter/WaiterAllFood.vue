@@ -171,7 +171,6 @@ export default {
           </div>
         </div>
       </div>
-    </div>
     <div>
       <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
         <template #food_button>
@@ -215,6 +214,7 @@ export default {
             </template>
           </Popup>
     </div>
+  </div>
   </div>
   
   <div class="fixed bottom-0 left-0 p-4 w-full bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-600">
