@@ -48,12 +48,12 @@
 
           <div class="mt-2 flex flex-col">
               <label for="">รหัสผ่านใหม่</label>
-              <input type="text" v-model="this.newPassword" class="rounded-lg">
+              <input type="password" v-model="this.newPassword" class="rounded-lg">
           </div>
 
           <div class="mt-2 flex flex-col">
               <label for="">ยืนยันรหัสผ่านใหม่</label>
-              <input type="text" v-model="this.confirmNewPassword" class="rounded-lg">
+              <input type="password" v-model="this.confirmNewPassword" class="rounded-lg">
           </div>
           <div class="mt-4 flex flex-col">
           <button v-on:click="handleChangePassword" :disabled="isChangingPassword" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">เปลี่ยนรหัสผ่าน</button>
