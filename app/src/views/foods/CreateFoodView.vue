@@ -161,12 +161,16 @@ export default {
       let formData = new FormData()
       formData.append('image', this.imageData)
 
+      const axiosInstance = axios.create({
+        baseURL: import.meta.env.VITE_API_URL
+      })
+
       const config = {
-                    headers: {
-                        'content-type': 'multipart/form-data'
-                    }
-                }
-      const respone = await axios.post('http://localhost/api/image-upload', formData, config)
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }
+      const respone = await axiosInstance.post('/image-upload', formData, config)
       this.food.img_path = respone.data.path
     },
     handleFileObject() {
