@@ -18,7 +18,7 @@
             </p>
           </div>
           <!-- Modal footer -->
-          <div class="flex flex-row-reverse items-center py-2 px-4 space-x-2 space-x-reverse rounded-b border-t border-gray-200 dark:border-gray-600">
+          <div class="flex flex-row-reverse justify-around	w-auto items-center py-2 px-4 space-x-2 space-x-reverse rounded-b border-t border-gray-200 dark:border-gray-600">
             <slot name="footer"></slot>
           </div>
         </div>

@@ -21,7 +21,13 @@ export default {
       await this.food_order_store.updateQuantityFoodOrder(this.foodOrder.food.id, this.orderQuantity)
     },
     handleIncreaseQuantity(){
-      this.orderQuantity = this.orderQuantity + 1
+      console.log(this.foodOrder)
+      if(this.orderQuantity >= this.foodOrder.food.quantity){
+        this.orderQuantity = this.foodOrder.food.quantity
+      }
+      else{
+        this.orderQuantity = this.orderQuantity + 1
+      }
       this.handleUpdateOrderQuantity()
     },
     handleDecreaseQuantity(){
@@ -49,3 +55,11 @@ export default {
     </button>
   </div>
 </template>
+
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>

@@ -71,7 +71,7 @@ export const foodAPI = {
     return []
   },
   async update (food) {
-    const response = await axiosInstance.put('/foods/'.concat(food.id), {'quantity' : food.quantity})
+    const response = await axiosInstance.put('/foods/'.concat(food.id), {'addQuantity' : food.addQuantity})
     if (response.status == 200) {
       return {
         success: true
@@ -269,7 +269,7 @@ export const reportAPI = {
     }
     return []
   },
-  async getIncomeToday(){
+  async getIncome(){
     const response = await axiosInstance.get('/report/income-today')
     if (response.status == 200) {
       return response.data
@@ -279,6 +279,44 @@ export const reportAPI = {
   async getBillOf(id){
     const response = await axiosInstance.get('/bill/'+id)
     if (response.status == 200) {
+      return response.data
+    }
+    return []
+  }
+}
+
+export const userAPI = {
+  async getUsers(){
+    const response = await axiosInstance.get('/users')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async saveNewUser(user){
+    const response = await axiosInstance.post('/users', user)
+    if (response.status == 201) {
+      return response.data
+    }
+    return []
+  },
+  async updateUser(id, user){
+    const response = await axiosInstance.put('/user'+id, user)
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async deleteUser(id){
+    const response = await axiosInstance.delete('/users/'+id)
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async updatePassword(user){
+    const response = await axiosInstance.post('/change-password',user)
+    if(response.status == 200){
       return response.data
     }
     return []

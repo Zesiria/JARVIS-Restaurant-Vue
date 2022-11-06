@@ -1,21 +1,33 @@
 <template>
     <div class="">
-        <div class="w-full text-xl text-white bg-blue-800 rounded px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
-          Chart
+      <div class="m-8">
+        <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
+          <div class="flex justify-between">
+            <button onclick="history.back()">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+            </button>
+            <HamburgerMenu></HamburgerMenu>
+          </div>
+          <h1 class="title-page">รายงานการขายทั้งหมด</h1>
+        <div class="mt-4 w-full text-xl text-white bg-blue-800 rounded px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800  ">
+            ยอดขายแต่ละเมนูอาหาร
         </div>
-        
-        <label for="saleSortOption" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">จัดเรียงตาม</label>
-        <select v-model="sortOption" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="day">วัน</option>
-            <option value="week">สัปดาห์</option>
-            <option value="allTime">ทั้งหมด</option>
-        </select>
-        <div class="w-3/4 max-h-30">
-            <BarChart :chartData="todaySale" />
+        <div class="content-center ml-4">
+            <label for="saleSortOption" class="block mb-2 text-gray-900 dark:text-gray-400">จัดเรียงตาม</label>
+            <select v-model="sortOption" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-1/4 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="day">วัน</option>
+                <option value="week">สัปดาห์</option>
+                <option value="allTime">ทั้งหมด</option>
+            </select>
+            <div class="max-h-200 mt-4">
+                <BarChart :chartData="todaySale" />
+            </div>
+            <p>ยอดขายทั้งหมด</p>
+            <p>ร้านค้าทำยอดขายได้ทั้งหมด : {{ this.allIncome.toFixed(2) }} บาท</p>
+            <p>ทำยอดขายได้เฉลี่ย {{this.averageIncomeWeek.toFixed(2) }} บาท ต่อวันในช่วง 7 วันที่ผ่านมา</p>
         </div>
-        <div class="w-3/4 max-h-30">
-            <LineChart :chartData="dailyIncome" />
-        </div>
+      </div>
+      </div>
     </div>
 </template>
 
@@ -23,6 +35,7 @@
 import BarChart from '@/components/chart/BarChart.vue'
 import LineChart from '@/components/chart/LineChart.vue'
 import { useReportStore } from '@/stores/report.js'
+import HamburgerMenu from "@/components/HamburgerMenu.vue";
 
 export default {
     setup(){
@@ -40,20 +53,27 @@ export default {
             dailyIncome : {
                 labels: [],
                 datasets: []
-            }
+            },
+            averageIncomeWeek: 0,
+            allIncome: 0
         }
     },
     async mounted(){
         await this.report_store.fetchSale()
         let reports = this.report_store.getReports
         this.fetchSaleChart(reports)
-        await this.report_store.fetchIncomeDay()
+        await this.report_store.fetchIncome()
         let incomeDailyReports = this.report_store.getReports
-        this.fetchIncomeDayChart(incomeDailyReports)
+        let weekIncome = incomeDailyReports.reports.map(report => function(){
+            return (Math.round(report.income * 100) / 100);
+        }())
+        this.averageIncomeWeek = (weekIncome.reduce((a, b) => a + b, 0))/weekIncome.length
+        this.allIncome = Math.round(incomeDailyReports.income * 100) / 100
     },
     components:{
         BarChart,
-        LineChart
+        LineChart,
+        HamburgerMenu
     },
     watch:{
         async sortOption(newOption, oldOption) {
@@ -113,14 +133,6 @@ export default {
                 data: reports.map( report => report.sale_all_time)
             }
             this.todaySale.datasets.push(allTimeDataset)
-        },
-        fetchIncomeDayChart(reports){
-            this.dailyIncome.labels = reports.map(report => report.date)
-            this.dailyIncome.datasets.push({
-                label: 'รายได้ต่อวัน',
-                backgroundColor: '#FF00FF',
-                data: reports.map(report => report.data)
-            })
         }
     }
 }

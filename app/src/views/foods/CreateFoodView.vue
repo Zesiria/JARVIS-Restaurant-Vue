@@ -1,25 +1,27 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-      <div>
-        <RouterLink to="/foods">
+      <div class="flex justify-between">
+        <button onclick="history.back()">
           <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
-        </RouterLink>
+        </button>
+        <HamburgerMenu></HamburgerMenu>
       </div>
       <div class="title-page">
         เพิ่มรายการอาหาร
       </div>
-      <div class="flex justify-center">
+      <div class=" shadow rounded m-10">
+      <div class="flex justify-center ">
       <!-- input name -->
       <div>
-      <div class="flex flex-col py-2 mt-5 w-48">
+      <div class="flex flex-col py-2 mt-5 w-auto">
         <label for="name"> ชื่อ </label>
-        <input type="text" v-model="food.name">
+        <input type="text" v-model="this.inputName" required>
       </div>
       <!-- select type -->
-      <div class="flex flex-col w-48 py-2">
+      <div class="flex flex-col w-auto py-2">
         <label for="type"> หมวดหมู่อาหาร </label>
-        <select class="rounded-lg" v-model="food.type">
+        <select class="rounded-lg" v-model="this.inputType">
           <option v-for="category in categories" >
             {{category}}
           </option>
@@ -28,7 +30,7 @@
       <!-- input quantity -->
       <div class="flex flex-col py-2 w-20">
         <label for="quantity"> จำนวน </label>
-        <input type="number" v-model="food.quantity">
+        <input type="number" v-model="this.inputQuantity" required>
       </div>
 
       <div>
@@ -41,15 +43,14 @@
           </div>
         </div>
       </div>
-        <div class="flex float-right">
+        <div class="flex justify-center mb-5">
       <button @click="saveNewFood"
-          class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-5">
+          class="py-2 px-6 rounded-xl bg-blue-600 text-white mt-3 hover:caret-blue-600">
         ยืนยัน
       </button>
         </div>
       </div>
       </div>
-      <!--<button @click="isOpen = true">open</button>-->
 
       <!-- Popup -->
       <Popup :open="isOpen">
@@ -60,35 +61,33 @@
         <template v-slot:content>
           <div class="flex flex-row">
             <div class="basis-1/4"> ชื่อ </div>
-            <div class="basis-3/4"> {{food.name}} </div>
+            <div class="basis-3/4"> {{inputName}} </div>
           </div>
 
           <div class="flex flex-row">
             <div class="basis-1/4"> ประเภท </div>
-            <div class="basis-3/4"> {{food.type}} </div>
+            <div class="basis-3/4"> {{inputType}} </div>
           </div>
 
           <div class="flex flex-row">
             <div class="basis-1/4"> จำนวน </div>
-            <div class="basis-3/4"> {{food.quantity}} </div>
+            <div class="basis-3/4"> {{inputQuantity}} </div>
           </div>
 
         </template>
 
         <template v-slot:footer>
-          <button data-modal-toggle="defaultModal" type="button" @click="close" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button data-modal-toggle="defaultModal" type="button" @click="close" class="bg-gray-200 border border-blue-700 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             ปิด
           </button>
           <button data-modal-toggle="defaultModal" type="button" @click="backToHomePage" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             หน้าหลัก
           </button>
         </template>
-
       </Popup>
-
       </div>
   </div>
-
+  </div>
   </template>
 
 <script>
@@ -96,6 +95,7 @@ import Popup from "@/components/foods/Popup.vue"
 import {ref} from "vue"
 import axios from 'axios'
 import {useFoodStore} from "@/stores/food";
+import HamburgerMenu from "@/components/HamburgerMenu.vue";
 
 export default {
   setup () {
@@ -104,11 +104,15 @@ export default {
     return {isOpen, food_store}
   },
   components: {
-    Popup
+    Popup,
+    HamburgerMenu
   },
   data() {
     return {
       categories: ["เนื้อสัตว์","ผัก","ของทานเล่น"],
+      inputName:"",
+      inputQuantity: 1,
+      inputType: "",
       food: {
         name: "",
         type: "",
@@ -121,12 +125,15 @@ export default {
   },
   methods: {
     async saveNewFood() {
-      const url = 'http://localhost/api/foods'
       await this.uploadImage()
-
+      this.food.name = this.inputName,
+      this.food.type = this.inputType
+      this.food.quantity = this.inputQuantity
+      if(this.inputType == "เนื้อสัตว์"){this.food.type = "meat"}
+      else if(this.inputType == "ผัก"){this.food.type = "vegetable"}
+      else if(this.inputType == "ของทานเล่น"){this.food.type = "appetizer"}
       try {
         this.food_store.add(this.food).then(res => {
-          console.log(res)
           this.isOpen = true
         })
       }catch (error) {
@@ -135,9 +142,14 @@ export default {
       }
     },
     async close() {
-      this.food.name = ""
-      this.food.type = ""
-      this.food.quantity = 0
+      this.food = {
+        name: "",
+        type: "",
+        quantity: 0,
+        img_path: ""
+      }
+      this.inputName = ""
+      this.inputQuantity = ""
       this.food.img_path = null
       this.error = null
       this.isOpen = false
@@ -163,6 +175,13 @@ export default {
     debug(){
       this.uploadImage()
     }
+  },
+  watch:{
+    inputQuantity(newOption, oldOption){
+      if(newOption <= 0){
+          this.inputQuantity = 1
+      }
+    }
   }
 }
 </script>
@@ -170,6 +189,12 @@ export default {
 <style scoped>
 input{
   border-radius: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
 

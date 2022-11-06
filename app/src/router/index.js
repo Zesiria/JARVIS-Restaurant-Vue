@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CoinDeskView from '@/views/CoinDeskView.vue'
+import {useAuthStore} from "../stores/auth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -115,10 +116,62 @@ const router = createRouter({
     },
     {
       path: '/manager/billing/:tableId',
-      name: 'manager-talble-bill',
+      name: 'manager-table-bill',
       component: () => import('@/views/manager/BillDetailView.vue')
+    },
+    {
+      path: '/manager/bill/check',
+      name: 'manager-bill-check',
+      component: () => import('@/views/manager/BillCheck.vue')
+    },
+    {
+      path: '/manager/users',
+      name: 'manager-users',
+      component: () => import('@/views/manager/AllUsersView.vue')
+    },
+    {
+      path: '/users/change-password',
+      name: 'user-change-password',
+      component: () => import('@/views/ChangePasswordView.vue'),
     }
   ]
+})
+
+router.beforeEach(async (to) =>{
+  const publicPage = ['home', 'login', 'customer-login','logout'];
+
+  const authRequired = !publicPage.includes(to.name);
+  const auth = useAuthStore();
+  const managerPage = ['foods.create','manager-menu','table.index','manager-report','manager-table-bill','manager-bill-check','manager-users']
+  const managerAuthRequired = managerPage.includes(to.name);
+  const chefPage = ['kitchen', 'chef-order']
+  const chefAuthRequired = chefPage.includes(to.name);
+  const waiterPage = ['waiter-homepage', 'waiter-foods', 'waiter-order']
+  const waiterAuthRequired = waiterPage.includes(to.name);
+  const customerPage = ['order-food', 'order-view', 'order-detail','customer-review']
+  const customerAuthRequired = customerPage.includes(to.name);
+
+  if (authRequired && !auth.isAuthen){
+    return '/'
+  }
+  else if(to.name == "foods" && (!(auth.getRole == 'Manager') && !(auth.getRole == 'Chef') && !(auth.getRole == 'customer'))){
+    return '/'
+  }
+  else if(to.name == "user-change-password" && !auth.isAuthen){
+    return '/'
+  }
+  else if(managerAuthRequired && !(auth.getRole == 'Manager')){
+    return '/'
+  }
+  else if(chefAuthRequired && !(auth.getRole == 'Chef')){
+    return '/'
+  }
+  else if(waiterAuthRequired && !(auth.getRole == 'Waiter')){
+    return '/'
+  }
+  if(customerAuthRequired && !(auth.getRole == 'customer')){
+    return '/'
+  }
 })
 
 export default router

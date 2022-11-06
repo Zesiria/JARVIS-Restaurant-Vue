@@ -2,6 +2,7 @@
 import {useOrderStore} from "@/stores/order";
 import {useAuthStore} from "@/stores/auth";
 import FoodCard from "@/components/foods/FoodCard.vue";
+import HamburgerMenu from "@/components/HamburgerMenu.vue";
 
 export default {
   setup() {
@@ -17,6 +18,7 @@ export default {
   },
   components: {
     FoodCard,
+    HamburgerMenu
   },
   async mounted() {
     if (this.auth_store.isAuthen) {
@@ -31,16 +33,16 @@ export default {
 
   }
 }
-
 </script>
 
 <template>
   <div class="m-8">
     <div class="m-auto  lg:w-1/2">
-      <div>
-        <RouterLink to="/order/view">
+      <div class="flex justify-between">
+        <button onclick="history.back()">
           <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
-        </RouterLink>
+        </button>
+        <HamburgerMenu></HamburgerMenu>
       </div>
       <div class="mt-6">
         <h1 class="title-page">
@@ -54,5 +56,4 @@ export default {
       </div>
     </div>
   </div>
-<!--  {{foodOrders}}-->
 </template>

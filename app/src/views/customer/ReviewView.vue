@@ -2,7 +2,8 @@
     import Popup from "@/components/foods/Popup.vue"
     import { useReviewStore } from "@/stores/review"
     import { useAuthStore } from "@/stores/auth"
-
+    import HamburgerMenu from "@/components/HamburgerMenu.vue";
+    
     export default{
         setup(){
             const review_store = useReviewStore()
@@ -17,15 +18,22 @@
                 },
                 message : "",
                 isOpen : false,
-                submitButton: false
+                submitButton: false,
+                error : null
             }
         },
         components:{
-            Popup
+            Popup,
+            HamburgerMenu
         },
         methods:{
             handleCompleteReview(){
+              if(this.review.description.length == 0){
+                this.error = "โปรดใส่ข้อความ"
+              }
+              else {
                 this.isOpen = true
+              }
             },
             close(){
                 this.isOpen = false
@@ -53,13 +61,21 @@
 <template>
   <div class="m-8">
     <div class="m-auto min-w-fit sm:w-2/3 lg:w-1/2">
-  <div>
-    <h1 class="title-page">แสดงความคิดเห็นร้านอาหาร</h1>
+      <div class="flex justify-between">
+        <button onclick="history.back()">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        </button>
+        <HamburgerMenu></HamburgerMenu>
+      </div>
+      <div>
+      <h1 class="title-page">แสดงความคิดเห็นร้านอาหาร</h1>
 
-    <div>
-        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your message</label>
-        <textarea v-model="this.message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="เขียนแสดงความคิดเห็นของคุณที่นี่"></textarea>
-    </div>
+      <div class="pl-5 pt-3">
+          <textarea v-model="this.message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="เขียนแสดงความคิดเห็นของคุณที่นี่"></textarea>
+      </div>
+      <div class="pl-5 pt-3 text-red-400">
+        <p>{{ this.error }}</p>
+      </div>
 
     <Popup :open="isOpen">
         <template v-slot:header>

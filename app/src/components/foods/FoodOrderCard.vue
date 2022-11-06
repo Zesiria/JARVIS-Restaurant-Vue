@@ -4,7 +4,6 @@
       <div class="text-xl">
         <p>โต๊ะ: {{order.table_id}}</p>
         <p>รายการอาหาร: {{order.quantity}}</p>
-        <p>สถานะ: {{this.thaiStatus[order.status]}}</p>
         <div>
           <div class="text-sm lg:text-lg">
             <div v-if="this.status === 'PENDING'" class="flex font-bold text-red-600 items-center" >
@@ -31,7 +30,7 @@
       </div>
       <div class="flex md:block justify-center" v-if="order.status === 'IN PROCESS' || order.status ===  'COMPLETED' ">
         <button @click="handleViewOrder"
-                class="py-2 px-6 rounded-lg mt-3 border border-gray-600 shadow-gray-100 hover:bg-gray-100">
+                class="py-2 px-6 rounded-lg mt-3 border border-gray-600 shadow-gray-100 bg-gray-100 hover:bg-white">
           ดูรายการอาหาร
         </button>
       </div>

@@ -21,6 +21,7 @@ export default {
       categories: ["ทั้งหมด", "รอดำเนินการ", "กำลังเตรียม", "เสร็จสิ้น"],
       selectedType: null,
       auth: null,
+      loading: false,
     }
   },
   async mounted() {
@@ -41,22 +42,28 @@ export default {
   },
   watch: {
     async selectedType(newOption, oldOption) {
+      this.loading = true
       await this.order_store.fetchOrdersToday()
       switch (newOption) {
         case 'ทั้งหมด':
           this.orders = this.order_store.getOrdersToday
+          this.loading = false
           break
         case 'รอดำเนินการ':
           this.orders = this.order_store.getPendingFoods
+          this.loading = false
           break
         case 'กำลังเตรียม':
           this.orders = this.order_store.getInProcessFoods
+          this.loading = false
           break
         case 'เสร็จสิ้น':
           this.orders = this.order_store.getCompletedFoods
+          this.loading = false
           break
         default:
           this.orders =this.order_store.getOrdersToday
+          this.loading = false
           break
       }
       console.log(this.orders);
@@ -76,18 +83,41 @@ export default {
 <template>
     <div class="m-8">
       <div class="m-auto lg:w-1/2">
-        <h1 class="title-page">ครัว</h1>
-
+        <div id="button-dropdown" class="dropdown">
+          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>          </button>
+          <ul class="dropdown-menu">
+            <RouterLink to="/chef/kitchen"><li><a class="dropdown-item" href="#">หน้าหลัก</a></li></RouterLink>
+            <RouterLink to="/users/change-password"><li><a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a></li></RouterLink>
+          </ul>
+        </div>
+        <div >
+          <h1 class="title-page">ครัว</h1>
+        </div>
         <div class="menu">
-          <div class=" flex gap-2 w-full justify-center lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
-            <!--          hover:bg-blue-200 active:blue focus:outline-none  focus:bg-blue-200 focus:ring focus:ring-blue-500-->
+          <div class=" flex gap-2 w-full lg:justify-center text-center bg-white overflow-auto whitespace-no-wrap py-3 px-4">
             <button v-for="category in categories" id="button-category" @click="selectType(category)" class="items-center justify-center text-center bg-gray-100 w-[100px] border border-2 rounded-full shrink-0">
               {{category}}
-              <p v-if="category===selectedType" class="min-w-fit border-blue-300 border-4 rounded-full"></p>
+              <p v-if="category===selectedType" class="bg-blue-300  border-blue-300 border-4 rounded-sm"></p>
             </button>
           </div>
         </div>
-        <food-order-card v-for="order in orders " v-bind:order="order" :key="order.order_id" :order="{...order}" :url="`orders/${order.id}`" >
+
+        <div v-show="loading" role="status" class="max-w-sm animate-pulse ml-6 mt-4">
+          <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+          <span class="sr-only">Loading...</span>
+
+          <!--        <div class="mt-4">-->
+          <!--          <img src="https://media.tenor.com/KEzW7ALwfUAAAAAC/cat-what.gif">-->
+          <!--        </div>-->
+        </div>
+
+        <food-order-card v-show="!loading" v-for="order in orders " v-bind:order="order" :key="order.order_id" :order="{...order}" :url="`orders/${order.id}`" >
         </food-order-card>
       </div>
     </div>
