@@ -35,7 +35,6 @@ export default {
       foodOrders: [],
       tables: [],
       alertOrderFoodSuccess: false,
-      loading: false,
     }
   }, async mounted() {
       await this.food_store.fetch()
@@ -94,24 +93,19 @@ export default {
     }
     }, watch: {
       async selectedType(newOption, oldOption) {
-        this.loading = true
         await this.food_store.fetch()
         switch (newOption) {
           case 'เนื้อสัตว์':
             this.foods = this.food_store.getMeatFoods
-            this.loading = false
             break
           case 'ผัก':
             this.foods = this.food_store.getVegetableFoods
-            this.loading = false
             break
           case 'ของทานเล่น':
             this.foods = this.food_store.getAppertizerFoods
-            this.loading = false
             break
           default:
-            this.foods = this.food_store.getFoods
-            this.loading = false
+            this.foods = this.foods
             break
         }
       },
@@ -179,21 +173,7 @@ export default {
       </div>
     </div>
     <div>
-      <div v-show="loading" role="status" class="max-w-sm animate-pulse ml-6 mt-4">
-        <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-        <span class="sr-only">Loading...</span>
-
-        <!--        <div class="mt-4">-->
-        <!--          <img src="https://media.tenor.com/KEzW7ALwfUAAAAAC/cat-what.gif">-->
-        <!--        </div>-->
-      </div>
-
-      <food-card v-show="!loading" v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
+      <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
         <template #food_button>
           <div v-if="auth.role === 'Waiter'">
             <button @click="handleIncreaseOrder(food)"
