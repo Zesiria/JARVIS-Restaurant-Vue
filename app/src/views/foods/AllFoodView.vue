@@ -223,18 +223,6 @@ export default {
       </div>
 
       <food-card v-show="!loading" v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
-        <template #food_button>
-          <div v-if="auth && auth.role === 'Manager'">
-            <button @click="handleIncreaseForm(food)"
-                    class="py-2 px-6 rounded-lg bg-blue-600 text-white mt-2 ">
-              เพิ่ม
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <food-card v-for="food in foods" :key="food.id" :food="{...food}" :url="`foods/${food.id}`">
           <template #food_button>
             <div v-if="auth && auth.role === 'Manager'">
               <button @click="handleIncreaseForm(food)"
