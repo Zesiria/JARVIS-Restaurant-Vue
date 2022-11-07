@@ -43,7 +43,7 @@
         <div class="p-8 flex flex-col justify-center items-center">
           <div class="flex flex-col">
               <label for="">รหัสผ่านปัจจุบัน</label>
-              <input type="text" v-model="this.oldPassword" class="rounded-lg">
+              <input type="password" v-model="this.oldPassword" class="rounded-lg">
           </div>
 
           <div class="mt-2 flex flex-col">
