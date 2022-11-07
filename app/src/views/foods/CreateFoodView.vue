@@ -77,11 +77,11 @@
         </template>
 
         <template v-slot:footer>
-          <button data-modal-toggle="defaultModal" type="button" @click="close" class="bg-gray-200 border border-blue-700 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            ปิด
-          </button>
           <button data-modal-toggle="defaultModal" type="button" @click="backToHomePage" class="text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             หน้าหลัก
+          </button>
+          <button data-modal-toggle="defaultModal" type="button" @click="close" class="bg-gray-200 border border-blue-700 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            ปิด
           </button>
         </template>
       </Popup>
@@ -161,12 +161,16 @@ export default {
       let formData = new FormData()
       formData.append('image', this.imageData)
 
+      const axiosInstance = axios.create({
+        baseURL: import.meta.env.VITE_API_URL
+      })
+
       const config = {
-                    headers: {
-                        'content-type': 'multipart/form-data'
-                    }
-                }
-      const respone = await axios.post('http://localhost/api/image-upload', formData, config)
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }
+      const respone = await axiosInstance.post('/image-upload', formData, config)
       this.food.img_path = respone.data.path
     },
     handleFileObject() {

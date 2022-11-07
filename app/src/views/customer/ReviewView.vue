@@ -28,7 +28,7 @@
         },
         methods:{
             handleCompleteReview(){
-              if(this.review.description.length == 0){
+              if(this.message == 0){
                 this.error = "โปรดใส่ข้อความ"
               }
               else {
@@ -44,7 +44,7 @@
                 this.review.description = this.message
 
                 const response = await this.review_store.add(this.review)
-                if (response){
+                if (response != false){
                     console.log(response)
                     this.$router.push('/foods')
                 }

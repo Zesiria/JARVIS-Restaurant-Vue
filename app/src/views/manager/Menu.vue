@@ -60,10 +60,10 @@ export default {
   },
   methods : {
     allFood(){
-      this.$router.push(`foods`)
+      this.$router.push(`/foods`)
     },
     addFood(){
-      this.$router.push(`foods/new`)
+      this.$router.push(`/foods/new`)
     },
     manageTable(){
       this.$router.push(`/manager/tables`)

@@ -46,7 +46,7 @@
                       <td class="py-4 px-6">
                           {{user.role}}
                       </td>
-                      <td class="py-4 px-6 text-right">
+                      <td v-if="user.role != 'Manager'" class="py-4 px-6 text-right">
                           <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" v-on:click="openDeletePopup(user)">ปิดการใช้งาน</a>
                       </td>
                   </tr>
